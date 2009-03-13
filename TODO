@@ -1,0 +1,11 @@
+- think about most common story for using website e.g. see apps that my friends have installed (and I don't?)
+- git ignore config.yml
+- use explicit path for config.yml
+- possibly extract sync logic into Synchronizer class or similar
+- investigate using Tempfile for unzipping
+- investigate using Ruby libs instead of command line for unzip and plutil
+- add authentication
+- add attributes to apps (including version)
+- use better identifier for apps instead of name
+- write alternative clients for other app types
+- vendorize/unpack required libs/gems
