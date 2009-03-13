@@ -6,4 +6,8 @@ class App < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
+  def to_param
+    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
+  end
+  
 end

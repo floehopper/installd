@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_uniqueness_of :login
   
+  def to_param
+    "#{id}-#{login.gsub(/[^a-z0-9]+/i, '-')}"
+  end
+  
 end
