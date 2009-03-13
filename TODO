@@ -12,7 +12,10 @@
 - add attributes to apps
   - icon
   - version (use for uniqueness?)
+  - install link (app store)
 - use better identifier for apps instead of name
 - write alternative clients for other app types
+  - OSX desktop apps
+  - Firefox plugins
 - vendorize/unpack required libs/gems
 - more user-friendly canonical URLs
