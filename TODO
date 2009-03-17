@@ -3,6 +3,7 @@
   - see my apps
   - find my friends
   - see apps that my friends have installed (and I don't?)
+- should probably just mark installs as removed rather than actually destroy them
 - git ignore config.yml
 - use explicit path for config.yml
 - possibly extract sync logic into Synchronizer class or similar
