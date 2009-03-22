@@ -9,12 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090312124700) do
+ActiveRecord::Schema.define(:version => 20090317184913) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "item_id"
+    t.string   "icon_url"
   end
 
   create_table "installs", :force => true do |t|

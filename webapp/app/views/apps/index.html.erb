@@ -1,12 +1,13 @@
 <h1>Listing apps</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
 <% for app in @apps %>
   <tr>
+    <td>
+      <a href="<%=h app.url %>">
+        <img border="0" src="<%=h app.icon_url %>" />
+      </a>
+    </td>
     <td><%=h app.name %></td>
     <td><%= link_to 'Show', app %></td>
     <td><%= link_to 'Edit', edit_app_path(app) %></td>

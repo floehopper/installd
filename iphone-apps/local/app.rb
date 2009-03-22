@@ -32,14 +32,13 @@ module Local
         `unzip -d "#{unzip_dir}" "#{app_file}" iTunesMetadata.plist`
         `plutil -convert xml1 "#{plist}"`
         
-        doc = Hpricot(File.read(plist))
-        (doc/'plist'/'dict'/'key').each do |element|
-          if element.innerText == 'itemName'
-            name = element.next_sibling.inner_text
-            app_names[name] = new('name' => name)
-            break
-          end
-        end
+        doc = Hpricot::XML(File.read(plist))
+        
+        itemName = (doc/'plist'/'dict'/"key[text()='itemName']")[0].next_sibling.inner_text
+        itemId = (doc/'plist'/'dict'/"key[text()='itemId']")[0].next_sibling.inner_text
+        softwareIcon57x57URL = (doc/'plist'/'dict'/"key[text()='softwareIcon57x57URL']")[0].next_sibling.inner_text
+        
+        app_names[itemName] = new('name' => itemName, 'item_id' => itemId, 'icon_url' => softwareIcon57x57URL)
       end
       
       FileUtils.rm_rf('unzipped')
