@@ -5,6 +5,9 @@ require 'local/config'
 require 'remote/user'
 require 'remote/app'
 
+require 'activeresource'
+ActiveResource::Base.logger = Logger.new(File.open('sync.log', 'w'))
+
 local_apps_by_name = Local::App.all_by_name
 
 remote_user = nil

@@ -4,7 +4,7 @@ module Remote
   
   class Install < ActiveResource::Base
     
-    self.site = "http://localhost:3000/"
+    self.site = "http://installd.com/"
     
     class << self
       

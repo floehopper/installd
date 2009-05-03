@@ -1,5 +1,5 @@
 iphone-apps/config.yml
+iphone-apps/sync.log
 webapp/log/*.log
 webapp/db/*.sqlite3
 webapp/config/database.yml
-

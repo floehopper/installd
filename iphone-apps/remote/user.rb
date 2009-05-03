@@ -6,7 +6,7 @@ module Remote
   
   class User < ActiveResource::Base
     
-    self.site = "http://localhost:3000/"
+    self.site = "http://installd.com/"
     
     def apps
       get(:apps).map { |attributes| App.new(attributes) }
