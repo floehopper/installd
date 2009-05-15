@@ -3,3 +3,6 @@ iphone-apps/sync.log
 webapp/log/*.log
 webapp/db/*.sqlite3
 webapp/config/database.yml
+webapp.old/log/*.log
+webapp.old/db/*.sqlite3
+webapp.old/config/database.yml
