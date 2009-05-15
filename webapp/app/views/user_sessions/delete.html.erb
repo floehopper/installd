@@ -1,0 +1,6 @@
+<p>Are you sure you want to logout?</p>
+
+<% form_for :user_session, :url => user_session_path, :html => { :method => :delete } do |form| %>
+  <%= submit_tag 'Yes' %>
+  <%= submit_tag 'No' %>
+<% end %>

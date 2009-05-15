@@ -1,6 +1,7 @@
 class UserSessionsController < ApplicationController
+  
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :destroy
+  before_filter :require_user, :only => [:delete, :destroy]
   
   def new
     @user_session = UserSession.new
@@ -10,15 +11,26 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Login successful!"
-      redirect_back_or_default account_url
+      redirect_to account_url
     else
       render :action => :new
     end
   end
   
-  def destroy
-    current_user_session.destroy
-    flash[:notice] = "Logout successful!"
-    redirect_back_or_default new_user_session_url
+  def delete
+    @user_session = current_user_session
   end
+  
+  def destroy
+    @user_session = current_user_session
+    
+    if params[:commit] == 'Yes'
+      @user_session.destroy
+      flash[:notice] = "Logout successful!"
+      redirect_to new_user_session_url
+    else
+      redirect_to account_url
+    end
+  end
+  
 end
