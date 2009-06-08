@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
+
 require 'local/app'
 require 'local/config'
 require 'remote/user'
@@ -7,6 +9,10 @@ require 'remote/app'
 
 require 'activeresource'
 ActiveResource::Base.logger = Logger.new(File.open('sync.log', 'w'))
+ActiveResource::Base.site = "http://localhost:3000/"
+ActiveResource::Base.user = "installd"
+ActiveResource::Base.password = "installd"
+
 
 local_apps_by_name = Local::App.all_by_name
 
@@ -14,13 +20,21 @@ remote_user = nil
 config = Local::Config.load
 if config['login']
   remote_user = Remote::User.find_by_login(config['login'])
-else
+end
+unless remote_user
   while true do
     puts
     print "Please choose a login: "
     login = gets.chomp
-    remote_user = Remote::User.create('login' => login)
-    break if remote_user && remote_user.errors.length == 0
+    puts
+    print "Please choose a password: "
+    password = gets.chomp
+    remote_user = Remote::User.create('login' => login, 'password' => password, 'password_confirmation' => password)
+    if remote_user && remote_user.errors.length == 0
+      break
+    else
+      puts remote_user.errors.full_messages
+    end
     puts "That login is not available."
   end
   

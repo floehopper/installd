@@ -4,8 +4,6 @@ module Remote
   
   class Install < ActiveResource::Base
     
-    self.site = "http://installd.com/"
-    
     class << self
       
       def create(attributes ={})
