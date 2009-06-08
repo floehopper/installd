@@ -1,10 +1,4 @@
-iphone-apps/config.yml
-iphone-apps/sync.log
-webapp/log/*.log
-webapp/db/*.sqlite3
-webapp/db/schema.rb
-webapp/config/database.yml
-webapp.old/log/*.log
-webapp.old/db/*.sqlite3
-webapp.old/db/schema.rb
-webapp.old/config/database.yml
+log/*.log
+db/*.sqlite3
+db/schema.rb
+config/database.yml
