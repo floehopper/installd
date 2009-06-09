@@ -6,6 +6,10 @@ class App < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
+  validates_presence_of :item_id
+  
+  validates_presence_of :icon_url
+  
   def to_param
     "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
   end
