@@ -6,8 +6,7 @@ module NavigationHelpers
       root_path
     
     when /the user page for "([^\"]*)"/
-      user = User.find_by_login($1)
-      user_path(user)
+      user_path($1)
     
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

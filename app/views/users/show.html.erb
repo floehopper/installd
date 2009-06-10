@@ -1,7 +1,19 @@
-<ul class="apps">
-  <% @user.installs.each do |install| %>
-    <li class="app">
-      <%= h(install.app.name)%>
-    </li>
-  <% end %>
-</ul>
+<table class="apps">
+  <thead>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <%- @user.installs.each do |install| -%>
+    <%- app = install.app -%>
+    <tr class="app">
+      <td class="icon">
+        <%= link_to image_tag(app.icon_url), app.url %>
+      </td>
+      <td class="name">
+        <%= link_to app.name, app.url %>
+      </td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>

@@ -7,9 +7,9 @@ Feature: View user's installed applications
   Scenario: Visitor views a user's installed applications
     Given a user exists with login "james"
     And user with login "james" has the following applications installed:
-      |name|
-      |Tweetie|
-      |Things|
+      |name|item_id|icon_url|
+      |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|
+      |Things |2|http://a1.phobos.apple.com/Things.png |
     
     When I go to the user page for "james"
     
