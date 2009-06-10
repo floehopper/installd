@@ -18,3 +18,17 @@ Feature: Visitor registers as user
     And I press "Register"
     
     Then I should be on the user page for "james"
+    And I should see "Registration was successful"
+    
+  Scenario: Visitor registers as a user, but login is already taken
+    Given a user exists with login "james"
+    
+    When I go to the home page
+    And I follow "Register"
+    
+    When I fill in "Login" with "james"
+    And I fill in "Password" with "password"
+    And I fill in "Password Confirmation" with "password"
+    And I press "Register"
+    
+    And I should see "Login has already been taken"
