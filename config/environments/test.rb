@@ -27,8 +27,8 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-config.gem 'rspec', :version => '1.2.2', :lib => 'spec'
-config.gem 'rspec-rails', :version => '1.2.2', :lib => 'spec/rails'
-config.gem 'cucumber', :version => '0.2.3'
-config.gem 'webrat', :version => '0.4.3'
-config.gem 'thoughtbot-factory_girl', :version => '1.2.0', :lib => 'factory_girl'
+config.gem 'rspec', :version => '1.2.2', :lib => false
+config.gem 'rspec-rails', :version => '1.2.2', :lib => false
+config.gem 'cucumber', :version => '0.2.3', :lib => false
+config.gem 'webrat', :version => '0.4.3', :lib => false
+config.gem 'thoughtbot-factory_girl', :version => '1.2.0', :lib => 'factory_girl', :source => "http://gems.github.com"
