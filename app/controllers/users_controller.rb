@@ -1,11 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
   
-  before_filter :load_app, :only => [:index, :create, :new]
+  before_filter :require_no_user, :only => [:index, :new, :create]
+  before_filter :require_user, :except => [:index, :new, :create]
+  # before_filter :load_app, :only => [:index, :new, :create]
   
-  # GET /users
-  # GET /users.xml
   def index
     login = params[:login]
     if login
@@ -14,7 +12,7 @@ class UsersController < ApplicationController
       @users = User.find(:all)
     end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @users }
     end
   end
@@ -23,8 +21,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
-  # POST /users
-  # POST /users.xml
   def create
     @user = User.new(params[:user])
     respond_to do |format|
@@ -48,7 +44,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = @current_user # makes our views "cleaner" and more consistent
+    @user = @current_user
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to account_url

@@ -1,8 +1,8 @@
 class AppsController < ApplicationController
   
-  before_filter :require_user, :except => [:index, :show]
+  # before_filter :require_user, :except => [:index, :show]
   before_filter :load_app, :only => [:show, :edit, :update, :destroy]
-  # before_filter :load_user, :only => [:index, :new, :create]
+  before_filter :load_user, :only => [:index, :new, :create]
   
   def index
     if @user
