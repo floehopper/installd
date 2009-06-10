@@ -29,3 +29,4 @@ config.action_mailer.delivery_method = :test
 
 config.gem "cucumber", :version => '0.2.3'
 config.gem "webrat", :version => '0.4.3'
+config.gem "thoughtbot-factory_girl", :version => '1.2.0', :lib => 'factory_girl'
