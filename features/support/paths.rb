@@ -5,6 +5,12 @@ module NavigationHelpers
     when /the home page/
       root_path
     
+    when /the sign-in page/
+      new_user_session_path
+    
+    when /the registration page/
+      new_user_path
+    
     when /the user page for "([^\"]*)"/
       user_path($1)
     

@@ -1,13 +1,10 @@
-<%- form_for @user_session, :url => user_session_path do |form| -%>
-  <p>
-    <%= form.label :login %>
-    <%= form.text_field :login %>
-  </p>
-  <p>
-    <%= form.label :password %>
-    <%= form.text_field :password %>
-  </p>
-  <p>
-    <%= form.submit 'Login' %>
-  </p>
-<%- end -%>
+<h1>Installd</h1>
+
+<ul>
+  <li>
+    <%= link_to 'Sign In', new_user_session_path %>
+  </li>
+  <li>
+    <%= link_to 'Register', new_user_path %>
+  </li>
+</ul>
