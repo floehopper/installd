@@ -5,7 +5,9 @@ module NavigationHelpers
     when /the homepage/
       root_path
     
-    # Add more page name => path mappings here
+    when /the user page for "([^\"]*)"/
+      user = User.find_by_login($1)
+      user_path(user)
     
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

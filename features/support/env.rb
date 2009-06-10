@@ -15,3 +15,5 @@ end
 
 require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
+
+require File.expand_path(File.join(Rails.root, 'spec', 'factory'))
