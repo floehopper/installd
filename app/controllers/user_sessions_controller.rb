@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
   
-  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:delete, :destroy]
+  # before_filter :require_no_user, :only => [:new, :create]
+  # before_filter :require_user, :only => [:delete, :destroy]
   
   def new
     @user_session = UserSession.new
@@ -11,9 +11,9 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Login successful!"
-      redirect_to account_url
+      redirect_to @user_session.user
     else
-      render :action => :new
+      render :controller => 'home', :action => 'index'
     end
   end
   

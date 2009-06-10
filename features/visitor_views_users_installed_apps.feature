@@ -1,4 +1,4 @@
-Feature: View user's installed applications
+Feature: Visitor views user's installed applications
 
   As a visitor
   I want to view a user's installed applications

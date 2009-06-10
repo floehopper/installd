@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :apps, :through => :installs
   
   def to_param
-    "#{id}-#{login.gsub(/[^a-z0-9]+/i, '-')}"
+    login
   end
   
 end
