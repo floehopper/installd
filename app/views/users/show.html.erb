@@ -1,4 +1,4 @@
-<h1><%= h(@user.login) %></h1>
+<h2><%= h(@user.login) %></h2>
 
 <%- if current_user -%>
   <%- if current_user.can_make_friends?(@user) -%>
@@ -12,46 +12,10 @@
   <%- end -%>
 <%- end -%>
 
-<h2>Applications Installed</h2>
+<p>
+  <%= link_to 'Installed Applications', user_installs_path(@user) %>
+</p>
 
-<table class="apps">
-  <thead>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <%- @installs.each do |install| -%>
-      <%- app = install.app -%>
-      <tr class="app">
-        <td class="icon">
-          <%= link_to image_tag(app.icon_url), app.url %>
-        </td>
-        <td class="name">
-          <%= link_to app.name, app.url %>
-        </td>
-      </tr>
-    <%- end -%>
-  </tbody>
-</table>
-
-<h2>Applications Installed by Friends</h2>
-
-<table class="appsInstalledByFriends">
-  <thead>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <%- @friends_installs.each do |install| -%>
-      <%- app = install.app -%>
-      <tr class="app">
-        <td class="icon">
-          <%= link_to image_tag(app.icon_url), app.url %>
-        </td>
-        <td class="name">
-          <%= link_to app.name, app.url %>
-        </td>
-      </tr>
-    <%- end -%>
-  </tbody>
-</table>
+<p>
+  <%= link_to 'Applications Installed by Friends', user_friends_installs_path(@user) %>
+</p>

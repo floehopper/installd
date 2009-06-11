@@ -22,7 +22,7 @@ Feature: User views applications installed by their friends
     And user with login "james" is friends with user with login "sarah"
     And I am signed in with login "james" and password "password"
     
-    When I go to the user page for "james"
+    When I go to the user friends installs page for "james"
     
     Then I should see an application with name "Tweetie"
     And I should see an application with name "Things"

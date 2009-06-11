@@ -1,12 +1,12 @@
-<h2>Applications Installed by <%= h(@user.login) %></h2>
+<h2>Applications Installed by Friends of <%= h(@user.login) %></h2>
 
-<table class="apps">
+<table class="appsInstalledByFriends">
   <thead>
     <th></th>
     <th></th>
   </thead>
   <tbody>
-    <%- @installs.each do |install| -%>
+    <%- @friends_installs.each do |install| -%>
       <%- app = install.app -%>
       <tr class="app">
         <td class="icon">

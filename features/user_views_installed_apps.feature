@@ -10,17 +10,10 @@ Feature: User views their installed applications
       |name|item_id|icon_url|
       |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|
       |Things |2|http://a1.phobos.apple.com/Things.png |
+    And I am signed in with login "james" and password "password"
     
-    When I go to the home page
-    And I follow "Sign In"
+    When I go to the user installs page for "james"
     
-    Then I should be on the sign-in page
-    
-    When I fill in "Login" with "james"
-    And I fill in "Password" with "password"
-    And I press "Sign In"
-    
-    Then I should be on the user page for "james"
-    And I should see an application with name "Tweetie"
+    Then I should see an application with name "Tweetie"
     And I should see an application with name "Things"
   

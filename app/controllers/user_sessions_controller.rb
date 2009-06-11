@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Login successful!"
       redirect_to @user_session.user
     else
-      render :controller => 'home', :action => 'index'
+      render :action => 'new'
     end
   end
   

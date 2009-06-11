@@ -27,7 +27,7 @@ Feature: User adds another user as a friend
     When I go to the user page for "hannah"
     
     Then I should see "You are friends with this user"
-    And I should not see link labelled "Add as Friend"
+    And I should not see a link labelled "Add as Friend"
   
   Scenario: User cannot add themselves as a friend
     Given a user exists with login "james" and password "password"
@@ -35,7 +35,7 @@ Feature: User adds another user as a friend
     
     When I go to the user page for "james"
     
-    Then I should not see link labelled "Add as Friend"
+    Then I should not see a link labelled "Add as Friend"
     
   Scenario: Visitor cannot add a user as a friend
     Given a user exists with login "james"

@@ -14,6 +14,12 @@ module NavigationHelpers
     when /the user page for "([^\"]*)"/
       user_path($1)
     
+    when /the user installs page for "([^\"]*)"/
+      user_installs_path($1)
+    
+    when /the user friends installs page for "([^\"]*)"/
+      user_friends_installs_path($1)
+    
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in features/support/paths.rb"

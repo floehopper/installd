@@ -11,7 +11,7 @@ Feature: Visitor views user's installed applications
       |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|
       |Things |2|http://a1.phobos.apple.com/Things.png |
     
-    When I go to the user page for "james"
+    When I go to the user installs page for "james"
     
     Then I should see an application with name "Tweetie"
     And I should see an application with name "Things"
