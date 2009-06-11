@@ -6,10 +6,7 @@ class User < ActiveRecord::Base
   has_many :apps, :through => :installs
   has_many :friendships
   has_many :friends, :through => :friendships
-  
-  def friends_installs
-    friends.inject([]) { |installs, friend| installs + friend.installs }
-  end
+  has_many :friends_installs, :through => :friends, :source => :installs
   
   def to_param
     login

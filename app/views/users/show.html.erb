@@ -20,7 +20,7 @@
     <th></th>
   </thead>
   <tbody>
-    <%- @user.installs.each do |install| -%>
+    <%- @installs.each do |install| -%>
       <%- app = install.app -%>
       <tr class="app">
         <td class="icon">
@@ -42,7 +42,7 @@
     <th></th>
   </thead>
   <tbody>
-    <%- @user.friends_installs.each do |install| -%>
+    <%- @friends_installs.each do |install| -%>
       <%- app = install.app -%>
       <tr class="app">
         <td class="icon">

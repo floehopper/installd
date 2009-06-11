@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by_login(params[:id])
+    @installs = @user.installs.all(:include => :app)
+    @friends_installs = @user.friends_installs.all(:include => :app)
   end
   
   def new

@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 7cce08791270a8e2601a29bc07bb2b130fd127ee
+  branch: master
+lock: false
+repository_url: git://github.com/ianwhite/nested_has_many_through.git
+repository_class: Piston::Git::Repository
