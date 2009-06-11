@@ -8,6 +8,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :user_session, :only => [:new, :create]
   
-  map.root :controller => 'home'
+  map.root :controller => 'installs'
   
 end
