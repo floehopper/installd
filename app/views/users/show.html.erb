@@ -12,7 +12,7 @@
   <%- end -%>
 <%- end -%>
 
-<h2>Applications</h2>
+<h2>Applications Installed</h2>
 
 <table class="apps">
   <thead>
@@ -21,15 +21,39 @@
   </thead>
   <tbody>
     <%- @user.installs.each do |install| -%>
-    <%- app = install.app -%>
-    <tr class="app">
-      <td class="icon">
-        <%= link_to image_tag(app.icon_url), app.url %>
-      </td>
-      <td class="name">
-        <%= link_to app.name, app.url %>
-      </td>
-    </tr>
+      <%- app = install.app -%>
+      <tr class="app">
+        <td class="icon">
+          <%= link_to image_tag(app.icon_url), app.url %>
+        </td>
+        <td class="name">
+          <%= link_to app.name, app.url %>
+        </td>
+      </tr>
+    <%- end -%>
+  </tbody>
+</table>
+
+<h2>Applications Installed by Friends</h2>
+
+<table class="appsInstalledByFriends">
+  <thead>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <%- @user.friends.each do |friend| -%>
+      <%- friend.installs.each do |install| -%>
+        <%- app = install.app -%>
+        <tr class="app">
+          <td class="icon">
+            <%= link_to image_tag(app.icon_url), app.url %>
+          </td>
+          <td class="name">
+            <%= link_to app.name, app.url %>
+          </td>
+        </tr>
+      <%- end -%>
     <%- end -%>
   </tbody>
 </table>
