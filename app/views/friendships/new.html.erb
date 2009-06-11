@@ -1,0 +1,9 @@
+<h1>New Friendship</h1>
+
+<p>
+  Do you want to add <%= @friend.login %> as a friend?
+  
+  <%- form_for [@friend, @friendship] do |form| -%>
+    <%= form.submit "Add" %>
+  <%- end -%>
+</p>

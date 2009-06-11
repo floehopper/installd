@@ -1,3 +1,19 @@
+<h1><%= h(@user.login) %></h1>
+
+<%- if current_user -%>
+  <%- if current_user.can_make_friends?(@user) -%>
+  <p>
+    <%= link_to 'Add as Friend', new_user_friendship_path(@user) %>
+  </p>
+  <%- elsif current_user.already_friends?(@user) -%>
+  <p>
+    You are friends with this user.
+  </p>
+  <%- end -%>
+<%- end -%>
+
+<h2>Applications</h2>
+
 <table class="apps">
   <thead>
     <th></th>

@@ -105,3 +105,7 @@ end
 Then /^I should be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should == path_to(page_name)
 end
+
+Then /^I should not see link labelled "([^\"]*)"$/ do |text|
+  response.should_not have_tag('a', :text => text)
+end
