@@ -1,21 +1,10 @@
 <h2>Applications Installed by <%= h(@user.login) %></h2>
 
-<table class="apps">
-  <thead>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <%- @installs.each do |install| -%>
-      <%- app = install.app -%>
-      <tr class="app">
-        <td class="icon">
-          <%= link_to image_tag(app.icon_url), app.url %>
-        </td>
-        <td class="name">
-          <%= link_to app.name, app.url %>
-        </td>
-      </tr>
-    <%- end -%>
-  </tbody>
-</table>
+<ul class="installs">
+  <%- @installs.each do |install| -%>
+    <%- app = install.app -%>
+      <li class="app">
+        <%= link_to image_tag(app.icon_url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %>
+      </li>
+  <%- end -%>
+</ul>

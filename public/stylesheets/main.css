@@ -1,3 +1,7 @@
-img {
+ul.installs {
+  list-style-type: none;
+}
+
+.app .icon img {
   border: 0;
 }
