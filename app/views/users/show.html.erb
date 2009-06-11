@@ -42,18 +42,16 @@
     <th></th>
   </thead>
   <tbody>
-    <%- @user.friends.each do |friend| -%>
-      <%- friend.installs.each do |install| -%>
-        <%- app = install.app -%>
-        <tr class="app">
-          <td class="icon">
-            <%= link_to image_tag(app.icon_url), app.url %>
-          </td>
-          <td class="name">
-            <%= link_to app.name, app.url %>
-          </td>
-        </tr>
-      <%- end -%>
+    <%- @user.friends_installs.each do |install| -%>
+      <%- app = install.app -%>
+      <tr class="app">
+        <td class="icon">
+          <%= link_to image_tag(app.icon_url), app.url %>
+        </td>
+        <td class="name">
+          <%= link_to app.name, app.url %>
+        </td>
+      </tr>
     <%- end -%>
   </tbody>
 </table>
