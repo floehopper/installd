@@ -10,6 +10,21 @@
 </head>
 <body>
 
+<ul class="userSession">
+  <%- if current_user -%>
+    <li class="signOut">
+      <%= link_to 'Sign Out', delete_user_session_path %>
+    </li>
+  <%- else -%>
+    <li class="signIn">
+      <%= link_to 'Sign In', new_user_session_path %>
+    </li>
+    <li class="register">
+      <%= link_to 'Register', new_user_path %>
+    </li>
+  <%- end -%>
+</ul>
+
 <p style="color: green"><%= flash[:notice] %></p>
 
 <%= yield  %>

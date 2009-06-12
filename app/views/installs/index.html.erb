@@ -4,18 +4,6 @@
   <h2>Applications Installed</h2>
 <%- end -%>
 
-<ul>
-  <li>
-    <%= link_to 'Sign In', new_user_session_path %>
-  </li>
-  <li>
-    <%= link_to 'Register', new_user_path %>
-  </li>
-  <li>
-    <%= link_to 'Sign Out', delete_user_session_path %>
-  </li>
-</ul>
-
 <ul class="installs">
   <%- @installs.each do |install| -%>
     <%- app = install.app -%>
