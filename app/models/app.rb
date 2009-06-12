@@ -11,7 +11,7 @@ class App < ActiveRecord::Base
   validates_presence_of :icon_url
   
   def to_param
-    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
+    name
   end
   
   def url

@@ -6,4 +6,7 @@ class Install < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :app
   
+  validates_uniqueness_of :user_id, :scope => :app_id
+  validates_uniqueness_of :app_id, :scope => :user_id
+  
 end
