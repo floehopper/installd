@@ -1,4 +1,4 @@
-<h2><%= h(@user.login) %></h2>
+<h1><%= h(@user.login) %></h1>
 
 <%- if current_user -%>
   <%- if current_user.can_make_friends?(@user) -%>
@@ -13,9 +13,18 @@
 <%- end -%>
 
 <p>
-  <%= link_to 'Installed Applications', user_installs_path(@user) %>
-</p>
-
-<p>
   <%= link_to 'Applications Installed by Friends', user_friends_installs_path(@user) %>
 </p>
+
+<h2>Apps Installed</h2>
+
+<ul class="installs">
+  <%- @installs.each do |install| -%>
+    <%- app = install.app -%>
+      <li class="install">
+        <span class="app"><%= link_to image_tag(app.icon_url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span>
+      </li>
+  <%- end -%>
+</ul>
+
+<%= will_paginate @installs %>
