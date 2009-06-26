@@ -1,11 +1,12 @@
-<h2>Applications Installed by Friends of <%= h(@user.login) %></h2>
+<h1><%= h(@user.login) %></h1>
+
+<h2>Applications Installed by Friends</h2>
 
 <ul class="installs">
-  <%- @friends_installs.each do |install| -%>
-    <%- app = install.app -%>
-      <li class="install">
-        <span class="app"><%= link_to image_tag(app.icon_url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span>
-      </li>
+  <%- @friends_installs.each do |app, installs| -%>
+    <li class="install">
+      <span class="app"><%= link_to image_tag(app.icon_url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span> (<%= pluralize(installs.length, 'install') %>)
+    </li>
   <%- end -%>
 </ul>
 
