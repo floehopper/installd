@@ -21,6 +21,6 @@ Feature: User signs in
     And I press "Sign In"
     
     Then I should be on the user page for "james"
-    And I should see a link labelled "Applications Installed by Friends"
+    And I should see a link labelled "Apps Installed by Friends"
     And I should see an application with name "Tweetie"
     And I should see an application with name "Things"

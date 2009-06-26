@@ -1,6 +1,6 @@
 <h1><%= h(@user.login) %></h1>
 
-<h2>Applications Installed by Friends</h2>
+<h2>Apps Installed by Friends</h2>
 
 <%= link_to 'All', user_friends_installs_path(@user) %> | <%= link_to 'Common', user_friends_installs_path(@user, :filter => 'common') %> | <%= link_to 'Uncommon', user_friends_installs_path(@user, :filter => 'uncommon') %>
 

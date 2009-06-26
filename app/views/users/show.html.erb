@@ -12,21 +12,7 @@
   <%- end -%>
 <%- end -%>
 
-<h2>Friends</h2>
-
-<ul class="friends">
-  <%- @friends.each do |user| -%>
-    <li>
-      <%= link_to user.login, user %>
-    </li>
-  <%- end -%>
-</ul>
-
-<p>
-  <%= link_to 'Applications Installed by Friends', user_friends_installs_path(@user) %>
-</p>
-
-<h2>Applications Installed</h2>
+<h2>Apps Installed</h2>
 
 <ul class="installs">
   <%- @installs.each do |install| -%>
@@ -38,3 +24,18 @@
 </ul>
 
 <%= will_paginate @installs %>
+
+<h2>Friends</h2>
+
+<ul class="friends">
+  <%- @friends.each do |user| -%>
+    <li>
+      <%= link_to user.login, user %>
+    </li>
+  <%- end -%>
+</ul>
+
+<p>
+  <%= link_to 'Apps Installed by Friends', user_friends_installs_path(@user) %>
+</p>
+
