@@ -1,6 +1,13 @@
 class User < ActiveRecord::Base
   
-  acts_as_authentic
+  acts_as_authentic do |config|
+    config.merge_validates_length_of_login_field_options(:if => :active?)
+    config.merge_validates_format_of_login_field_options(:if => :active?)
+    config.merge_validates_length_of_password_field_options(:if => :active?)
+    config.require_password_confirmation(false)
+  end
+  
+  attr_accessible :email, :login, :password, :active
   
   has_many :installs, :dependent => :destroy
   has_many :apps, :through => :installs

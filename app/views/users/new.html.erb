@@ -1,22 +1,21 @@
-<h2>Register</h2>
+<h2>Sign Up</h2>
+
+<p>
+  Installd is currently in an invite-only beta, which means you need to have an invitation token to access the service.
+</p>
+<p>
+  Sign up here and we will send you an invitation token as soon as we can.
+</p>
 
 <%- form_for @user do |form| -%>
   <p>
     <%= form.error_messages %>
   </p>
   <p>
-    <%= form.label :login %>
-    <%= form.text_field :login %>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
   </p>
   <p>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </p>
-  <p>
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %> 
-  </p>
-  <p>
-    <%= form.submit "Register" %>
+    <%= form.submit "Submit" %>
   </p>
 <%- end -%>

@@ -6,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :friends_installs, :only => [:index]
   end
   
+  map.resources :activations, :only => [:new, :create]
+  
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
   map.root :controller => 'installs'

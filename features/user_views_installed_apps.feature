@@ -5,7 +5,7 @@ Feature: User views their installed applications
   So that I can check the list is up-to-date
   
   Scenario: User views their installed applications
-    Given a user exists with login "james" and password "password"
+    Given an active user exists with login "james" and password "password"
     And user with login "james" has the following applications installed:
       |name|item_id|icon_url|
       |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|

@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all
   helper_method :current_user_session, :current_user
-  filter_parameter_logging :password, :password_confirmation
+  filter_parameter_logging :password
   
   private
     def current_user_session

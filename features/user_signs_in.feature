@@ -5,7 +5,7 @@ Feature: User signs in
   So that I can see all the things I can do
   
   Scenario: User signs in
-    Given a user exists with login "james" and password "password"
+    Given an active user exists with login "james" and password "password"
     And user with login "james" has the following applications installed:
       |name|item_id|icon_url|
       |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|

@@ -1,9 +1,17 @@
-Given /^a user exists with login "([^\"]*)"$/ do |login|
-  Factory(:user, :login => login)
+Given /^a user exists with email "([^\"]*)"$/ do |email|
+  Factory(:user, :email => email)
 end
 
-Given /^a user exists with login "([^\"]*)" and password "([^\"]*)"$/ do |login, password|
-  Factory(:user, :login => login, :password => password, :password_confirmation => password)
+Given /^an active user exists with login "([^\"]*)"$/ do |login|
+  Factory(:active_user, :login => login)
+end
+
+Given /^an active user exists with login "([^\"]*)" and password "([^\"]*)"$/ do |login, password|
+  Factory(:active_user, :login => login, :password => password)
+end
+
+Given /^no user exists with email "([^\"]*)"$/ do |email|
+  User.find_by_email(email).should be_nil
 end
 
 Given /^no user exists with login "([^\"]*)"$/ do |login|

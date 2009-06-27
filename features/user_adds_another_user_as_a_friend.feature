@@ -5,9 +5,9 @@ Feature: User adds another user as a friend
   So that I can see what applications my friends have installed
   
   Scenario: User adds another user as a friend
-    Given a user exists with login "james" and password "password"
+    Given an active user exists with login "james" and password "password"
     And I am signed in with login "james" and password "password"
-    And a user exists with login "hannah"
+    And an active user exists with login "hannah"
     
     When I go to the user page for "hannah"
     And I follow "Add as friend"
@@ -19,9 +19,9 @@ Feature: User adds another user as a friend
     Then I should see "hannah has been added as a friend"
   
   Scenario: User cannot add an existing friend as a friend
-    Given a user exists with login "james" and password "password"
+    Given an active user exists with login "james" and password "password"
     And I am signed in with login "james" and password "password"
-    And a user exists with login "hannah"
+    And an active user exists with login "hannah"
     And user with login "james" is friends with user with login "hannah"
     
     When I go to the user page for "hannah"
@@ -30,7 +30,7 @@ Feature: User adds another user as a friend
     And I should not see a link labelled "Add as Friend"
   
   Scenario: User cannot add themselves as a friend
-    Given a user exists with login "james" and password "password"
+    Given an active user exists with login "james" and password "password"
     And I am signed in with login "james" and password "password"
     
     When I go to the user page for "james"
@@ -38,7 +38,7 @@ Feature: User adds another user as a friend
     Then I should not see a link labelled "Add as Friend"
     
   Scenario: Visitor cannot add a user as a friend
-    Given a user exists with login "james"
+    Given an active user exists with login "james"
     
     When I go to the user page for "james"
     

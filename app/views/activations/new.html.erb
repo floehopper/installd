@@ -1,0 +1,21 @@
+<h2>Activate</h2>
+
+<%- form_for @user, :url => activations_path, :html => { :method => :post } do |form| -%>
+  <p>
+    <%= form.error_messages %>
+  </p>
+  <p>
+    <%= form.label :login %>
+    <%= form.text_field :login %>
+  </p>
+  <p>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </p>
+  <p>
+    <%= hidden_field_tag :code, params[:code] %>
+  </p>
+  <p>
+    <%= form.submit "Submit" %>
+  </p>
+<%- end -%>
