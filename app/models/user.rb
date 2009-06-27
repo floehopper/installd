@@ -15,6 +15,17 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :friends_installs, :through => :friends, :source => :installs
   
+  named_scope :inactive, :conditions => { :active => false }
+  
+  class << self
+    
+    def send_invitations(maximum_number_of_invitations = nil)
+      users = User.inactive.find(:all, :order => 'created_at', :limit => maximum_number_of_invitations)
+      users.each { |user| UserMailer.deliver_invitation(user) }
+    end
+    
+  end
+  
   def to_param
     login
   end
