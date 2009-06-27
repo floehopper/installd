@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 852fff51873f90b479655abfc6fe9bf1cacab000
+  branch: master
+lock: false
+repository_url: git://github.com/collectiveidea/action_mailer_optional_tls.git
+repository_class: Piston::Git::Repository
