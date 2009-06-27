@@ -1,5 +1,3 @@
-require 'hpricot'
-
 class InstallsController < ApplicationController
   
   def index
