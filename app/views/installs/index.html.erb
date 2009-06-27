@@ -1,8 +1,4 @@
-<%- if @user -%>
-  <h2>Apps Installed by <%= h(@user.login) %></h2>
-<%- else -%>
-  <h2>Apps Installed</h2>
-<%- end -%>
+<h2>Apps Installed</h2>
 
 <ul class="installs">
   <%- @installs.each do |install| -%>
