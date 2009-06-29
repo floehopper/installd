@@ -33,3 +33,15 @@ namespace :symlink do
   end
   
 end
+
+after "deploy:update_code", "gems:build"
+
+namespace :gems do
+  
+  desc "build native extensions for gems" do
+  task :build, :roles => :app do
+    run("cd #{current_path}; RAILS_PRODUCTION rake gems:build")
+  end
+  
+end
+
