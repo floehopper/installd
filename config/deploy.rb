@@ -40,7 +40,7 @@ namespace :gems do
   
   desc "build native extensions for gems"
   task :build, :roles => :app do
-    run("cd #{current_path}; RAILS_PRODUCTION rake gems:build")
+    run("cd #{current_path}; RAILS_ENV=production rake gems:build")
   end
   
 end
