@@ -34,7 +34,7 @@ namespace :symlink do
   
 end
 
-before "deploy:migrate", "gems:build"
+after "deploy:update_code", "gems:build"
 
 namespace :gems do
   
