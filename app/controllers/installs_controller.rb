@@ -1,5 +1,7 @@
 class InstallsController < ApplicationController
   
+  before_filter :require_user, :only => :synchronize
+  
   def index
     @user = User.find_by_login(params[:user_id])
     if @user
