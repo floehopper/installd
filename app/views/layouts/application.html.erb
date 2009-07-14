@@ -29,5 +29,6 @@
 
 <%= yield  %>
 
+<%= render :partial => 'shared/analytics' if Rails.env.production? %>
 </body>
 </html>
