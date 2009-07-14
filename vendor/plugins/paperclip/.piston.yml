@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: d97f814a9972b4a4cea0359ae9cac05c3c8cedea
+  branch: master
+repository_url: git://github.com/thoughtbot/paperclip.git
+lock: false
+repository_class: Piston::Git::Repository
