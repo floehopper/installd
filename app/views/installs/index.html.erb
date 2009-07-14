@@ -4,7 +4,7 @@
   <%- @installs.each do |install| -%>
     <%- app = install.app -%>
       <li class="install">
-        <span class="app"><%= link_to image_tag(app.icon_url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span>
+        <span class="app"><%= link_to image_tag(app.icon.url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span>
       </li>
   <%- end -%>
 </ul>
