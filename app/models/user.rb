@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   
   acts_as_authentic do |config|
     config.merge_validates_length_of_login_field_options(:if => :active?)
-    config.merge_validates_format_of_login_field_options(:if => :active?)
+    config.merge_validates_format_of_login_field_options(:if => :active?, :with => /\A\w[\w\-_]+\z/, :message => I18n.t('error_messages.login_invalid', :default => "should use only letters, numbers, hyphens, and underscores."))
     config.merge_validates_length_of_password_field_options(:if => :active?)
     config.require_password_confirmation(false)
   end
