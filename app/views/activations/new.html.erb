@@ -1,4 +1,12 @@
-<h2>Activate</h2>
+<h2>Activation</h2>
+
+<p>
+  You signed up using "<%= h(@user.email) %>".
+</p>
+
+<p>
+  Now you need to choose a login and a password to activate your account :-
+</p>
 
 <%- form_for @user, :url => activations_path, :html => { :method => :post } do |form| -%>
   <p>
@@ -16,6 +24,6 @@
     <%= hidden_field_tag :code, params[:code] %>
   </p>
   <p>
-    <%= form.submit "Submit" %>
+    <%= form.submit "Activate" %>
   </p>
 <%- end -%>
