@@ -6,6 +6,7 @@ class ActivationsController < ApplicationController
   
   def create
     if @user.update_attributes(params[:user].merge(:active => true))
+      UserMailer.deliver_activation(@user)
       flash[:notice] = 'Activation successful.'
       redirect_to @user
     else
