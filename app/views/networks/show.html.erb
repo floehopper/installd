@@ -2,7 +2,7 @@
 
 <h2>Apps Installed by Friends</h2>
 
-<%= link_to 'All', user_friends_installs_path(@user) %> | <%= link_to 'Common', user_friends_installs_path(@user, :filter => 'common') %> | <%= link_to 'Uncommon', user_friends_installs_path(@user, :filter => 'uncommon') %>
+<%= link_to 'All', user_network_path(@user) %> | <%= link_to 'Common', in_common_user_network_path(@user) %> | <%= link_to 'Not in common', not_in_common_user_network_path(@user) %>
 
 <ul class="installs">
   <%- @friends_installs.each do |app, installs| -%>

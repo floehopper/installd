@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :only => [:show, :new, :create] do |users|
     users.resources :friendships, :only => [:new, :create]
     users.resources :installs, :only => [:index], :collection => { :synchronize => :put }
-    users.resources :friends_installs, :only => [:index]
+    users.resource :network, :only => [:show], :member => { :in_common => :get, :not_in_common => :get }
   end
   
   map.resources :activations, :only => [:new, :create]
