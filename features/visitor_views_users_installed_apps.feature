@@ -8,8 +8,8 @@ Feature: Visitor views user's installed applications
     Given an active user exists with login "james"
     And user with login "james" has the following applications installed:
       |name|item_id|icon_url|
-      |Tweetie|1|http://a1.phobos.apple.com/Tweetie.png|
-      |Things |2|http://a1.phobos.apple.com/Things.png |
+      |Tweetie|1|http://a1.phobos.apple.com/eu/r1000/008/Purple/74/fd/94/mzl.myulxqmo.png|
+      |Things |2|http://a1.phobos.apple.com/eu/r1000/049/Purple/c5/fb/95/mzl.rieakmfj.png |
     
     When I go to the user installs page for "james"
     

@@ -13,7 +13,7 @@ Feature: Visitor registers interest
     Then I should be on the registration page
     
     When I fill in "Email" with "james@example.com"
-    And I press "Submit"
+    And I press "Sign Up"
     
     Then I should be on the home page
     And I should see "Registration successful"
@@ -25,6 +25,6 @@ Feature: Visitor registers interest
     And I follow "Sign Up"
     
     When I fill in "Email" with "james@example.com"
-    And I press "Submit"
+    And I press "Sign Up"
     
     Then I should see "Email has already been taken"
