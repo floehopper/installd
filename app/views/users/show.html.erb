@@ -1,13 +1,13 @@
 <h1><%= h(@user.login) %></h1>
 
 <%- if current_user -%>
-  <%- if current_user.can_make_friends?(@user) -%>
+  <%- if current_user.can_connect?(@user) -%>
   <p>
-    <%= link_to 'Add as Friend', new_user_friendship_path(@user) %>
+    <%= link_to 'Add to my network', new_user_connection_path(@user) %>
   </p>
-  <%- elsif current_user.already_friends?(@user) -%>
+  <%- elsif current_user.already_connected?(@user) -%>
   <p>
-    You are friends with this user.
+    This user is in your network.
   </p>
   <%- end -%>
 <%- end -%>
@@ -25,10 +25,10 @@
 
 <%= will_paginate @installs %>
 
-<h2>Friends</h2>
+<h2>Your Network</h2>
 
-<ul class="friends">
-  <%- @friends.each do |user| -%>
+<ul class="network">
+  <%- @connected_users.each do |user| -%>
     <li>
       <%= link_to user.login, user %>
     </li>
@@ -36,6 +36,6 @@
 </ul>
 
 <p>
-  <%= link_to 'Apps Installed by Friends', user_network_path(@user) %>
+  <%= link_to 'Apps in Network', user_network_path(@user) %>
 </p>
 

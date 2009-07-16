@@ -20,5 +20,5 @@ Factory.define :active_user, :class => User do |user|
   user.active true
 end
 
-Factory.define :friendship do |friendship|
+Factory.define :connection do |connection|
 end

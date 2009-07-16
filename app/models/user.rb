@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   
   has_many :installs, :dependent => :destroy
   has_many :apps, :through => :installs
-  has_many :friendships
-  has_many :friends, :through => :friendships
-  has_many :friends_installs, :through => :friends, :source => :installs
+  has_many :connections
+  has_many :connected_users, :through => :connections
+  has_many :connected_installs, :through => :connected_users, :source => :installs
   
   named_scope :inactive, :conditions => { :active => false }
   
@@ -30,16 +30,16 @@ class User < ActiveRecord::Base
     login
   end
   
-  def can_make_friends?(user)
-    !me?(user) && !already_friends?(user)
+  def can_connect?(user)
+    !me?(user) && !already_connected?(user)
   end
   
   def me?(user)
     user == self
   end
   
-  def already_friends?(user)
-    friends.include?(user)
+  def already_connected?(user)
+    connected_users.include?(user)
   end
   
 end

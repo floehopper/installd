@@ -18,8 +18,8 @@ Feature: User views applications installed by their friends
       |Shazam  |4      |http://a1.phobos.apple.com/eu/r1000/004/Purple/79/79/7e/mzl.jyfoaxsc.png  |
     
     And an active user exists with login "james" and password "password"
-    And user with login "james" is friends with user with login "hannah"
-    And user with login "james" is friends with user with login "sarah"
+    And user with login "james" is connected to user with login "hannah"
+    And user with login "james" is connected to user with login "sarah"
     And I am signed in with login "james" and password "password"
     
     When I go to the user network page for "james"

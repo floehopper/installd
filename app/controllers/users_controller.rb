@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_login(params[:id])
     @installs = @user.installs.paginate(:include => :app, :page => params[:page], :per_page => 10)
-    @friends = @user.friends
+    @connected_users = @user.connected_users
   end
   
   def new
