@@ -58,7 +58,7 @@ Rails::Initializer.run do |config|
   # [1] https://rails.lighthouseapp.com/projects/8995/tickets/49-exception_notification-productionrb-configuration-wiped-by-double-load
   # [2] https://rails.lighthouseapp.com/projects/8995/tickets/49-exception_notification-productionrb-configuration-wiped-by-double-load#ticket-49-7
   config.after_initialize do
-    ExceptionNotifier.exception_recipients = %w(exceptions@installd.com)
+    ExceptionNotifier.exception_recipients = %w(admin@installd.com)
     ExceptionNotifier.sender_address = %{Installd #{Rails.env.capitalize} Error" <noreply@installd.com>}
     ExceptionNotifier.email_prefix = "[installd-#{Rails.env}] "
   end
