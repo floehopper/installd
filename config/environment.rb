@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'hpricot', :version => '0.8.1'
   config.gem 'mime-types', :version => '1.16', :lib => 'mime/types'
+  config.gem 'newrelic_rpm'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
