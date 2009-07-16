@@ -23,7 +23,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'hpricot', :version => '0.8.1'
   config.gem 'mime-types', :version => '1.16', :lib => 'mime/types'
-  config.gem 'newrelic_rpm'
+  config.gem 'newrelic_rpm', :version => '2.9.3'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -53,5 +53,14 @@ Rails::Initializer.run do |config|
     :user_name => ENV["INSTALLD_GMAIL_USERNAME"],
     :password => ENV["INSTALLD_GMAIL_PASSWORD"]
   }
+  
+  # the ExceptionNotifier configuration is placed in an after_initialize block as a workaround for a bug [1] as explained in this comment [2].
+  # [1] https://rails.lighthouseapp.com/projects/8995/tickets/49-exception_notification-productionrb-configuration-wiped-by-double-load
+  # [2] https://rails.lighthouseapp.com/projects/8995/tickets/49-exception_notification-productionrb-configuration-wiped-by-double-load#ticket-49-7
+  config.after_initialize do
+    ExceptionNotifier.exception_recipients = %w(exceptions@installd.com)
+    ExceptionNotifier.sender_address = %{Installd #{Rails.env.capitalize} Error" <noreply@installd.com>}
+    ExceptionNotifier.email_prefix = "[installd-#{Rails.env}] "
+  end
   
 end
