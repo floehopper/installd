@@ -1,0 +1,54 @@
+h1.siteTitle {
+  font-size: 300%;
+  font-weight: bold;
+  float: left;
+}
+
+h1.siteTitle a {
+  background: #FFFFFF url(/images/logo.png) no-repeat scroll 0 0;
+  padding-left: 34px;
+  display: inline;
+  text-decoration: none;
+  color: #000000;
+}
+
+
+ul.userSession {
+  list-style-type: none;
+  padding: 0.5em 0.5em;
+  display: inline;
+  float: right;
+}
+
+ul.userSession li {
+  padding:0 .5em;
+  border-right: 1px solid #999999;
+  float: left;
+}
+
+ul.userSession li.last {
+  border-right: none;
+}
+
+#navigation {
+  clear:left ;
+}
+
+
+a {
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+ul.installs {
+  list-style-type: none;
+}
+
+.app .icon img {
+  border: 0;
+}
+

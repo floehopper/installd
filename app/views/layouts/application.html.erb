@@ -1,33 +1,117 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+"http://www.w3.org/TR/html4/strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Installd</title>
-  <%= stylesheet_link_tag :all, :cache => true %>
+  
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css">
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/menu/assets/skins/sam/menu.css">
+  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/container/container_core-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/menu/menu-min.js"></script>
+  
+  <script type="text/javascript">
+    YAHOO.util.Event.onDOMReady(function () {
+      var oMenuBar = new YAHOO.widget.MenuBar("navigation", { autosubmenudisplay: true });
+      oMenuBar.render();
+    });
+  </script>
+  
 </head>
-<body>
 
-<ul class="userSession">
-  <%- if current_user -%>
-    <li class="signOut">
-      <%= link_to 'Sign Out', delete_user_session_path %>
-    </li>
-  <%- else -%>
-    <li class="signIn">
-      <%= link_to 'Sign In', new_user_session_path %>
-    </li>
-    <li class="signUp">
-      <%= link_to 'Sign Up', new_user_path %>
-    </li>
-  <%- end -%>
-</ul>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<%= yield  %>
-
-<%= render :partial => 'shared/analytics' if Rails.env.production? %>
+<body class="yui-skin-sam">
+  
+  <div id="doc3">
+    <div id="hd">
+      
+      <% content_tag('h1', :class => 'siteTitle') do -%>
+        <%= link_to 'installd', root_path %>
+      <% end -%>
+      
+      <ul class="userSession">
+        <% if current_user -%>
+          <li>
+            Signed in as <%= link_to current_user.login, user_path(current_user) %>
+          </li>
+          <li class="last"">
+            <%= link_to 'Sign Out', delete_user_session_path %>
+          </li>
+        <% else -%>
+          <li>
+            <%= link_to 'Sign In', new_user_session_path %>
+          </li>
+          <li class="last">
+            <%= link_to 'Sign Up', new_user_path %>
+          </li>
+        <% end -%>
+      </ul>
+      
+      <div id="navigation" class="yuimenubar yuimenubarnav">
+        <div class="bd">
+          <ul class="first-of-type">
+            <li class="yuimenubaritem first-of-type">
+              <%= link_to 'Home', root_path, :class => "yuimenubaritemlabel" %>
+            </li>
+            <li class="yuimenubaritem">
+              <%= link_to 'Apps', '#', :class => "yuimenubaritemlabel" %>
+              <div id="apps" class="yuimenu">
+                <div class="bd">
+                  <ul>
+                    <% if current_user -%>
+                      <li class="yuimenuitem">
+                        <%= link_to 'My Apps', user_path(current_user), :class => "yuimenubaritemlabel" %>
+                      </li>
+                    <% end -%>
+                    <li class="yuimenuitem">
+                      <a class="yuimenuitemlabel" href="#">Popular</a>
+                    </li>
+                    <li class="yuimenuitem">
+                      <a class="yuimenuitemlabel" href="#">Recent</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="yuimenubaritem">
+              <a class="yuimenubaritemlabel" href="#">People</a>
+              <div id="people" class="yuimenu">
+                <div class="bd">
+                  <ul>
+                    <% if current_user -%>
+                      <li class="yuimenuitem">
+                        <%= link_to 'My Network', user_network_path(current_user), :class => "yuimenubaritemlabel" %>
+                      </li>
+                    <% end -%>
+                    <li class="yuimenuitem">
+                      <a class="yuimenuitemlabel" href="#">Go to a User</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div id="bd">
+      <p style="color: green"><%= flash[:notice] %></p>
+      <br />
+      <div id="yui-g">
+        <%= yield  %>
+      </div>
+    </div>
+    
+    <div id="ft">
+      Footer
+    </div>
+    
+  </div>
+  
+  <%= render :partial => 'shared/analytics' if Rails.env.production? %>
 </body>
 </html>
