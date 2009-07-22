@@ -1,18 +1,22 @@
 <h2>Sign In</h2>
 
-<%- form_for @user_session, :url => user_session_path do |form| -%>
-  <p>
-    <%= form.error_messages %>
-  </p>
-  <p>
-    <%= form.label :login %>
-    <%= form.text_field :login %>
-  </p>
-  <p>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </p>
-  <p>
-    <%= form.submit 'Sign In' %>
-  </p>
-<%- end -%>
+<div class="yui-g">
+
+  <%- form_for @user_session, :url => user_session_path do |form| -%>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    <p>
+      <%= form.label :login, 'Login:' %>
+      <%= form.text_field :login %>
+    </p>
+    <p>
+      <%= form.label :password, 'Password:' %>
+      <%= form.password_field :password %>
+    </p>
+    <p>
+      <%= form.submit 'Sign In' %>
+    </p>
+  <%- end -%>
+  
+</div>

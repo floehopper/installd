@@ -1,8 +1,14 @@
 <h2>Sign Out</h2>
 
-<p>Are you sure you want to sign out?</p>
+<div class="yui-g">
 
-<% form_for :user_session, :url => user_session_path, :html => { :method => :delete } do |form| %>
-  <%= submit_tag 'Yes' %>
-  <%= submit_tag 'No' %>
-<% end %>
+  <p>Are you sure you want to sign out?</p>
+
+  <% form_for :user_session, :url => user_session_path, :html => { :method => :delete } do |form| %>
+    <p>
+      <%= submit_tag 'Yes' %>
+      <%= submit_tag 'No' %>
+    </p>
+  <% end %>
+
+</div>

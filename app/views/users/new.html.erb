@@ -1,21 +1,25 @@
 <h2>Sign Up</h2>
 
-<p>
-  Installd is currently in an invite-only beta, which means you need to have an invitation to access the service.
-</p>
-<p>
-  Sign up here to register your interest and we'll send you an invitation as soon as we can.
-</p>
+<div class="yui-g">
 
-<%- form_for @user do |form| -%>
   <p>
-    <%= form.error_messages %>
+    Installd is currently in an invite-only beta, which means you need to have an invitation to access the service.
   </p>
   <p>
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+    Sign up here to register your interest and we'll send you an invitation as soon as we can.
   </p>
-  <p>
-    <%= form.submit "Sign Up" %>
-  </p>
-<%- end -%>
+  
+  <%- form_for @user do |form| -%>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    <p>
+      <%= form.label :email, 'Email:' %>
+      <%= form.text_field :email %>
+    </p>
+    <p>
+      <%= form.submit "Sign Up" %>
+    </p>
+  <%- end -%>
+
+</div>
