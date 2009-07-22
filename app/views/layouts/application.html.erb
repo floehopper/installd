@@ -32,23 +32,13 @@
         <%= link_to 'installd', root_path %>
       <% end -%>
       
-      <ul class="userSession">
-        <% if current_user -%>
-          <li>
-            Signed in as <%= link_to current_user.login, user_path(current_user) %>
-          </li>
-          <li class="last"">
-            <%= link_to 'Sign Out', delete_user_session_path %>
-          </li>
-        <% else -%>
-          <li>
-            <%= link_to 'Sign In', new_user_session_path %>
-          </li>
-          <li class="last">
-            <%= link_to 'Sign Up', new_user_path %>
-          </li>
-        <% end -%>
-      </ul>
+      <div id="userSession">
+      <% if current_user -%>
+        Signed in as <%= link_to current_user.login, user_path(current_user) %> | <%= link_to 'Sign Out', delete_user_session_path %>
+      <% else -%>
+        <%= link_to 'Sign In', new_user_session_path %> | <%= link_to 'Sign Up', new_user_path %>
+      <% end -%>
+      </div>
       
       <div id="navigation" class="yuimenubar yuimenubarnav">
         <div class="bd">
@@ -67,10 +57,10 @@
                       </li>
                     <% end -%>
                     <li class="yuimenuitem">
-                      <a class="yuimenuitemlabel" href="#">Popular</a>
+                      <%= link_to 'Recent', recent_path, :class => "yuimenubaritemlabel" %>
                     </li>
                     <li class="yuimenuitem">
-                      <a class="yuimenuitemlabel" href="#">Recent</a>
+                      <%= link_to 'Popular', popular_path, :class => "yuimenubaritemlabel" %>
                     </li>
                   </ul>
                 </div>
@@ -99,15 +89,15 @@
     </div>
     
     <div id="bd">
-      <p style="color: green"><%= flash[:notice] %></p>
-      <br />
-      <div id="yui-g">
-        <%= yield  %>
-      </div>
+      
+      <p class="flashNotice"><%= flash[:notice] %></p>
+      
+      <%= yield  %>
+      
     </div>
     
     <div id="ft">
-      Footer
+      <%= link_to 'About', about_path %> | <%= link_to 'Privacy', privacy_path %> | <%= link_to 'Support', 'http://groups.google.com/group/installd' %> | <%= link_to 'Twitter', 'http://twitter.com/installd' %>
     </div>
     
   </div>

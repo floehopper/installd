@@ -11,6 +11,14 @@ class InstallsController < ApplicationController
     end
   end
   
+  def recent
+    @installs = Install.paginate(:order => 'created_at DESC', :include => :app, :page => params[:page], :per_page => 15)
+  end
+  
+  def popular
+    @installs = Install.paginate(:select => '*, COUNT(*) AS number_of_installs', :group => 'app_id', :order => 'number_of_installs DESC', :include => :app, :page => params[:page], :per_page => 15)
+  end
+  
   def synchronize
     user = User.find_by_login(params[:user_id])
     installs = user.installs.dup

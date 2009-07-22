@@ -12,30 +12,14 @@ h1.siteTitle a {
   color: #000000;
 }
 
-
-ul.userSession {
-  list-style-type: none;
-  padding: 0.5em 0.5em;
+#userSession {
+  padding: 10px 10px;
   display: inline;
   float: right;
 }
 
-ul.userSession li {
-  padding:0 .5em;
-  border-right: 1px solid #999999;
-  float: left;
-}
-
-ul.userSession li.last {
-  border-right: none;
-}
-
-#navigation {
-  clear:left ;
-}
-
-
 a {
+  text-decoration: none;
   color: #000000;
 }
 
@@ -43,12 +27,59 @@ a:hover {
   text-decoration: underline;
 }
 
+#navigation {
+  clear:left ;
+}
+
+.flashNotice {
+  color: green;
+}
+
+h2 {
+  font-size: 150%;
+  margin: 10px 0 10px 0;
+}
 
 ul.installs {
   list-style-type: none;
 }
 
-.app .icon img {
+li.install {
+  border-top: 1px solid #999999;
+}
+
+li.install.last {
+  border-bottom: 1px solid #999999;
+}
+
+li.install a.appIcon {
+  margin: 10px 10px 10px 10px;
+  float: left;
+}
+
+li.install a.appIcon img {
   border: 0;
 }
 
+li.install h3.appName {
+  font-size: 120%;
+  margin-top: 10px;
+  white-space: nowrap;
+}
+
+li.install p.installed {
+  height: 30px;
+  margin: 22px 0 0 0;
+  white-space: nowrap;
+}
+
+.pagination {
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+#ft {
+  border-top: 1px solid #999999;
+  padding: 1em 0 1em 0;
+  text-align: center;
+}

@@ -12,6 +12,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
-  map.root :controller => 'installs'
+  map.recent '/recent', :controller => 'installs', :action => 'recent'
+  map.popular '/popular', :controller => 'installs', :action => 'popular'
+  
+  map.about '/about', :controller => 'pages', :action => 'about'
+  map.privacy '/privacy', :controller => 'pages', :action => 'privacy'
+  
+  map.root :controller => 'home'
   
 end
