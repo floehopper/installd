@@ -32,7 +32,12 @@ a:hover {
 }
 
 .flashNotice {
+  font-size: 125%;
   color: green;
+}
+
+p {
+  margin: 10px 0 10px 0;
 }
 
 h2 {

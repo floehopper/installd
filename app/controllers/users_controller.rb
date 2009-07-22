@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
   
+  def lookup
+    flash[:notice] = nil
+    if login = params[:login]
+      @user = User.find_by_login(params[:login])
+      if @user
+        redirect_to user_path(@user)
+      else
+        flash[:notice] = 'No user found.'
+      end
+    end
+  end
+  
   def show
     @user = User.find_by_login(params[:id])
     @installs = @user.installs.paginate(:include => :app, :page => params[:page], :per_page => 10)

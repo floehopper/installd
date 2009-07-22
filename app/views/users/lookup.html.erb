@@ -1,0 +1,17 @@
+<h2>Lookup a User</h2>
+
+<div class="yui-g">
+
+  <p>
+    See what apps other people have installed.
+  </p>
+  
+  <%- form_tag lookup_user_path, :method => :get do |form| -%>
+    <p>
+      <%= label_tag 'login:' %>
+      <%= text_field_tag 'login' %>
+      <%= submit_tag 'Lookup' %>
+    </p>
+  <%- end -%>
+  
+</div>
