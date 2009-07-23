@@ -27,9 +27,9 @@ class NetworksController < ApplicationController
   end
   
   def load_connected_installs
-    apps_vs_connected_installs = @user.connected_installs(:include => :app).group_by(&:app).sort_by { |app, installs| -installs.length }
+    apps_vs_connected_installs = (@user.installs(:include => :app) + @user.connected_installs(:include => :app)).group_by(&:app).sort_by { |app, installs| -installs.length }
     yield apps_vs_connected_installs if block_given?
-    @connected_installs = apps_vs_connected_installs.paginate(:page => params[:page], :per_page => 10)
+    @connected_installs = apps_vs_connected_installs.paginate(:page => params[:page], :per_page => 15)
   end
   
 end

@@ -1,15 +1,58 @@
-<h1><%= h(@user.login) %></h1>
+<h2><%= h("#{@user.login}'s Network") %></h2>
 
-<h2>Apps Installed in Network</h2>
+<p>
+  <%= link_to 'All', user_network_path(@user) %> | <%= link_to 'Common', in_common_user_network_path(@user) %> | <%= link_to 'Not in common', not_in_common_user_network_path(@user) %>
+</p>
 
-<%= link_to 'All', user_network_path(@user) %> | <%= link_to 'Common', in_common_user_network_path(@user) %> | <%= link_to 'Not in common', not_in_common_user_network_path(@user) %>
-
-<ul class="installs">
-  <%- @connected_installs.each do |app, installs| -%>
-    <li class="install">
-      <span class="app"><%= link_to image_tag(app.icon.url), app.url, :class => 'icon' %> <%= link_to app.name, app.url, :class => 'name' %></span> (<%= pluralize(installs.length, 'install') %>)
-    </li>
-  <%- end -%>
-</ul>
+<div class="yui-gb">
+  <div class="yui-u first">
+    <ul class="installs">
+      <%- @connected_installs[0..4].each_with_index do |(app, installs), index| -%>
+        <%- last = (index % 5 == 4) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
+            <% content_tag('h3', :class => 'appName') do -%>
+              <%= link_to truncate(app.name), app.url %>
+            <% end -%>
+            <p class="installed">
+              installed by <%= pluralize(installs.length, 'user') %>
+            </p>
+          </li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <ul class="installs">
+      <%- @connected_installs[5..9].to_a.each_with_index do |(app, installs), index| -%>
+        <%- last = (index % 5 == 4) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
+            <% content_tag('h3', :class => 'appName') do -%>
+              <%= link_to truncate(app.name), app.url %>
+            <% end -%>
+            <p class="installed">
+              installed by <%= pluralize(installs.length, 'user') %>
+            </p>
+          </li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <ul class="installs">
+      <%- @connected_installs[10..14].to_a.each_with_index do |(app, installs), index| -%>
+        <%- last = (index % 5 == 4) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
+            <% content_tag('h3', :class => 'appName') do -%>
+              <%= link_to truncate(app.name), app.url %>
+            <% end -%>
+            <p class="installed">
+              installed by <%= pluralize(installs.length, 'user') %>
+            </p>
+          </li>
+      <%- end -%>
+    </ul>
+  </div>
+</div>
 
 <%= will_paginate @connected_installs %>
