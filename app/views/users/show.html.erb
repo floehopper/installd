@@ -1,16 +1,16 @@
+<h2 id="user"><%= h("#{@user.login}'s Apps") %></h2>
+
 <%- if current_user -%>
   <%- if current_user.can_connect?(@user) -%>
-  <p>
-    <%= link_to 'Add to my network', new_user_connection_path(@user) %>
-  </p>
+  <div id="networking">
+    (<%= link_to 'Add this user to my network', new_user_connection_path(@user) %>)
+  </div>
   <%- elsif current_user.already_connected?(@user) -%>
-  <p>
-    This user is in your network.
-  </p>
+  <div id="networking">
+    (<%= link_to 'Remove this user from my network', delete_user_connection_path(@user) %>)
+  </div>
   <%- end -%>
 <%- end -%>
-
-<h2><%= h("#{@user.login}'s Apps") %></h2>
 
 <div class="yui-gb">
   <div class="yui-u first">

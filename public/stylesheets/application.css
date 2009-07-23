@@ -53,6 +53,14 @@ h2 {
   margin: 10px 0 10px 0;
 }
 
+h2#user {
+  float: left;
+}
+
+.yui-gb {
+  clear: left;
+}
+
 h3 {
   font-size: 120%;
 }
@@ -98,4 +106,9 @@ li.install p.installed {
   border-top: 1px solid #999999;
   padding: 1em 0 1em 0;
   text-align: center;
+}
+
+#networking {
+  margin: 15px 0 0 10px;
+  float: left;
 }

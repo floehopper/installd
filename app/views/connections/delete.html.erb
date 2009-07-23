@@ -1,0 +1,19 @@
+<h2>Remove User</h2>
+
+<div class="yui-g">
+  
+  <p>
+    Do you want to remove <strong><%= @connected_user.login %></strong> from your network?
+  </p>
+  
+  <% form_for :user_connection, :url => user_connection_path, :html => { :method => :delete } do |form| %>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    <p>
+      <%= submit_tag 'Yes' %>
+      <%= submit_tag 'No' %>
+    </p>
+  <% end %>
+
+</div>

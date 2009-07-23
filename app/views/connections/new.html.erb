@@ -1,9 +1,19 @@
-<h2>New Connection</h2>
+<h2>Add User</h2>
 
-<p>
-  Do you want to add <%= @connected_user.login %> to your network?
+<div class="yui-g">
   
-  <%- form_for [@connected_user, @connection] do |form| -%>
-    <%= form.submit "Add" %>
-  <%- end -%>
-</p>
+  <p>
+    Do you want to add <strong><%= @connected_user.login %></strong> to your network?
+  </p>
+  
+  <% form_for [@connected_user, @connection] do |form| %>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    <p>
+      <%= form.submit 'Yes' %>
+      <%= form.submit 'No' %>
+    </p>
+  <% end %>
+
+</div>
