@@ -9,7 +9,7 @@
     Sign up here to register your interest and we'll send you an invitation as soon as we can.
   </p>
   
-  <%- form_for @user do |form| -%>
+  <% form_for @user do |form| %>
     <p>
       <%= form.error_messages %>
     </p>
@@ -18,8 +18,8 @@
       <%= form.text_field :email %>
     </p>
     <p>
-      <%= form.submit "Sign Up" %>
+      <%= form.submit 'Sign Up' %>
     </p>
-  <%- end -%>
+  <% end %>
 
 </div>

@@ -1,3 +1,11 @@
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
 h1.siteTitle {
   font-size: 300%;
   font-weight: bold;
@@ -45,6 +53,10 @@ h2 {
   margin: 10px 0 10px 0;
 }
 
+h3 {
+  font-size: 120%;
+}
+
 ul.installs {
   list-style-type: none;
 }
@@ -67,7 +79,6 @@ li.install a.appIcon img {
 }
 
 li.install h3.appName {
-  font-size: 120%;
   margin-top: 10px;
   white-space: nowrap;
 }

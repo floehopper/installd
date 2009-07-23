@@ -1,29 +1,33 @@
 <h2>Activation</h2>
 
-<p>
-  You signed up using "<%= h(@user.email) %>".
-</p>
+<div class="yui-g">
+  
+  <p>
+    You signed up using <strong><%= h(@user.email) %></strong>.
+  </p>
 
-<p>
-  Now you need to choose a login and a password to activate your account :-
-</p>
+  <p>
+    Now you need to choose a login and a password to activate your account :-
+  </p>
 
-<%- form_for @user, :url => activations_path, :html => { :method => :post } do |form| -%>
-  <p>
-    <%= form.error_messages %>
-  </p>
-  <p>
-    <%= form.label :login %>
-    <%= form.text_field :login %>
-  </p>
-  <p>
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </p>
-  <p>
-    <%= hidden_field_tag :code, params[:code] %>
-  </p>
-  <p>
-    <%= form.submit "Activate" %>
-  </p>
-<%- end -%>
+  <% form_for @user, :url => activations_path, :html => { :method => :post } do |form| %>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    <p>
+      <%= form.label :login, 'Login:' %>
+      <%= form.text_field :login %>
+    </p>
+    <p>
+      <%= form.label :password, 'Password:' %>
+      <%= form.password_field :password %>
+    </p>
+    <p>
+      <%= hidden_field_tag :code, params[:code] %>
+    </p>
+    <p>
+      <%= form.submit 'Activate' %>
+    </p>
+  <% end %>
+
+</div>
