@@ -4,12 +4,14 @@ class NetworksController < ApplicationController
   
   def show
     load_connected_installs
+    @rss_feed_url = url_for(:format => 'rss')
   end
   
   def in_common
     load_connected_installs do |apps_vs_connected_installs|
       apps_vs_connected_installs.reject! { |app, installs| !@user.apps.include?(app) }
     end
+    @rss_feed_url = url_for(:format => 'rss')
     render :action => 'show'
   end
   
@@ -17,6 +19,7 @@ class NetworksController < ApplicationController
     load_connected_installs do |apps_vs_connected_installs|
       apps_vs_connected_installs.reject! { |app, installs| @user.apps.include?(app) }
     end
+    @rss_feed_url = url_for(:format => 'rss')
     render :action => 'show'
   end
   
@@ -27,7 +30,8 @@ class NetworksController < ApplicationController
   end
   
   def load_connected_installs
-    apps_vs_connected_installs = (@user.installs(:include => :app) + @user.connected_installs(:include => :app)).group_by(&:app).sort_by { |app, installs| -installs.length }
+    now = Time.now
+    apps_vs_connected_installs = (@user.installs(:include => :app) + @user.connected_installs(:include => :app)).group_by(&:app).sort_by { |app, installs| now - installs.map(&:created_at).max }
     yield apps_vs_connected_installs if block_given?
     @connected_installs = apps_vs_connected_installs.paginate(:page => params[:page], :per_page => 15)
   end

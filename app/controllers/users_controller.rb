@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_login(params[:id])
     @installs = @user.installs.paginate(:include => :app, :order => 'created_at DESC', :page => params[:page], :per_page => 15)
-    @rss_feed_url = user_url(@user, :format => 'rss')
+    @rss_feed_url = url_for(:format => 'rss')
   end
   
   def new
