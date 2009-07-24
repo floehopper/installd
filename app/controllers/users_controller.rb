@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_login(params[:id])
     @installs = @user.installs.paginate(:include => :app, :page => params[:page], :per_page => 15)
-    @connected_users = @user.connected_users
   end
   
   def new
@@ -29,6 +28,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Registration successful.'
       redirect_to root_path
     else
+      flash[:notice] = 'Registration failed.'
       render :action => 'new'
     end
   end
