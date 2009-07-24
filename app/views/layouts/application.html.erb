@@ -10,6 +10,10 @@
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/menu/assets/skins/sam/menu.css">
   <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
   
+  <% if @rss_feed_url %>
+    <link rel="alternate" title="Installd RSS" href="<%= @rss_feed_url %>" type="application/rss+xml"/>
+  <% end %>
+  
   <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
   <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/container/container_core-min.js"></script>
   <script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/menu/menu-min.js"></script>
