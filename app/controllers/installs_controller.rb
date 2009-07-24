@@ -28,7 +28,11 @@ class InstallsController < ApplicationController
       itemName = (element/'dict'/"key[text()='itemName']")[0].next_sibling.inner_text
       itemId = (element/'dict'/"key[text()='itemId']")[0].next_sibling.inner_text
       softwareIcon57x57URL = (element/'dict'/"key[text()='softwareIcon57x57URL']")[0].next_sibling.inner_text
-      app = App.find_by_name(itemName) || App.create!(:name => itemName, :item_id => itemId, :icon_url => softwareIcon57x57URL)
+      if app = App.find_by_name(itemName)
+        app.update_attributes(:raw_xml => element.to_s)
+      else
+        app = App.create!(:name => itemName, :item_id => itemId, :icon_url => softwareIcon57x57URL, :raw_xml => element.to_s)
+      end
       install = user.installs.find_by_app_id(app.id)
       if install
         installs.delete(install)
