@@ -14,10 +14,6 @@ class App < ActiveRecord::Base
   
   before_validation :store_icon
   
-  def to_param
-    name
-  end
-  
   def url
     "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=#{item_id}&mt=8"
   end

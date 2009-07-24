@@ -6,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resource :network, :only => [:show], :member => { :in_common => :get, :not_in_common => :get }
   end
   
+  map.resources :apps, :only => [:show]
+  
   map.resources :activations, :only => [:new, :create]
   
   map.resources :downloads, :only => [:index]
