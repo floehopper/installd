@@ -6,7 +6,7 @@
     See what apps other people have installed.
   </p>
   
-  <%- form_tag lookup_user_path, :method => :get do |form| -%>
+  <% form_tag lookup_user_path, :method => :get do |form| -%>
     <p>
       <%= label_tag 'Login:' %>
       <%= text_field_tag 'login' %>
@@ -14,6 +14,6 @@
     <p>
       <%= submit_tag 'Lookup' %>
     </p>
-  <%- end -%>
+  <% end -%>
 
 </div>

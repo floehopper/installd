@@ -1,45 +1,45 @@
 <div id="app">
   <%= link_to image_tag(@app.icon.url), @app.url, :class => 'appIcon' %>
-  <% content_tag('h2', :class => 'appName') do -%>
+  <% content_tag('h2', :class => 'appName') do %>
     <%= link_to truncate(@app.name), app_path(@app) %>
-  <% end -%>
+  <% end %>
 </div>
 
 <div class="yui-gb">
   <div class="yui-u first">
     <ul class="installs">
-      <%- @installs[0..4].each_with_index do |install, index| -%>
-        <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[0..4].each_with_index do |install, index| %>
+        <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <p class="installed">
               installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
             </p>
           </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
   <div class="yui-u">
     <ul class="installs">
-      <%- @installs[5..9].to_a.each_with_index do |install, index| -%>
-      <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[5..9].to_a.each_with_index do |install, index| %>
+      <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
           <p class="installed">
             installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
           </p>
         </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
   <div class="yui-u">
     <ul class="installs">
-      <%- @installs[10..14].to_a.each_with_index do |install, index| -%>
-      <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[10..14].to_a.each_with_index do |install, index| %>
+      <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
           <p class="installed">
             installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
           </p>
         </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
 </div>

@@ -1,67 +1,67 @@
 <h2 id="user"><%= h("#{@user.login}'s Apps") %></h2>
 
-<%- if current_user -%>
-  <%- if current_user.can_connect?(@user) -%>
+<% if current_user %>
+  <% if current_user.can_connect?(@user) %>
   <div id="networking">
     (<%= link_to 'Add this user to my network', new_user_connection_path(@user) %>)
   </div>
-  <%- elsif current_user.already_connected?(@user) -%>
+  <% elsif current_user.already_connected?(@user) %>
   <div id="networking">
     (<%= link_to 'Remove this user from my network', delete_user_connection_path(@user) %>)
   </div>
-  <%- end -%>
-<%- end -%>
+  <% end %>
+<% end %>
 
 <div class="yui-gb">
   <div class="yui-u first">
     <ul class="installs">
-      <%- @installs[0..4].each_with_index do |install, index| -%>
-        <%- app = install.app -%>
-        <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[0..4].each_with_index do |install, index| %>
+        <% app = install.app %>
+        <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do -%>
+            <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
-            <% end -%>
+            <% end %>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
             </p>
           </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
   <div class="yui-u">
     <ul class="installs">
-      <%- @installs[5..9].to_a.each_with_index do |install, index| -%>
-        <%- app = install.app -%>
-        <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[5..9].to_a.each_with_index do |install, index| %>
+        <% app = install.app %>
+        <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do -%>
+            <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
-            <% end -%>
+            <% end %>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
             </p>
           </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
   <div class="yui-u">
     <ul class="installs">
-      <%- @installs[10..14].to_a.each_with_index do |install, index| -%>
-        <%- app = install.app -%>
-        <%- last = (index % 5 == 4) ? ' last' : '' %>
+      <% @installs[10..14].to_a.each_with_index do |install, index| %>
+        <% app = install.app %>
+        <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do -%>
+            <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
-            <% end -%>
+            <% end %>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
             </p>
           </li>
-      <%- end -%>
+      <% end %>
     </ul>
   </div>
 </div>

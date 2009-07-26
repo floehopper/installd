@@ -32,16 +32,16 @@
   <div id="doc3">
     <div id="hd">
       
-      <% content_tag('h1', :class => 'siteTitle') do -%>
+      <% content_tag('h1', :class => 'siteTitle') do %>
         <%= link_to 'installd', root_path %>
-      <% end -%>
+      <% end %>
       
       <div id="userSession">
-      <% if current_user -%>
+      <% if current_user %>
         Signed in as <%= link_to current_user.login, user_path(current_user) %> | <%= link_to 'Sign Out', delete_user_session_path %>
-      <% else -%>
+      <% else %>
         <%= link_to 'Sign In', new_user_session_path %> | <%= link_to 'Sign Up', new_user_path %>
-      <% end -%>
+      <% end %>
       </div>
       
       <div id="navigation" class="yuimenubar yuimenubarnav">
@@ -55,11 +55,11 @@
               <div id="apps" class="yuimenu">
                 <div class="bd">
                   <ul>
-                    <% if current_user -%>
+                    <% if current_user %>
                       <li class="yuimenuitem">
                         <%= link_to 'My Apps', user_path(current_user), :class => "yuimenubaritemlabel" %>
                       </li>
-                    <% end -%>
+                    <% end %>
                     <li class="yuimenuitem">
                       <%= link_to 'Recent', recent_path, :class => "yuimenubaritemlabel" %>
                     </li>
@@ -75,11 +75,11 @@
               <div id="people" class="yuimenu">
                 <div class="bd">
                   <ul>
-                    <% if current_user -%>
+                    <% if current_user %>
                       <li class="yuimenuitem">
                         <%= link_to 'My Network', user_network_path(current_user), :class => "yuimenubaritemlabel" %>
                       </li>
-                    <% end -%>
+                    <% end %>
                     <li class="yuimenuitem">
                       <%= link_to 'Lookup a User', lookup_user_path, :class => "yuimenubaritemlabel" %>
                     </li>
