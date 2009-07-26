@@ -51,7 +51,11 @@
               <%= link_to 'Home', root_path, :class => "yuimenubaritemlabel" %>
             </li>
             <li class="yuimenubaritem">
-              <%= link_to 'Apps', '#', :class => "yuimenubaritemlabel" %>
+              <% if current_user %>
+                <%= link_to 'Apps', user_path(current_user), :class => "yuimenubaritemlabel" %>
+              <% else %>
+                <%= link_to 'Apps', root_path, :class => "yuimenubaritemlabel" %>
+              <% end %>
               <div id="apps" class="yuimenu">
                 <div class="bd">
                   <ul>
@@ -71,7 +75,11 @@
               </div>
             </li>
             <li class="yuimenubaritem">
-              <a class="yuimenubaritemlabel" href="#">People</a>
+              <% if current_user %>
+                <%= link_to 'People', user_network_path(current_user), :class => "yuimenubaritemlabel" %>
+              <% else %>
+                <%= link_to 'People', lookup_user_path, :class => "yuimenubaritemlabel" %>
+              <% end %>
               <div id="people" class="yuimenu">
                 <div class="bd">
                   <ul>

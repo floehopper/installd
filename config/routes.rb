@@ -21,6 +21,6 @@ ActionController::Routing::Routes.draw do |map|
   map.about '/about', :controller => 'pages', :action => 'about'
   map.privacy '/privacy', :controller => 'pages', :action => 'privacy'
   
-  map.root :controller => 'home'
+  map.root :controller => 'installs', :action => 'recent'
   
 end
