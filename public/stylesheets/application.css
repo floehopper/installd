@@ -113,3 +113,17 @@ li.install p.installed {
   margin: 15px 0 0 10px;
   float: left;
 }
+
+#app a.appIcon {
+  margin: 10px 10px 10px 10px;
+  float: left;
+}
+
+#app a.appIcon img {
+  border: 0;
+}
+
+#app h2.appName {
+  padding-top: 45px;
+  white-space: nowrap;
+}

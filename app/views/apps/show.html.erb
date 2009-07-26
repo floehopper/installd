@@ -1,24 +1,47 @@
-<p>
-  <b>Name:</b>
-  <%=h @app.name %>
-</p>
+<div id="app">
+  <%= link_to image_tag(@app.icon.url), @app.url, :class => 'appIcon' %>
+  <% content_tag('h2', :class => 'appName') do -%>
+    <%= link_to truncate(@app.name), app_path(@app) %>
+  <% end -%>
+</div>
 
-<p>
-  <b>Item Id:</b>
-  <%=h @app.item_id %>
-</p>
+<div class="yui-gb">
+  <div class="yui-u first">
+    <ul class="installs">
+      <%- @installs[0..4].each_with_index do |install, index| -%>
+        <%- last = (index % 5 == 4) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <p class="installed">
+              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
+            </p>
+          </li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <ul class="installs">
+      <%- @installs[5..9].to_a.each_with_index do |install, index| -%>
+      <%- last = (index % 5 == 4) ? ' last' : '' %>
+        <li class="install<%= last %>">
+          <p class="installed">
+            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
+          </p>
+        </li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <ul class="installs">
+      <%- @installs[10..14].to_a.each_with_index do |install, index| -%>
+      <%- last = (index % 5 == 4) ? ' last' : '' %>
+        <li class="install<%= last %>">
+          <p class="installed">
+            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.created_at) %> ago
+          </p>
+        </li>
+      <%- end -%>
+    </ul>
+  </div>
+</div>
 
-<p>
-  <b>Icon URL:</b>
-  <%=h @app.icon_url %>
-</p>
-
-<p>
-  <a href="<%=h @app.url %>">
-    <img border="0" src="<%=h @app.icon_url %>" />
-  </a>
-</p>
-
-
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Back', apps_path %>
+<%= will_paginate @installs %>

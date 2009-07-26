@@ -21,7 +21,7 @@
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
             <% content_tag('h3', :class => 'appName') do -%>
-              <%= link_to truncate(app.name), app.url %>
+              <%= link_to truncate(app.name), app_path(app) %>
             <% end -%>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
@@ -38,7 +38,7 @@
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
             <% content_tag('h3', :class => 'appName') do -%>
-              <%= link_to truncate(app.name), app.url %>
+              <%= link_to truncate(app.name), app_path(app) %>
             <% end -%>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
@@ -55,7 +55,7 @@
           <li class="install<%= last %>">
             <%= link_to image_tag(app.icon.url), app.url, :class => 'appIcon' %>
             <% content_tag('h3', :class => 'appName') do -%>
-              <%= link_to truncate(app.name), app.url %>
+              <%= link_to truncate(app.name), app_path(app) %>
             <% end -%>
             <p class="installed">
               installed <%= distance_of_time_in_words_to_now(install.created_at) %> ago
