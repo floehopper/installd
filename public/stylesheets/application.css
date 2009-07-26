@@ -127,3 +127,17 @@ li.install p.installed {
   padding-top: 45px;
   white-space: nowrap;
 }
+
+table {
+  border: 1px solid #999;
+}
+
+th {
+  border: 1px solid #999;
+  padding: 5px;
+}
+
+td {
+  border: 1px solid #999;
+  padding: 5px;
+}

@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.resources :users, :only => [:show, :new, :create] do |users|
+  map.resources :users, :only => [:index, :show, :new, :create], :member => { :invite => :put } do |users|
     users.resources :connections, :only => [:new, :create, :destroy], :member => { :delete => :get }
     users.resources :installs, :only => [:index], :collection => { :synchronize => :put }
     users.resource :network, :only => [:show], :member => { :in_common => :get, :not_in_common => :get }

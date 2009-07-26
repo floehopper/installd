@@ -15,15 +15,22 @@ class User < ActiveRecord::Base
   has_many :connected_users, :through => :connections
   has_many :connected_installs, :through => :connected_users, :source => :installs
   
+  named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
   
   class << self
     
     def send_invitations(maximum_number_of_invitations = nil)
       users = User.inactive.find(:all, :order => 'created_at', :limit => maximum_number_of_invitations)
-      users.each { |user| UserMailer.deliver_invitation(user) }
+      users.each { |user| user.invite! }
     end
     
+  end
+  
+  def invite!
+    UserMailer.deliver_invitation(self)
+    self.invited_at = Time.now
+    save!
   end
   
   def to_param

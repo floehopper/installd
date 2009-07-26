@@ -1,0 +1,44 @@
+<h2>Users</h2>
+
+<div class="yui-g">
+  <table>
+    <thead>
+      <th>Login</th>
+      <th>Email</th>
+      <th>Active</th>
+      <th>Login Count</th>
+      <th>Last Request</th>
+      <th>Last Login</th>
+      <th>Current Login</th>
+      <th>Perishable Token</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Invited</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.login %></td>
+          <td><%= user.email %></td>
+          <td><%= user.active? ? 'Y' : 'N' %></td>
+          <td><%= user.login_count %></td>
+          <td><%= user.last_request_at ? distance_of_time_in_words_to_now(user.last_request_at) : '-' %></td>
+          <td><%= user.last_login_at ? distance_of_time_in_words_to_now(user.last_login_at) : '-' %></td>
+          <td><%= user.current_login_at ? distance_of_time_in_words_to_now(user.current_login_at) : '-' %></td>
+          <td><%= user.perishable_token %></td>
+          <td><%= distance_of_time_in_words_to_now(user.created_at) %></td>
+          <td><%= distance_of_time_in_words_to_now(user.updated_at) %></td>
+          <td><%= user.invited_at ? distance_of_time_in_words_to_now(user.invited_at) : '-' %></td>
+          <td>
+            <% unless user.active? %>
+              <%= button_to 'Invite', invite_user_path(user.id), :method => :put %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @users %>

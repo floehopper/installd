@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
   
+  before_filter :require_floehopper, :only => [:index, :invite]
+  
+  def index
+    @users = User.paginate(:order => 'active, updated_at', :page => params[:page], :per_page => 10)
+  end
+  
+  def invite
+    @user = User.find(params[:id])
+    @user.invite!
+    redirect_to users_path
+  end
+  
   def lookup
     flash[:notice] = nil
     if login = params[:login]
@@ -33,5 +45,13 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  private
+  
+    def require_floehopper
+      unless current_user && current_user.login == 'floehopper'
+        redirect_to root_path
+      end
+    end
   
 end
