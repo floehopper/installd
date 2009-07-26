@@ -8,7 +8,7 @@ class ActivationsController < ApplicationController
     if @user.update_attributes(params[:user].merge(:active => true))
       UserMailer.deliver_activation(@user)
       flash[:notice] = 'Activation successful.'
-      redirect_to @user
+      redirect_to downloads_path
     else
       flash[:notice] = 'Some fields were invalid.'
       render :action => 'new'
