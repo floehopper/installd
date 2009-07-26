@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :activations, :only => [:new, :create]
   
-  map.resources :downloads, :only => [:index]
+  map.resources :downloads, :only => [:index], :collection => { :mac => :get, :linux => :get, :windows => :get }
   
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
