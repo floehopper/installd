@@ -18,7 +18,7 @@ class ActivationsController < ApplicationController
   private
   
     def load_user
-      @user = User.find_using_perishable_token(params[:code], 1.week)
+      @user = User.find_using_perishable_token(params[:code], 0)
     end
     
     def redirect_to_new_user_path_if_user_not_found
