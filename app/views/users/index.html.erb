@@ -29,7 +29,7 @@
           <td><%= user.perishable_token %></td>
           <td><%= distance_of_time_in_words_to_now(user.created_at) %></td>
           <td><%= distance_of_time_in_words_to_now(user.updated_at) %></td>
-          <td><%= user.invited_at ? distance_of_time_in_words_to_now(user.invited_at) : '-' %></td>
+          <td><%= user.last_invited_at ? distance_of_time_in_words_to_now(user.last_invited_at) : '-' %></td>
           <td>
             <% unless user.active? %>
               <%= button_to 'Invite', invite_user_path(user.id), :method => :put %>

@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :connections
   has_many :connected_users, :through => :connections
   has_many :connected_installs, :through => :connected_users, :source => :installs
+  has_many :invitations, :order => 'created_at'
   
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
@@ -29,8 +30,11 @@ class User < ActiveRecord::Base
   
   def invite!
     UserMailer.deliver_invitation(self)
-    self.invited_at = Time.now
-    save!
+    invitations.create!
+  end
+  
+  def last_invited_at
+    invitations.last ? invitations.last.created_at : nil
   end
   
   def to_param
