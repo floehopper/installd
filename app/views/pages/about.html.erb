@@ -1,1 +1,82 @@
 <h2>About</h2>
+
+<h3>Introduction</h3>
+
+<p>
+  I'm building <%= link_to 'installd.com', root_path %>, because I want a better way to discover relevant and useful <%= link_to 'iPhone', 'http://www.apple.com/iphone/' %> <%= link_to 'applications', 'http://www.apple.com/iphone/apps-for-iphone/' %>.
+</p>
+
+<p>
+  I don't find the <%= link_to 'App Store', 'http://www.apple.com/iphone/iphone-3gs/app-store.html' %> or other application review sites particularly useful. I find their list of <em>Top</em> or <em>Hot</em> applications too generic and not tailored to my interests.
+</p>
+
+<p>
+  So to improve the signal-to-noise ratio, I've decided what I really want is a way of finding out what applications my <strong>friends</strong> have <strong>installed</strong> on their iPhones.
+</p>
+
+<h3>Application Ownership</h3>
+
+<p>
+  If someone has taken the trouble to actually install (or even purchase) an application :-
+  <ul>
+    <li>
+      They've made some kind of decision to install/purchase the application.
+    </li>
+    <li>
+      They're more likely to know whether the application is any good.
+    </li>
+  </ul>
+</p>
+
+<h3>Social Network</h3>
+
+<p>
+  If someone I know has installed an application :-
+  <ul>
+    <li>
+      I'm more likely to trust their judgement in the installation/purchasing decision.
+    </li>
+    <li>
+      I'm more likely to trust their reviews or ratings for the application.
+    </li>
+  </ul>
+</p>
+
+<h3>How It Works</h3>
+
+<p>
+  I want the list of a user's installed applications to be automatically added to installd.com and for this list to be automatically kept up-to-date.
+</p>
+
+<p>
+  I would've liked to have built an iPhone app to do this, but due to the iPhone application <%= link_to 'sandbox restrictions', 'http://developer.apple.com/iPhone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/ApplicationEnvironment/ApplicationEnvironment.html#//apple_ref/doc/uid/TP40007072-CH7-SW44' %> this is not possible.
+</p>
+
+<p>
+  So instead I've built a desktop application which reads application data from the <%= link_to 'iTunes', 'http://www.apple.com/itunes/' %> file system.
+</p>
+
+<p>
+  The desktop application relies on you sync-ing your iPhone with iTunes on your desktop computer.
+</p>
+
+<p>
+  This desktop application is currently only available for the <%= link_to 'Mac', mac_downloads_path %>.
+</p>
+
+<h3>Next Steps</h3>
+
+<p>
+  <ul>
+    <li>
+      <%= link_to 'Sign Up', new_user_path %> to register your interest.
+    </li>
+    <li>
+      When you receive your invitation email, click on the link to activate your account.
+    </li>
+    <li>
+      <%= link_to 'Download', downloads_path %> the appropriate desktop application.
+    </li>
+  </ol>
+</p>
+
