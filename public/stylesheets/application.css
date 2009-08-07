@@ -64,6 +64,7 @@ h2#user {
 
 h3 {
   font-size: 120%;
+  margin-top: 10px;
 }
 
 ul.installs {
@@ -88,7 +89,6 @@ li.install a.appIcon img {
 }
 
 li.install h3.appName {
-  margin-top: 10px;
   white-space: nowrap;
 }
 
@@ -140,4 +140,12 @@ th {
 td {
   border: 1px solid #999;
   padding: 5px;
+}
+
+ul {
+  padding: 5px 0 5px 20px;
+}
+
+li {
+  list-style-type: disc;
 }
