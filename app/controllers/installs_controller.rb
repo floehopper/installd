@@ -23,17 +23,14 @@ class InstallsController < ApplicationController
   def synchronize
     user = User.find_by_login(params[:user_id])
     installs = user.installs.dup
-    doc = Hpricot::XML(params[:doc])
-    (doc/'plist').each do |element|
-      itemName = (element/'dict'/"key[text()='itemName']")[0].next_sibling.inner_text
-      itemId = (element/'dict'/"key[text()='itemId']")[0].next_sibling.inner_text
-      softwareIcon57x57URL = (element/'dict'/"key[text()='softwareIcon57x57URL']")[0].next_sibling.inner_text
-      app = App.find_by_name(itemName) || App.create!(:name => itemName, :item_id => itemId, :icon_url => softwareIcon57x57URL)
+    parser = IphoneAppPlistParser.new(params[:doc])
+    parser.each_app do |attributes|
+      app = App.find_by_name(attributes[:itemName]) || App.create!(:name => attributes[:itemName], :item_id => attributes[:itemId], :icon_url => attributes[:softwareIcon57x57URL])
       install = user.installs.find_by_app_id(app.id)
       if install
         installs.delete(install)
       else
-        user.installs.create!(:app => app, :raw_xml => element.to_s)
+        user.installs.create!(:app => app, :purchase_date => attributes[:purchaseDate], :raw_xml => attributes[:rawXML])
       end
     end
     installs.each { |install| install.destroy }
