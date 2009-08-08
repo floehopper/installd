@@ -30,7 +30,7 @@ class InstallsController < ApplicationController
       if install
         installs.delete(install)
       else
-        user.installs.create!(:app => app, :purchase_date => attributes[:purchaseDate], :raw_xml => attributes[:rawXML])
+        user.installs.create!(:app => app, :purchased_at => attributes[:purchaseDate], :raw_xml => attributes[:rawXML])
       end
     end
     installs.each { |install| install.destroy }

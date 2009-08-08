@@ -12,7 +12,7 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <p class="installed">
-              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
             </p>
           </li>
       <% end %>
@@ -24,7 +24,7 @@
       <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
           <p class="installed">
-            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
           </p>
         </li>
       <% end %>
@@ -36,7 +36,7 @@
       <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
           <p class="installed">
-            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+            installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
           </p>
         </li>
       <% end %>

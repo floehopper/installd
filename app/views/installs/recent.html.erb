@@ -12,7 +12,7 @@
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
             <p class="installed">
-              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
             </p>
           </li>
       <% end %>
@@ -29,7 +29,7 @@
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
             <p class="installed">
-              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
             </p>
           </li>
       <% end %>
@@ -46,7 +46,7 @@
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
             <p class="installed">
-              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchase_date) %> ago
+              installed by <%= link_to install.user.login, user_path(install.user) %> <%= distance_of_time_in_words_to_now(install.purchased_at) %> ago
             </p>
           </li>
       <% end %>
