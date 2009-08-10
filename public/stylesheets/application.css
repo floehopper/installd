@@ -1,3 +1,11 @@
+ul {
+  padding: 5px 0 5px 20px;
+}
+
+li {
+  list-style-type: disc;
+}
+
 strong {
   font-weight: bold;
 }
@@ -67,12 +75,9 @@ h3 {
   margin-top: 10px;
 }
 
-ul.installs {
-  list-style-type: none;
-}
-
 li.install {
   border-top: 1px solid #999999;
+  list-style-type: none;
 }
 
 li.install.last {
@@ -140,14 +145,6 @@ th {
 td {
   border: 1px solid #999;
   padding: 5px;
-}
-
-ul {
-  padding: 5px 0 5px 20px;
-}
-
-li {
-  list-style-type: disc;
 }
 
 .trademarks {
