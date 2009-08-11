@@ -8,10 +8,10 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
     xml.language 'en'
     xml.pubDate Time.now.to_s(:rfc822)
     xml.atom(:link, :href => url_for(:host => HOST, :format => 'rss'), :rel => "self", :type => "application/rss+xml")
-    @connected_installs.each do |app, installs|
+    @apps.each do |app|
       xml.item do
         xml.title(app.name)
-        xml.pubDate installs.map(&:created_at).max.to_s(:rfc822)
+        xml.pubDate app.installs.map(&:created_at).max.to_s(:rfc822)
         xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
         xml.link app.url
       end
