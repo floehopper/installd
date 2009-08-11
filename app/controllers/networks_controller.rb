@@ -3,22 +3,27 @@ class NetworksController < ApplicationController
   before_filter :load_user
   
   def show
-    load_connected_installs
+    my_apps = Set.new(@user.apps)
+    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    now = Time.now
+    @apps = (network_apps + my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')
   end
   
   def in_common
-    load_connected_installs do |apps_vs_connected_installs|
-      apps_vs_connected_installs.reject! { |app, installs| !@user.apps.include?(app) }
-    end
+    my_apps = Set.new(@user.apps)
+    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    now = Time.now
+    @apps = (network_apps & my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')
     render :action => 'show'
   end
   
   def not_in_common
-    load_connected_installs do |apps_vs_connected_installs|
-      apps_vs_connected_installs.reject! { |app, installs| @user.apps.include?(app) }
-    end
+    my_apps = Set.new(@user.apps)
+    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    now = Time.now
+    @apps = (network_apps - my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')
     render :action => 'show'
   end
@@ -27,13 +32,6 @@ class NetworksController < ApplicationController
   
   def load_user
     @user = User.find_by_login(params[:user_id], :include => { :installs => :app })
-  end
-  
-  def load_connected_installs
-    now = Time.now
-    apps_vs_connected_installs = (@user.installs(:include => :app) + @user.connected_installs(:include => :app)).group_by(&:app).sort_by { |app, installs| now - installs.map(&:created_at).max }
-    yield apps_vs_connected_installs if block_given?
-    @connected_installs = apps_vs_connected_installs.paginate(:page => params[:page], :per_page => 15)
   end
   
 end
