@@ -21,7 +21,9 @@ class App < ActiveRecord::Base
   private
   
   def store_icon
-    self.icon = URLTempfile.new(icon_url)
+    if icon_url
+      self.icon = URLTempfile.new(icon_url)
+    end
   end
   
 end
