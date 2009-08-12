@@ -26,16 +26,16 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
     assert_equal '6005', results[1][:genre_id]
   end
   
-  def test_parse_item_names
+  def test_parse_names
     results = parsed_attributes(two_app_plists)
-    assert_equal 'SciCal Lite - Scientific Calculator', results[0][:itemName]
-    assert_equal 'Facebook', results[1][:itemName]
+    assert_equal 'SciCal Lite - Scientific Calculator', results[0][:name]
+    assert_equal 'Facebook', results[1][:name]
   end
   
   def test_parse_item_ids
     results = parsed_attributes(two_app_plists)
-    assert_equal '298967526', results[0][:itemId]
-    assert_equal '284882215', results[1][:itemId]
+    assert_equal '298967526', results[0][:item_id]
+    assert_equal '284882215', results[1][:item_id]
   end
   
   def test_parse_prices
@@ -64,14 +64,14 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
   
   def test_parse_icon_urls
     results = parsed_attributes(two_app_plists)
-    assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', results[0][:softwareIcon57x57URL]
-    assert_equal 'http://a1.phobos.apple.com/eu/r1000/039/Purple/56/44/f6/mzl.sftqmqlp.png', results[1][:softwareIcon57x57URL]
+    assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', results[0][:icon_url]
+    assert_equal 'http://a1.phobos.apple.com/eu/r1000/039/Purple/56/44/f6/mzl.sftqmqlp.png', results[1][:icon_url]
   end
   
-  def test_parse_purchase_dates
+  def test_parse_purchased_at
     results = parsed_attributes(two_app_plists)
-    assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), results[0][:purchaseDate]
-    assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), results[1][:purchaseDate]
+    assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), results[0][:purchased_at]
+    assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), results[1][:purchased_at]
   end
   
   def test_parse_software_version_bundle_id
@@ -88,8 +88,8 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
   
   def test_should_capture_raw_xml
     results = parsed_attributes(two_app_plists)
-    assert_not_nil results[0][:rawXML]
-    assert_not_nil results[1][:rawXML]
+    assert_not_nil results[0][:raw_xml]
+    assert_not_nil results[1][:raw_xml]
   end
   
   def test_should_not_raise_exception_when_xml_elements_are_missing
