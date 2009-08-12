@@ -22,10 +22,20 @@ class IphoneAppPlistParser
     downloadInfo = element_for_key(dict, 'com.apple.iTunesStore.downloadInfo')
     purchaseDate ||= value_for_key(downloadInfo, 'purchaseDate')
     attributes = {
+      :artist_name => value_for_key(dict, 'artistName'),
+      :artist_id => value_for_key(dict, 'artistId'),
+      :genre => value_for_key(dict, 'genre'),
+      :genre_id => value_for_key(dict, 'genreId'),
       :itemName => value_for_key(dict, 'itemName'),
       :itemId => value_for_key(dict, 'itemId'),
       :softwareIcon57x57URL => value_for_key(dict, 'softwareIcon57x57URL'),
-      :purchaseDate => purchaseDate ? Time.parse(purchaseDate) : nil,
+      :price => integer(value_for_key(dict, 'price')),
+      :display_price => value_for_key(dict, 'priceDisplay'),
+      :purchaseDate => time(purchaseDate),
+      :released_at => time(value_for_key(dict, 'releaseDate')),
+      :store_code => value_for_key(dict, 's'),
+      :software_version_bundle_id => value_for_key(dict, 'softwareVersionBundleId'),
+      :software_version_external_identifier => value_for_key(dict, 'softwareVersionExternalIdentifier'),
       :rawXML => plist.to_s
     }
   end
@@ -40,6 +50,14 @@ class IphoneAppPlistParser
   def value_for_key(root, key)
     element = element_for_key(root, key)
     element ? element.inner_text : nil
+  end
+  
+  def integer(text, default = nil)
+    text.blank? ? default : Integer(text) rescue default
+  end
+  
+  def time(text, default = nil)
+    text.blank? ? default : Time.parse(text) rescue default
   end
   
 end

@@ -2,6 +2,30 @@ require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
 class IphoneAppPlistParserTest < Test::Unit::TestCase
   
+  def test_parse_artist_names
+    results = parsed_attributes(two_app_plists)
+    assert_equal 'Quan Lam', results[0][:artist_name]
+    assert_equal 'Facebook', results[1][:artist_name]
+  end
+  
+  def test_parse_artist_ids
+    results = parsed_attributes(two_app_plists)
+    assert_equal '298794841', results[0][:artist_id]
+    assert_equal '284882218', results[1][:artist_id]
+  end
+  
+  def test_parse_genres
+    results = parsed_attributes(two_app_plists)
+    assert_equal 'Utilities', results[0][:genre]
+    assert_equal 'Social Networking', results[1][:genre]
+  end
+  
+  def test_parse_genre_ids
+    results = parsed_attributes(two_app_plists)
+    assert_equal '6002', results[0][:genre_id]
+    assert_equal '6005', results[1][:genre_id]
+  end
+  
   def test_parse_item_names
     results = parsed_attributes(two_app_plists)
     assert_equal 'SciCal Lite - Scientific Calculator', results[0][:itemName]
@@ -14,6 +38,30 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
     assert_equal '284882215', results[1][:itemId]
   end
   
+  def test_parse_prices
+    results = parsed_attributes(two_app_plists)
+    assert_equal 0, results[0][:price]
+    assert_equal 199, results[1][:price]
+  end
+  
+  def test_parse_display_prices
+    results = parsed_attributes(two_app_plists)
+    assert_equal 'FREE', results[0][:display_price]
+    assert_equal '£1.99', results[1][:display_price]
+  end
+  
+  def test_parse_released_at
+    results = parsed_attributes(two_app_plists)
+    assert_equal Time.parse('Mar 02 20:06:25 UTC 2009'), results[0][:released_at]
+    assert_equal Time.parse('Jul 10 07:00:00 UTC 2008'), results[1][:released_at]
+  end
+  
+  def test_parse_store_codes
+    results = parsed_attributes(two_app_plists)
+    assert_equal '143444', results[0][:store_code]
+    assert_equal '143444', results[1][:store_code]
+  end
+  
   def test_parse_icon_urls
     results = parsed_attributes(two_app_plists)
     assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', results[0][:softwareIcon57x57URL]
@@ -24,6 +72,18 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
     results = parsed_attributes(two_app_plists)
     assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), results[0][:purchaseDate]
     assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), results[1][:purchaseDate]
+  end
+  
+  def test_parse_software_version_bundle_id
+    results = parsed_attributes(two_app_plists)
+    assert_equal 'com.quanlam.scicallite', results[0][:software_version_bundle_id]
+    assert_equal 'com.facebook.Facebook', results[1][:software_version_bundle_id]
+  end
+  
+  def test_parse_software_version_external_identifier
+    results = parsed_attributes(two_app_plists)
+    assert_equal '1491255', results[0][:software_version_external_identifier]
+    assert_equal '1751102', results[1][:software_version_external_identifier]
   end
   
   def test_should_capture_raw_xml
@@ -176,9 +236,9 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
         <key>playlistName</key>
         <string>Facebook</string>
         <key>price</key>
-        <integer>0</integer>
+        <integer>199</integer>
         <key>priceDisplay</key>
-        <string>Free</string>
+        <string>£1.99</string>
         <key>purchaseDate</key>
         <date>2009-07-26T18:20:00Z</date>
         <key>rating</key>
