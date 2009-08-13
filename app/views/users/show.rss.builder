@@ -3,7 +3,7 @@ xml.instruct!
 xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => "2.0") do
   xml.channel do
     xml.title("#{@user.login}'s Apps")
-    xml.description("Applications recently installed by #{@user.login} (as recorded on installd.com)")
+    xml.description("Applications recently purchased by #{@user.login} (as recorded on installd.com)")
     xml.link(url_for(:host => HOST))
     xml.language 'en'
     xml.pubDate Time.now.to_s(:rfc822)

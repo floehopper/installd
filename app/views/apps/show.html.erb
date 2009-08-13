@@ -11,8 +11,11 @@
       <% @installs[0..4].each_with_index do |install, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <p class="onlyParagraph">
-              installed by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at) %> ago
+            <p class=firstOfTwoParagraphs>
+              purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
+            </p>
+            <p class=lastOfTwoParagraphs>
+              released <%= time_ago_in_words(install.released_at) %> ago
             </p>
           </li>
       <% end %>
@@ -23,8 +26,11 @@
       <% @installs[5..9].to_a.each_with_index do |install, index| %>
       <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
-          <p class="onlyParagraph">
-            installed by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at) %> ago
+          <p class=firstOfTwoParagraphs>
+            purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
+          </p>
+          <p class=lastOfTwoParagraphs>
+            released <%= time_ago_in_words(install.released_at) %> ago
           </p>
         </li>
       <% end %>
@@ -35,8 +41,11 @@
       <% @installs[10..14].to_a.each_with_index do |install, index| %>
       <% last = (index % 5 == 4) ? ' last' : '' %>
         <li class="install<%= last %>">
-          <p class="onlyParagraph">
-            installed by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at) %> ago
+          <p class=firstOfTwoParagraphs>
+            purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
+          </p>
+          <p class=lastOfTwoParagraphs>
+            released <%= time_ago_in_words(install.released_at) %> ago
           </p>
         </li>
       <% end %>
