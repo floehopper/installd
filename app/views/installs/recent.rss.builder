@@ -14,6 +14,7 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
         xml.pubDate install.created_at.to_s(:rfc822)
         xml.guid(app_url(install.app, :host => HOST), :isPermaLink => "false")
         xml.link install.app.url
+        xml.description "Purchased by #{link_to install.user.login, user_path(install.user)} #{time_ago_in_words(install.purchased_at).gsub(/about /, '')} ago for #{install.display_price.downcase}"
       end
     end
   end
