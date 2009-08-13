@@ -11,10 +11,10 @@
             <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
-            <p class=firstOfTwoParagraphs>
+            <p class="firstOfTwoParagraphs">
               purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
             </p>
-            <p class=lastOfTwoParagraphs>
+            <p class="lastOfTwoParagraphs">
               released <%= time_ago_in_words(install.released_at) %> ago
             </p>
           </li>
@@ -31,10 +31,10 @@
             <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
-            <p class=firstOfTwoParagraphs>
+            <p class="firstOfTwoParagraphs">
               purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
             </p>
-            <p class=lastOfTwoParagraphs>
+            <p class="lastOfTwoParagraphs">
               released <%= time_ago_in_words(install.released_at) %> ago
             </p>
           </li>
@@ -51,10 +51,10 @@
             <% content_tag('h3', :class => 'appName') do %>
               <%= link_to truncate(app.name), app_path(app) %>
             <% end %>
-            <p class=firstOfTwoParagraphs>
+            <p class="firstOfTwoParagraphs">
               purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
             </p>
-            <p class=lastOfTwoParagraphs>
+            <p class="lastOfTwoParagraphs">
               released <%= time_ago_in_words(install.released_at) %> ago
             </p>
           </li>
