@@ -23,13 +23,13 @@
           <td><%= user.email %></td>
           <td><%= user.active? ? 'Y' : 'N' %></td>
           <td><%= user.login_count %></td>
-          <td><%= user.last_request_at ? distance_of_time_in_words_to_now(user.last_request_at) : '-' %></td>
-          <td><%= user.last_login_at ? distance_of_time_in_words_to_now(user.last_login_at) : '-' %></td>
-          <td><%= user.current_login_at ? distance_of_time_in_words_to_now(user.current_login_at) : '-' %></td>
+          <td><%= user.last_request_at ? time_ago_in_words(user.last_request_at) : '-' %></td>
+          <td><%= user.last_login_at ? time_ago_in_words(user.last_login_at) : '-' %></td>
+          <td><%= user.current_login_at ? time_ago_in_words(user.current_login_at) : '-' %></td>
           <td><%= user.perishable_token %></td>
-          <td><%= distance_of_time_in_words_to_now(user.created_at) %></td>
-          <td><%= distance_of_time_in_words_to_now(user.updated_at) %></td>
-          <td><%= user.last_invited_at ? distance_of_time_in_words_to_now(user.last_invited_at) : '-' %></td>
+          <td><%= time_ago_in_words(user.created_at) %></td>
+          <td><%= time_ago_in_words(user.updated_at) %></td>
+          <td><%= user.last_invited_at ? time_ago_in_words(user.last_invited_at) : '-' %></td>
           <td>
             <% unless user.active? %>
               <%= button_to 'Invite', invite_user_path(user.id), :method => :put %>
