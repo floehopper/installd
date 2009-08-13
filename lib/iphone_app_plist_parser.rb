@@ -29,8 +29,8 @@ class IphoneAppPlistParser
       :name => value_for_key(dict, 'itemName'),
       :item_id => value_for_key(dict, 'itemId'),
       :icon_url => value_for_key(dict, 'softwareIcon57x57URL'),
-      :price => integer(value_for_key(dict, 'price')),
-      :display_price => value_for_key(dict, 'priceDisplay'),
+      :price => integer(value_for_key(dict, 'price'), 0),
+      :display_price => string(value_for_key(dict, 'priceDisplay'), 'UNKNOWN'),
       :purchased_at => time(purchaseDate),
       :released_at => time(value_for_key(dict, 'releaseDate')),
       :store_code => value_for_key(dict, 's'),
@@ -50,6 +50,10 @@ class IphoneAppPlistParser
   def value_for_key(root, key)
     element = element_for_key(root, key)
     element ? element.inner_text : nil
+  end
+  
+  def string(text, default = nil)
+    text.blank? ? default : text
   end
   
   def integer(text, default = nil)

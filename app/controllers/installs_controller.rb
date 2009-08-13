@@ -25,12 +25,33 @@ class InstallsController < ApplicationController
     installs = user.installs.dup
     parser = IphoneAppPlistParser.new(params[:doc])
     parser.each_app do |attributes|
-      app = App.find_by_name(attributes[:name]) || App.create!(:name => attributes[:name], :item_id => attributes[:item_id], :icon_url => attributes[:icon_url])
+      app = App.find_by_name(attributes[:name]) || App.create!(
+        attributes.slice(
+          :name,
+          :item_id,
+          :icon_url,
+          :artist_name,
+          :artist_id,
+          :genre,
+          :genre_id
+        )
+      )
       install = user.installs.find_by_app_id(app.id)
       if install
         installs.delete(install)
       else
-        user.installs.create!(:app => app, :purchased_at => attributes[:purchased_at], :raw_xml => attributes[:raw_xml])
+        user.installs.create!(
+          attributes.slice(
+            :price,
+            :display_price,
+            :purchased_at,
+            :released_at,
+            :store_code,
+            :software_version_bundle_id,
+            :software_version_external_identifier,
+            :raw_xml
+          ).merge(:app => app)
+        )
       end
     end
     installs.each { |install| install.destroy }

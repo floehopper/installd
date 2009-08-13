@@ -9,4 +9,11 @@ class Install < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :app_id
   validates_uniqueness_of :app_id, :scope => :user_id
   
+  validates_presence_of :price
+  validates_presence_of :display_price
+  validates_presence_of :released_at
+  validates_presence_of :store_code
+  validates_presence_of :software_version_bundle_id
+  validates_presence_of :software_version_external_identifier
+  
 end

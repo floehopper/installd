@@ -9,8 +9,11 @@ class App < ActiveRecord::Base
   validates_uniqueness_of :name
   
   validates_presence_of :item_id
-  
   validates_presence_of :icon_url
+  validates_presence_of :artist_name
+  validates_presence_of :artist_id
+  validates_presence_of :genre
+  validates_presence_of :genre_id
   
   before_validation :store_icon
   
