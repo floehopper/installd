@@ -19,7 +19,7 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= user.login %></td>
+          <td><%= link_to user.login, user.active? ? user_path(user) : '' %></td>
           <td><%= user.email %></td>
           <td><%= user.active? ? 'Y' : 'N' %></td>
           <td><%= user.login_count %></td>
