@@ -7,10 +7,8 @@
         <% app = install.app %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <%= link_to image_tag(app.icon.url, :alt => app.name), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do %>
-              <%= link_to truncate(app.name), app_path(app) %>
-            <% end %>
+            <%= icon(app) %>
+            <%= heading(app) %>
             <p class="onlyParagraph">
               purchased by <%= pluralize(install['number_of_installs'], 'user') %>
             </p>
@@ -24,10 +22,8 @@
         <% app = install.app %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <%= link_to image_tag(app.icon.url, :alt => app.name), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do %>
-              <%= link_to truncate(app.name), app_path(app) %>
-            <% end %>
+            <%= icon(app) %>
+            <%= heading(app) %>
             <p class="onlyParagraph">
               pruchased <%= pluralize(install['number_of_installs'], 'user') %>
             </p>
@@ -41,10 +37,8 @@
         <% app = install.app %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <%= link_to image_tag(app.icon.url, :alt => app.name), app.url, :class => 'appIcon' %>
-            <% content_tag('h3', :class => 'appName') do %>
-              <%= link_to truncate(app.name), app_path(app) %>
-            <% end %>
+            <%= icon(app) %>
+            <%= heading(app) %>
             <p class="onlyParagraph">
               purchased by <%= pluralize(install['number_of_installs'], 'user') %>
             </p>
