@@ -11,10 +11,11 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
     @apps.each do |app|
       xml.item do
         xml.title(app.name)
-        xml.pubDate app.installs.map(&:created_at).max.to_s(:rfc822)
+        install = app.most_recently_added_install
+        xml.pubDate install.created_at.to_s(:rfc822)
         xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
-        xml.link app.url
-        xml.description "Purchased by #{pluralize(app.installs.size, 'user')}"
+        xml.link app_url(app, :host => HOST)
+        xml.description "Purchased by #{pluralize(app.installs.size, 'user')}. Purchased by #{link_to install.user.login, user_path(install.user)} #{time_ago_in_words(install.purchased_at)} ago for #{install.display_price.downcase}"
       end
     end
   end

@@ -21,6 +21,10 @@ class App < ActiveRecord::Base
     "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=#{item_id}&mt=8"
   end
   
+  def most_recently_added_install
+    installs(:order => 'created_at').last
+  end
+  
   private
   
   def store_icon
