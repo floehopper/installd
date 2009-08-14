@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -8,13 +7,13 @@
   
   <% if Rails.env.production? %>
   <!-- Combo-handled YUI CSS files (generated from http://developer.yahoo.com/yui/articles/hosting/?fonts&grids&menu&reset&MIN): -->
-  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset-fonts-grids/reset-fonts-grids.css&2.7.0/build/menu/assets/skins/sam/menu.css">
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/reset-fonts-grids/reset-fonts-grids.css&amp;2.7.0/build/menu/assets/skins/sam/menu.css"/>
   <% else %>
   <!-- Combo-handled YUI CSS files (generated from http://developer.yahoo.com/yui/articles/hosting/?fonts&grids&menu&reset&DEBUG&norollup): -->
-  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/fonts/fonts-min.css&2.7.0/build/reset/reset-min.css&2.7.0/build/grids/grids-min.css&2.7.0/build/menu/assets/skins/sam/menu.css&2.7.0/build/logger/assets/skins/sam/logger.css">
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/fonts/fonts-min.css&amp;2.7.0/build/reset/reset-min.css&amp;2.7.0/build/grids/grids-min.css&amp;2.7.0/build/menu/assets/skins/sam/menu.css&amp;2.7.0/build/logger/assets/skins/sam/logger.css"/>
   <% end %>
   
-  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css"/>
   
   <% if @rss_feed_url %>
     <link rel="alternate" title="Installd RSS" href="<%= @rss_feed_url %>" type="application/rss+xml"/>
@@ -25,7 +24,7 @@
   <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.7.0/build/yahoo-dom-event/yahoo-dom-event.js&2.7.0/build/container/container_core-min.js&2.7.0/build/menu/menu-min.js"></script>
   <% else %>
   <!-- Combo-handled YUI JS files (generated from http://developer.yahoo.com/yui/articles/hosting/?fonts&grids&menu&reset&DEBUG&norollup): -->
-  <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.7.0/build/yahoo/yahoo-debug.js&2.7.0/build/dom/dom-debug.js&2.7.0/build/event/event-debug.js&2.7.0/build/container/container_core-debug.js&2.7.0/build/menu/menu-debug.js&2.7.0/build/logger/logger-debug.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.7.0/build/yahoo/yahoo-debug.js&amp;2.7.0/build/dom/dom-debug.js&amp;2.7.0/build/event/event-debug.js&amp;2.7.0/build/container/container_core-debug.js&amp;2.7.0/build/menu/menu-debug.js&amp;2.7.0/build/logger/logger-debug.js"></script>
   <% end %>
   
   <script type="text/javascript">
@@ -107,7 +106,7 @@
             </li>
             <li class="yuimenubaritem">
               <%= link_to 'Downloads', downloads_path, :class => "yuimenubaritemlabel" %>
-              <div id="people" class="yuimenu">
+              <div id="downloads" class="yuimenu">
                 <div class="bd">
                   <ul>
                     <li class="yuimenuitem">
