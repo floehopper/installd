@@ -39,6 +39,16 @@
       var oMenuBar = new YAHOO.widget.MenuBar("navigation", { autosubmenudisplay: true });
       oMenuBar.render();
     });
+    
+    $(function() {
+      $.fn.rating.options.required = true;
+      $('.auto-submit-star').rating({
+        callback: function(value, link) {
+          $(this.form).ajaxSubmit();
+        }
+      });
+      $('.install .rate').hide();
+    });
   </script>
   
   <!-- TradeDoubler site verification 1710525 -->

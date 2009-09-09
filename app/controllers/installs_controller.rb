@@ -20,6 +20,15 @@ class InstallsController < ApplicationController
     @installs = Install.paginate(:select => '*, COUNT(*) AS number_of_installs', :group => 'app_id', :order => 'number_of_installs DESC', :include => :app, :page => params[:page], :per_page => 15)
   end
   
+  def update
+    @user = User.find_by_login(params[:user_id])
+    @install = Install.find(params[:id])
+    attributes = params[:install] || {}
+    attributes[:rating] ||= nil
+    @install.update_attributes(attributes)
+    render :nothing => true
+  end
+  
   def synchronize
     user = User.find_by_login(params[:user_id])
     installs = user.installs.dup

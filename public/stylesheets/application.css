@@ -98,6 +98,10 @@ h3 {
   margin-left: 67px;
 }
 
+.install .rating {
+  margin-top: 3px;
+}
+
 .install .details {
   clear: left;
 }
