@@ -10,4 +10,24 @@ module ApplicationHelper
     end
   end
   
+  def stars(install)
+    returning String.new do |stars|
+      (1..5).each do |rating|
+        if install.rating && install.rating >= rating
+          stars << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
+            content_tag('a', :title => rating) do
+              rating
+            end
+          end
+        else
+          stars << content_tag('div', :class => 'star-rating star-rating-readonly') do
+            content_tag('a', :title => rating) do
+              rating
+            end
+          end
+        end
+      end
+    end
+  end
+  
 end

@@ -31,6 +31,8 @@
                   <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
                   <%= form.submit 'Rate', :class => 'rate' %>
                 <% end %>
+              <% else %>
+                <%= stars(install) %>
               <% end %>
             </div>
             <div class="details">
@@ -63,6 +65,8 @@
                   <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
                   <%= form.submit 'Rate', :class => 'rate' %>
                 <% end %>
+              <% else %>
+                <%= stars(install) %>
               <% end %>
             </div>
             <div class="details">
@@ -95,6 +99,8 @@
                   <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
                   <%= form.submit 'Rate', :class => 'rate' %>
                 <% end %>
+              <% else %>
+                <%= stars(install) %>
               <% end %>
             </div>
             <div class="details">
