@@ -21,12 +21,14 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="firstOfTwoParagraphs">
-              purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
-            </p>
-            <p class="lastOfTwoParagraphs">
-              released <%= time_ago_in_words(install.released_at) %> ago
-            </p>
+            <div class="details">
+              <p>
+                purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
+              </p>
+              <p>
+                released <%= time_ago_in_words(install.released_at) %> ago
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>
@@ -39,12 +41,14 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="firstOfTwoParagraphs">
-              purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
-            </p>
-            <p class="lastOfTwoParagraphs">
-              released <%= time_ago_in_words(install.released_at) %> ago
-            </p>
+            <div class="details">
+              <p>
+                purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
+              </p>
+              <p>
+                released <%= time_ago_in_words(install.released_at) %> ago
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>
@@ -57,12 +61,14 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="firstOfTwoParagraphs">
-              purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
-            </p>
-            <p class="lastOfTwoParagraphs">
-              released <%= time_ago_in_words(install.released_at) %> ago
-            </p>
+            <div class="details">
+              <p>
+                purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
+              </p>
+              <p>
+                released <%= time_ago_in_words(install.released_at) %> ago
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>

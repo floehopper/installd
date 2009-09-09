@@ -9,9 +9,11 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="onlyParagraph">
-              purchased by <%= pluralize(install['number_of_installs'], 'user') %>
-            </p>
+            <div class="details">
+              <p>
+                purchased by <%= pluralize(install['number_of_installs'], 'user') %>
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>
@@ -24,9 +26,11 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="onlyParagraph">
-              pruchased <%= pluralize(install['number_of_installs'], 'user') %>
-            </p>
+            <div class="details">
+              <p>
+                purchased by <%= pluralize(install['number_of_installs'], 'user') %>
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>
@@ -39,9 +43,11 @@
           <li class="install<%= last %>">
             <%= icon(app) %>
             <%= heading(app) %>
-            <p class="onlyParagraph">
-              purchased by <%= pluralize(install['number_of_installs'], 'user') %>
-            </p>
+            <div class="details">
+              <p>
+                purchased by <%= pluralize(install['number_of_installs'], 'user') %>
+              </p>
+            </div>
           </li>
       <% end %>
     </ul>

@@ -72,7 +72,6 @@ h2#user {
 
 h3 {
   font-size: 120%;
-  margin-top: 10px;
 }
 
 .install {
@@ -80,6 +79,7 @@ h3 {
   list-style-type: none;
   clear: left;
   white-space: nowrap;
+  padding: 10px 10px 10px 10px;
 }
 
 .install.last {
@@ -87,7 +87,6 @@ h3 {
 }
 
 .install a.appIcon {
-  margin: 10px 10px 10px 10px;
   float: left;
 }
 
@@ -95,20 +94,16 @@ h3 {
   border: 0;
 }
 
-.install h3.appName {
+.install .appName {
+  margin-left: 67px;
 }
 
-.install p.onlyParagraph {
-  height: 30px;
-  margin: 22px 0 0 0;
+.install .details {
+  clear: left;
 }
 
-.install p.firstOfTwoParagraphs {
-  margin: 6px 0 1px 0;
-}
-
-.install p.lastOfTwoParagraphs {
-  margin: 1px 0 10px 0;
+.install .details p {
+  margin: 2px 0px 2px 0px;
 }
 
 .pagination {
