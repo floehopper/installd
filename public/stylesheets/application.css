@@ -86,11 +86,11 @@ h3 {
   border-bottom: 1px solid #999999;
 }
 
-.install a.appIcon {
+.install .appIcon {
   float: left;
 }
 
-.install a.appIcon img {
+.install .appIcon img {
   border: 0;
 }
 
