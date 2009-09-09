@@ -79,6 +79,7 @@ h3 {
   border-top: 1px solid #999999;
   list-style-type: none;
   clear: left;
+  white-space: nowrap;
 }
 
 .install.last {
@@ -95,23 +96,19 @@ h3 {
 }
 
 .install h3.appName {
-  white-space: nowrap;
 }
 
 .install p.onlyParagraph {
   height: 30px;
   margin: 22px 0 0 0;
-  white-space: nowrap;
 }
 
 .install p.firstOfTwoParagraphs {
   margin: 6px 0 1px 0;
-  white-space: nowrap;
 }
 
 .install p.lastOfTwoParagraphs {
   margin: 1px 0 10px 0;
-  white-space: nowrap;
 }
 
 .pagination {
