@@ -75,41 +75,41 @@ h3 {
   margin-top: 10px;
 }
 
-li.install {
+.install {
   border-top: 1px solid #999999;
   list-style-type: none;
   clear: left;
 }
 
-li.install.last {
+.install.last {
   border-bottom: 1px solid #999999;
 }
 
-li.install a.appIcon {
+.install a.appIcon {
   margin: 10px 10px 10px 10px;
   float: left;
 }
 
-li.install a.appIcon img {
+.install a.appIcon img {
   border: 0;
 }
 
-li.install h3.appName {
+.install h3.appName {
   white-space: nowrap;
 }
 
-li.install p.onlyParagraph {
+.install p.onlyParagraph {
   height: 30px;
   margin: 22px 0 0 0;
   white-space: nowrap;
 }
 
-li.install p.firstOfTwoParagraphs {
+.install p.firstOfTwoParagraphs {
   margin: 6px 0 1px 0;
   white-space: nowrap;
 }
 
-li.install p.lastOfTwoParagraphs {
+.install p.lastOfTwoParagraphs {
   margin: 1px 0 10px 0;
   white-space: nowrap;
 }
