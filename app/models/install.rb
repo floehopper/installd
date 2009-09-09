@@ -16,4 +16,8 @@ class Install < ActiveRecord::Base
   validates_presence_of :software_version_bundle_id
   validates_presence_of :software_version_external_identifier
   
+  def can_be_updated_by?(updating_user)
+    user == updating_user
+  end
+  
 end

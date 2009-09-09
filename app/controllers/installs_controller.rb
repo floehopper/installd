@@ -21,9 +21,8 @@ class InstallsController < ApplicationController
   end
   
   def update
-    @user = User.find_by_login(params[:user_id])
-    if @user.me?(current_user)
-      @install = Install.find(params[:id])
+    @install = Install.find(params[:id])
+    if @install.can_be_updated_by?(current_user)
       attributes = params[:install] || {}
       attributes[:rating] ||= nil
       @install.update_attributes(attributes)
