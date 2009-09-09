@@ -20,7 +20,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
@@ -40,7 +42,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
@@ -60,7 +64,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>

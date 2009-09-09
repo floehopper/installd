@@ -11,7 +11,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased by <%= pluralize(app.installs.size, 'user') %>
@@ -27,7 +29,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased by <%= pluralize(app.installs.size, 'user') %>
@@ -43,7 +47,9 @@
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
-            <%= heading(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+            </div>
             <div class="details">
               <p>
                 purchased by <%= pluralize(app.installs.size, 'user') %>
