@@ -22,13 +22,15 @@
             <%= icon(app) %>
             <div class="heading">
               <%= heading(app) %>
-              <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
-                <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                <%= form.submit 'Rate', :class => 'rate' %>
+              <% if @user.me?(current_user) %>
+                <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
+                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
+                  <%= form.submit 'Rate', :class => 'rate' %>
+                <% end %>
               <% end %>
             </div>
             <div class="details">
@@ -52,13 +54,15 @@
             <%= icon(app) %>
             <div class="heading">
               <%= heading(app) %>
-              <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
-                <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                <%= form.submit 'Rate', :class => 'rate' %>
+              <% if @user.me?(current_user) %>
+                <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
+                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
+                  <%= form.submit 'Rate', :class => 'rate' %>
+                <% end %>
               <% end %>
             </div>
             <div class="details">
@@ -82,13 +86,15 @@
             <%= icon(app) %>
             <div class="heading">
               <%= heading(app) %>
-              <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
-                <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                <%= form.submit 'Rate', :class => 'rate' %>
+              <% if @user.me?(current_user) %>
+                <% form_for([@user, install], :html => { :class => 'rating' }) do |form| %>
+                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
+                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
+                  <%= form.submit 'Rate', :class => 'rate' %>
+                <% end %>
               <% end %>
             </div>
             <div class="details">
