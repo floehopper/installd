@@ -102,6 +102,11 @@ h3 {
   margin-top: 3px;
 }
 
+.install .buy {
+  float: right;
+  margin-top: 3px;
+}
+
 .install .details {
   clear: left;
 }

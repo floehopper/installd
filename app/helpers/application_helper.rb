@@ -30,4 +30,9 @@ module ApplicationHelper
     end
   end
   
+  def buy_link(app)
+    url = "http://clkuk.tradedoubler.com/click?p=23708&a=1710525&url=" + CGI.escape(app.url + "&uo=6&partnerId=2003")
+    link_to(image_tag("http://ax.itunes.apple.com/images/badgeitunes61x15dark.gif", :size => "61x15", :alt => app.name), url, :class => 'buy')
+  end
+  
 end
