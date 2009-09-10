@@ -9,19 +9,7 @@
     <ul class="installs">
       <% @apps[0..4].each_with_index do |app, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-          <li class="install<%= last %>">
-            <%= icon(app) %>
-            <div class="heading">
-              <%= heading(app) %>
-              <%= stars(app.average_rating) %>
-              <%= buy_link(app) %>
-            </div>
-            <div class="details">
-              <p>
-                purchased by <%= pluralize(app.installs.size, 'user') %>
-              </p>
-            </div>
-          </li>
+        <%= render :partial => 'install', :locals => { :app => app, :last => last } %>
       <% end %>
     </ul>
   </div>
@@ -29,19 +17,7 @@
     <ul class="installs">
       <% @apps[5..9].to_a.each_with_index do |app, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-          <li class="install<%= last %>">
-            <%= icon(app) %>
-            <div class="heading">
-              <%= heading(app) %>
-              <%= stars(app.average_rating) %>
-              <%= buy_link(app) %>
-            </div>
-            <div class="details">
-              <p>
-                purchased by <%= pluralize(app.installs.size, 'user') %>
-              </p>
-            </div>
-          </li>
+        <%= render :partial => 'install', :locals => { :app => app, :last => last } %>
       <% end %>
     </ul>
   </div>
@@ -49,19 +25,7 @@
     <ul class="installs">
       <% @apps[10..14].to_a.each_with_index do |app, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-          <li class="install<%= last %>">
-            <%= icon(app) %>
-            <div class="heading">
-              <%= heading(app) %>
-              <%= stars(app.average_rating) %>
-              <%= buy_link(app) %>
-            </div>
-            <div class="details">
-              <p>
-                purchased by <%= pluralize(app.installs.size, 'user') %>
-              </p>
-            </div>
-          </li>
+        <%= render :partial => 'install', :locals => { :app => app, :last => last } %>
       <% end %>
     </ul>
   </div>

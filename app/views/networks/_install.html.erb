@@ -1,0 +1,13 @@
+<li class="install<%= last %>">
+  <%= icon(app) %>
+  <div class="heading">
+    <%= heading(app) %>
+    <%= stars(app.average_rating) %>
+    <%= buy_link(app) %>
+  </div>
+  <div class="details">
+    <p>
+      purchased by <%= pluralize(app.installs.size, 'user') %>
+    </p>
+  </div>
+</li>

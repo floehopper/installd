@@ -1,0 +1,21 @@
+<% app = install.app %>
+<li class="install<%= last %>">
+  <%= icon(app) %>
+  <div class="heading">
+    <%= heading(app) %>
+    <% if install.can_be_updated_by?(current_user) %>
+      <%= render :partial => '/installs/rating', :locals => { :install => install } %>
+    <% else %>
+      <%= stars(install.rating) %>
+    <% end %>
+    <%= buy_link(app) %>
+  </div>
+  <div class="details">
+    <p>
+      purchased <%= time_ago_in_words(install.purchased_at) %> ago for <%= install.display_price.downcase %>
+    </p>
+    <p>
+      released <%= time_ago_in_words(install.released_at) %> ago
+    </p>
+  </div>
+</li>
