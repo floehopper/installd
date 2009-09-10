@@ -23,14 +23,7 @@
             <div class="heading">
               <%= heading(app) %>
               <% if install.can_be_updated_by?(current_user) %>
-                <% form_for(install, :html => { :class => 'rating' }) do |form| %>
-                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                  <%= form.submit 'Rate', :class => 'rate' %>
-                <% end %>
+                <%= render :partial => '/installs/rating', :locals => { :install => install } %>
               <% else %>
                 <%= stars(install.rating) %>
               <% end %>
@@ -58,14 +51,7 @@
             <div class="heading">
               <%= heading(app) %>
               <% if install.can_be_updated_by?(current_user) %>
-                <% form_for(install, :html => { :class => 'rating' }) do |form| %>
-                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                  <%= form.submit 'Rate', :class => 'rate' %>
-                <% end %>
+                <%= render :partial => '/installs/rating', :locals => { :install => install } %>
               <% else %>
                 <%= stars(install.rating) %>
               <% end %>
@@ -93,14 +79,7 @@
             <div class="heading">
               <%= heading(app) %>
               <% if install.can_be_updated_by?(current_user) %>
-                <% form_for(install, :html => { :class => 'rating' }) do |form| %>
-                  <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 4, :class => 'auto-submit-star' %>
-                  <%= form.radio_button :rating, 5, :class => 'auto-submit-star' %>
-                  <%= form.submit 'Rate', :class => 'rate' %>
-                <% end %>
+                <%= render :partial => '/installs/rating', :locals => { :install => install } %>
               <% else %>
                 <%= stars(install.rating) %>
               <% end %>
