@@ -1,7 +1,7 @@
 module ApplicationHelper
   
   def icon(app)
-    link_to(image_tag(app.icon.url, :alt => app.name), app.url, :class => 'appIcon')
+    link_to(image_tag(app.icon.url, :alt => app.name), app_path(app), :class => 'appIcon')
   end
   
   def heading(app)
