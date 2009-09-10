@@ -10,10 +10,10 @@ module ApplicationHelper
     end
   end
   
-  def stars(install)
+  def stars(rating)
     returning String.new do |stars|
-      (1..5).each do |rating|
-        if install.rating && install.rating >= rating
+      (1..5).each do |index|
+        if rating && rating >= index
           stars << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
             content_tag('a', :title => rating) do
               rating

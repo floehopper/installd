@@ -25,6 +25,10 @@ class App < ActiveRecord::Base
     installs(:order => 'created_at').last
   end
   
+  def average_rating
+    installs.average(:rating)
+  end
+  
   private
   
   def store_icon
