@@ -44,7 +44,7 @@ a:hover {
 }
 
 #navigation {
-  clear:left ;
+  clear: both;
 }
 
 .flashNotice {
@@ -67,7 +67,7 @@ h2#user {
 }
 
 .yui-gb {
-  clear: left;
+  clear: both;
 }
 
 h3 {
@@ -77,7 +77,7 @@ h3 {
 .install {
   border-top: 1px solid #999999;
   list-style-type: none;
-  clear: left;
+  clear: both;
   white-space: nowrap;
   padding: 10px 10px 10px 10px;
 }
@@ -108,7 +108,7 @@ h3 {
 }
 
 .install .details {
-  clear: left;
+  clear: both;
 }
 
 .install .details p {
