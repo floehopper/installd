@@ -11,18 +11,20 @@ module ApplicationHelper
   end
   
   def stars(rating)
-    returning String.new do |stars|
-      (1..5).each do |index|
-        if rating && rating >= index
-          stars << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
-            content_tag('a', :title => rating) do
-              rating
+    content_tag 'div', :class => 'rating' do
+      returning String.new do |content|
+        (1..5).each do |index|
+          if rating && rating >= index
+            content << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
+              content_tag('a', :title => rating) do
+                rating
+              end
             end
-          end
-        else
-          stars << content_tag('div', :class => 'star-rating star-rating-readonly') do
-            content_tag('a', :title => rating) do
-              rating
+          else
+            content << content_tag('div', :class => 'star-rating star-rating-readonly') do
+              content_tag('a', :title => rating) do
+                rating
+              end
             end
           end
         end
