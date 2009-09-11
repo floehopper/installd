@@ -8,7 +8,7 @@
 <div class="yui-gb">
   <div class="yui-u first">
     <ul class="installs">
-      <% @installs[0..4].each_with_index do |install, index| %>
+      <% @installs[0..4].to_a.each_with_index do |install, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
           <li class="install<%= last %>">
             <div class="details">
