@@ -13,7 +13,7 @@
       <ul class="installs">
         <% installs.each do |install| %>
           <% last = (install == installs.last) ? ' last' : '' %>
-          <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
+          <%= render :partial => install , :locals => { :last => last } %>
         <% end %>
       </ul>
     </div>
