@@ -17,7 +17,7 @@
     <ul class="installs">
       <% @installs[0..4].to_a.each_with_index do |install, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => 'install' , :locals => { :install => install, :last => last } %>
+        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
       <% end %>
     </ul>
   </div>
@@ -25,7 +25,7 @@
     <ul class="installs">
       <% @installs[5..9].to_a.each_with_index do |install, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => 'install' , :locals => { :install => install, :last => last } %>
+        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
       <% end %>
     </ul>
   </div>
@@ -33,7 +33,7 @@
     <ul class="installs">
       <% @installs[10..14].to_a.each_with_index do |install, index| %>
         <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => 'install' , :locals => { :install => install, :last => last } %>
+        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
       <% end %>
     </ul>
   </div>
