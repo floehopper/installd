@@ -54,4 +54,22 @@ class User < ActiveRecord::Base
     connected_users.include?(user)
   end
   
+  def app_ids_sql
+    %{
+      SELECT apps.id FROM apps
+        INNER JOIN installs ON (apps.id = installs.app_id)
+        INNER JOIN users ON (installs.user_id = #{id})
+    }
+  end
+  
+  def connected_app_ids_sql
+    %{
+      SELECT apps.id FROM apps
+        INNER JOIN installs ON (apps.id = installs.app_id)
+        INNER JOIN users ON (installs.user_id = users.id)
+        INNER JOIN connections ON (users.id = connections.connected_user_id)
+        WHERE (connections.user_id = #{id})
+    }
+  end
+  
 end
