@@ -13,7 +13,6 @@ class InstallsController < ApplicationController
   
   def recent
     @installs = Install.paginate(:order => 'created_at DESC', :include => :app, :page => params[:page], :per_page => 15)
-    @rss_feed_url = url_for(:format => 'rss')
   end
   
   def popular
