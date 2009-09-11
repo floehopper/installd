@@ -95,7 +95,8 @@ h3 {
 }
 
 .install .heading {
-  margin-left: 67px;
+  padding-left: 10px;
+  overflow: hidden;
 }
 
 .install .rating {
@@ -108,7 +109,8 @@ h3 {
 }
 
 .install .details {
-  clear: both;
+  clear: left;
+  overflow: hidden;
 }
 
 .install .details p {
