@@ -36,30 +36,17 @@
 <% end %>
 
 <div class="yui-gb">
-  <div class="yui-u first">
-    <ul class="installs">
-      <% @installs[0..4].to_a.each_with_index do |install, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @installs[5..9].to_a.each_with_index do |install, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @installs[10..14].to_a.each_with_index do |install, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
+  <% @installs.each_slice(5) do |installs| %>
+    <% first = (installs.first == @installs.first) ? ' first' : '' %>
+    <div class="yui-u <%= first %>">
+      <ul class="installs">
+        <% installs.each do |install| %>
+          <% last = (install == installs.last) ? ' last' : '' %>
+          <%= render :partial => '/installs/list_item' , :locals => { :install => install, :last => last } %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <%= will_paginate @installs %>

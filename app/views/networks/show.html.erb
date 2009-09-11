@@ -11,30 +11,17 @@
 </p>
 
 <div class="yui-gb">
-  <div class="yui-u first">
-    <ul class="installs">
-      <% @apps[0..4].to_a.each_with_index do |app, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/apps/list_item', :locals => { :app => app, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @apps[5..9].to_a.each_with_index do |app, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/apps/list_item', :locals => { :app => app, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @apps[10..14].to_a.each_with_index do |app, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
-        <%= render :partial => '/apps/list_item', :locals => { :app => app, :last => last } %>
-      <% end %>
-    </ul>
-  </div>
+  <% @apps.each_slice(5) do |apps| %>
+    <% first = (apps.first == @apps.first) ? ' first' : '' %>
+    <div class="yui-u <%= first %>">
+      <ul class="installs">
+        <% apps.each do |app| %>
+          <% last = (app == apps.last) ? ' last' : '' %>
+          <%= render :partial => '/apps/list_item', :locals => { :app => app, :last => last } %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <%= will_paginate @apps %>
