@@ -55,28 +55,32 @@ class User < ActiveRecord::Base
   end
   
   def connected_apps_including_mine
-    App.all(
-      :select => %{
-        apps.*,
-        COUNT(installs.id) AS number_of_installs,
-        AVG(installs.rating) AS average_rating,
-        MAX(installs.created_at) AS maximum_created_at
-      },
-      :joins => %{
-        INNER JOIN installs
-          ON (apps.id = installs.app_id)
-      },
-      :conditions => %{
-        apps.id IN (#{app_ids_sql})
-        OR
-        apps.id IN (#{connected_app_ids_sql})
-      },
-      :group => 'apps.id',
-      :order => 'maximum_created_at DESC'
-    )
+    connected_apps_optimized(%{
+      apps.id IN (#{app_ids_sql})
+      OR
+      apps.id IN (#{connected_app_ids_sql})
+    })
   end
   
   def connected_apps_in_common
+    connected_apps_optimized(%{
+      apps.id IN (#{app_ids_sql})
+      AND
+      apps.id IN (#{connected_app_ids_sql})
+    })
+  end
+  
+  def connected_apps_not_in_common
+    connected_apps_optimized(%{
+      apps.id NOT IN (#{app_ids_sql})
+      AND
+      apps.id IN (#{connected_app_ids_sql})
+    })
+  end
+  
+  private
+  
+  def connected_apps_optimized(conditions)
     App.all(
       :select => %{
         apps.*,
@@ -88,39 +92,11 @@ class User < ActiveRecord::Base
         INNER JOIN installs
           ON (apps.id = installs.app_id)
       },
-      :conditions => %{
-        apps.id IN (#{app_ids_sql})
-        AND
-        apps.id IN (#{connected_app_ids_sql})
-      },
+      :conditions => conditions,
       :group => 'apps.id',
       :order => 'maximum_created_at DESC'
     )
   end
-  
-  def connected_apps_not_in_common
-    apps_not_in_common = App.all(
-      :select => %{
-        apps.*,
-        COUNT(installs.id) AS number_of_installs,
-        AVG(installs.rating) AS average_rating,
-        MAX(installs.created_at) AS maximum_created_at
-      },
-      :joins => %{
-        INNER JOIN installs
-          ON (apps.id = installs.app_id)
-      },
-      :conditions => %{
-        apps.id NOT IN (#{app_ids_sql})
-        AND
-        apps.id IN (#{connected_app_ids_sql})
-      },
-      :group => 'apps.id',
-      :order => 'maximum_created_at DESC'
-    )
-  end
-  
-  private
   
   def app_ids_sql
     %{
