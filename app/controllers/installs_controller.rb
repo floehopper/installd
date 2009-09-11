@@ -17,7 +17,7 @@ class InstallsController < ApplicationController
   end
   
   def popular
-    @installs = Install.paginate(:select => '*, COUNT(*) AS number_of_installs', :group => 'app_id', :order => 'number_of_installs DESC', :include => :app, :page => params[:page], :per_page => 15)
+    @apps = App.paginate(:select => 'apps.*, COUNT(installs.id) AS number_of_installs, AVG(installs.rating) AS average_rating', :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id', :group => 'apps.id', :order => 'number_of_installs DESC, created_at DESC', :page => params[:page], :per_page => 15)
   end
   
   def update
