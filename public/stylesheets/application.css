@@ -103,6 +103,11 @@ h3 {
   margin-top: 3px;
 }
 
+.install .rating input {
+  float: left;
+  margin: 2px 2px 2px 2px;
+}
+
 .install .rating .progress {
   float: left;
   padding-left: 3px;
