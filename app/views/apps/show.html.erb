@@ -6,10 +6,12 @@
 </div>
 
 <div class="yui-gb">
-  <div class="yui-u first">
-    <ul class="installs">
-      <% @installs[0..4].to_a.each_with_index do |install, index| %>
-        <% last = (index % 5 == 4) ? ' last' : '' %>
+  <% @installs.each_slice(5) do |installs| %>
+    <% first = (installs.first == @installs.first) ? ' first' : '' %>
+    <div class="yui-u <%= first %>">
+      <ul class="installs">
+        <% installs.each do |install| %>
+          <% last = (install == installs.last) ? ' last' : '' %>
           <li class="install<%= last %>">
             <div class="details">
               <p>
@@ -20,43 +22,10 @@
               </p>
             </div>
           </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @installs[5..9].to_a.each_with_index do |install, index| %>
-      <% last = (index % 5 == 4) ? ' last' : '' %>
-        <li class="install<%= last %>">
-          <div class="details">
-            <p>
-              purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
-            </p>
-            <p>
-              released <%= time_ago_in_words(install.released_at) %> ago
-            </p>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="yui-u">
-    <ul class="installs">
-      <% @installs[10..14].to_a.each_with_index do |install, index| %>
-      <% last = (index % 5 == 4) ? ' last' : '' %>
-        <li class="install<%= last %>">
-          <div class="details">
-            <p>
-              purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
-            </p>
-            <p>
-              released <%= time_ago_in_words(install.released_at) %> ago
-            </p>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <%= will_paginate @installs %>
