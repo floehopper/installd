@@ -1,5 +1,7 @@
 <% content_for :head do %>
   <%= render :partial => '/shared/rss' %>
+  
+  <link rel="stylesheet" href="/stylesheets/jquery.rating.css" type="text/css"/>
 <% end %>
 
 <h2><%= h("#{@user.login}'s Network") %></h2>
