@@ -13,7 +13,19 @@
       $.fn.rating.options.required = true;
       $('.auto-submit-star').rating({
         callback: function(value, link) {
-          $(this.form).ajaxSubmit();
+          progress = $(this.form).children('.progress')
+          progress.show();
+          $(this.form).ajaxSubmit({
+            // success: function(data, status) {
+            //   alert('success:' + data + status);
+            // },
+            // error: function(request, status, error) {
+            //   alert('error:' + status + error);
+            // },
+            complete: function(request, status) {
+              progress.hide();
+            }
+          });
         }
       });
       $('.install .rate').hide();

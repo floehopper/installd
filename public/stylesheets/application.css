@@ -103,6 +103,12 @@ h3 {
   margin-top: 3px;
 }
 
+.install .rating .progress {
+  float: left;
+  padding-left: 3px;
+  display: none;
+}
+
 .install .buy {
   float: right;
   margin-top: 3px;
