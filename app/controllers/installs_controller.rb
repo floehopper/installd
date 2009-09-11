@@ -22,11 +22,13 @@ class InstallsController < ApplicationController
   def update
     @install = Install.find(params[:id])
     if @install.can_be_updated_by?(current_user)
-      attributes = params[:install] || {}
-      attributes[:rating] ||= nil
-      @install.update_attributes(attributes)
+      rating = params[:install] && params[:install][:rating]
+      @install.update_attributes(:rating => rating, :rated_at => Time.now)
     end
-    render :nothing => true
+    respond_to do |format|
+     format.js { render :nothing => true }
+     format.html { redirect_to :back }
+    end
   end
   
   def synchronize
