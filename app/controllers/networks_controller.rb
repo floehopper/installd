@@ -4,7 +4,7 @@ class NetworksController < ApplicationController
   
   def show
     my_apps = Set.new(@user.apps)
-    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    network_apps = Set.new(@user.connected_apps)
     now = Time.now
     @apps = (network_apps + my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')
@@ -12,7 +12,7 @@ class NetworksController < ApplicationController
   
   def in_common
     my_apps = Set.new(@user.apps)
-    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    network_apps = Set.new(@user.connected_apps)
     now = Time.now
     @apps = (network_apps & my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')
@@ -21,7 +21,7 @@ class NetworksController < ApplicationController
   
   def not_in_common
     my_apps = Set.new(@user.apps)
-    network_apps = Set.new(@user.connected_installs(:include => :app).map(&:app))
+    network_apps = Set.new(@user.connected_apps)
     now = Time.now
     @apps = (network_apps - my_apps).sort_by { |app| now - app.installs.map(&:created_at).max }.paginate(:page => params[:page], :per_page => 15)
     @rss_feed_url = url_for(:format => 'rss')

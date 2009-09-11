@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :connections
   has_many :connected_users, :through => :connections
   has_many :connected_installs, :through => :connected_users, :source => :installs
+  has_many :connected_apps, :through => :connected_installs, :source => :app
   has_many :invitations, :order => 'created_at'
   
   named_scope :active, :conditions => { :active => true }
