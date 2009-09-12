@@ -2,7 +2,7 @@
   <%= icon(install.app) %>
   <div class="heading">
     <%= heading(install.app) %>
-    <% if install.can_be_updated_by?(current_user) %>
+    <% if current_user && (current_user == @user) %>
       <%= render :partial => '/installs/rating', :locals => { :install => install } %>
     <% else %>
       <%= stars(install.rating) %>
