@@ -1,7 +1,5 @@
 class InstallsController < ApplicationController
   
-  before_filter :require_user, :only => :synchronize
-  
   def index
     @user = User.find_by_login(params[:user_id])
     if @user
@@ -33,6 +31,12 @@ class InstallsController < ApplicationController
   
   def synchronize
     user = User.find_by_login(params[:user_id])
+    
+    unless current_user && (current_user == user)
+      render :nothing => true, :status => :forbidden
+      return
+    end
+    
     installs = user.installs.dup
     parser = IphoneAppPlistParser.new(params[:doc])
     parser.each_app do |attributes|
