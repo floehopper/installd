@@ -6,34 +6,27 @@
   
   <ul>
     <li>
+      The Preference Pane currently requires Mac OSX (at least version 10.4)
+    </li>
+    <li>
       <%= link_to 'Sign Up', new_user_path %> and activate your account if you have not already done so.
     </li>
     <li>
-      Download, install &amp; run the desktop application for your platform.
+      <%= link_to 'Download', '/system/prefpane-sparkle/index.php' %> &amp; install the Preference Pane (double-click Installd.prefpane).
     </li>
     <li>
-      The desktop application keeps your account on <%= link_to 'installd.com', root_path %> up-to-date with the applications you have installed.
+      Set your username and password in the Preference Pane.
     </li>
     <li>
-      Set your credentials in the desktop application preferences.
+      Click 'Sync Now' to synchronize your applications so that they appear on <%= link_to 'installd.com', root_path %>.
     </li>
     <li>
-      Synchronize your applications so that they appear on <%= link_to 'installd.com', root_path %>.
+      The Preference Pane will automatically synchronize your applications once a day.
     </li>
   </ul>
   
-  <h3>Platforms</h3>
-  
-  <ul>
-    <li>
-      <%= link_to 'Macintosh', mac_downloads_path %>
-    </li>
-    <li>
-      <%= link_to 'Linux', linux_downloads_path %>
-    </li>
-    <li>
-      <%= link_to 'Windows', windows_downloads_path %>
-    </li>
-  </ul>
-  
+  <p>
+    <%= link_to(image_tag('dmg.png'), '/system/prefpane-sparkle/index.php') %>
+  </p>
+
 </div>
