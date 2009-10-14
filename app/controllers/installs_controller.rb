@@ -42,17 +42,17 @@ class InstallsController < ApplicationController
     
     parser = IphoneAppPlistParser.new(params[:doc])
     parser.each_app do |attributes|
-      app = App.find_by_name(attributes[:name]) || App.create!(
-        attributes.slice(
-          :name,
-          :item_id,
-          :icon_url,
-          :artist_name,
-          :artist_id,
-          :genre,
-          :genre_id
-        )
+      app_attributes = attributes.slice(
+        :name,
+        :item_id,
+        :icon_url,
+        :artist_name,
+        :artist_id,
+        :genre,
+        :genre_id
       )
+      
+      app = App.find_by_name(attributes[:name]) || App.create!(app_attributes)
       
       install_attributes = attributes.slice(
         :price,
