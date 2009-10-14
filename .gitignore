@@ -3,6 +3,7 @@ db/*.sqlite3
 db/schema.rb
 config/database.yml
 public/system
+tmp
 vendor/gems/hpricot-0.8.1/ext/fast_xs/Makefile
 vendor/gems/hpricot-0.8.1/ext/fast_xs/fast_xs.bundle
 vendor/gems/hpricot-0.8.1/ext/fast_xs/fast_xs.o
