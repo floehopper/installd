@@ -37,7 +37,7 @@ class InstallsController < ApplicationController
       return
     end
     
-    original_installs = user.installs.dup
+    installs_to_destroy = user.installs.dup
     parser = IphoneAppPlistParser.new(params[:doc])
     parser.each_app do |attributes|
       app = App.find_by_name(attributes[:name]) || App.create!(
@@ -53,7 +53,7 @@ class InstallsController < ApplicationController
       )
       install = user.installs.find_by_app_id(app.id)
       if install
-        original_installs.delete(install)
+        installs_to_destroy.delete(install)
       else
         user.installs.create!(
           attributes.slice(
@@ -69,7 +69,7 @@ class InstallsController < ApplicationController
         )
       end
     end
-    original_installs.each { |install| install.destroy }
+    installs_to_destroy.each { |install| install.destroy }
     render :nothing => true, :status => :ok
   end
   
