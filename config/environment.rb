@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
   config.gem 'hpricot', :version => '0.8.1'
   config.gem 'mime-types', :version => '1.16', :lib => 'mime/types'
   config.gem 'newrelic_rpm', :version => '2.9.3'
+  config.gem 'simplehttp', :version => '0.1.3'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

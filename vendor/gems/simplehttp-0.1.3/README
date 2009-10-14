@@ -1,0 +1,96 @@
+= SimpleHttp - a simplified wrapper around Net::Http
+
+SimpleHttp aims to reduce the complexity of Net::Http while providing
+the most commonly used (by me) http functionality. 
+
+INSTALLATION
+
+* Using +gem+
+
+	gem install simplehttp
+
+* Using +setup.rb+
+
+	ruby setup.rb config
+	ruby setup.rb install
+
+* tarball and zip packages are available from
+  RubyForge[http://rubyforge.org/projects/simplehttp/]
+
+
+
+FEATURES / USAGE
+
+* Require the lib: 
+	
+	require 'simplehttp'
+
+* No fuss one line GET and POST requests:
+	
+	str = SimpleHttp.get "http://www.example.com"
+	str = SimpleHttp.get "www.example.com"
+
+* Can use URI or String url interchangibly
+
+	str = SimpleHttp.get URI.parse "http://www.example.com/"
+
+* Transparent Proxy Handling. Uses the 'http_proxy' environment
+  variable if set, also provides a +set_proxy+ method.
+
+	http = SimpleHttp.new "http://www.example.com"
+	http.set_proxy "http://proxy.example.com:8000"
+	http.post "query" => "example_query"
+
+* POST sends ruby Hashes as 'application/x-www-form/urlencoded' per
+  default, but can send any data.
+
+	http = SimpleHttp.new "http://www.example.com/image_upload"
+	http.post imageData, "img/png"
+
+* Automatically handles SSL
+	
+	str = SimpleHttp.get "https://secure.example.com"
+
+* Easy HTTP Basic Authentication
+	str = SimpleHttp.get URI.parse("http://usr:pwd@www.example.com") 
+	#or
+	http = SimpleHttp.new "http://www.example.com"
+	http.basic_authentication "user", "password"
+	http.post "query" => "example_query" 
+
+* Access headers of the request or response
+	http = SimpleHttp.new "www.example.com"
+	http.request_headers["X-Custom-Header"]="useful header"	
+	http.get
+	puts "server set cookie: #{http.response_headers['set-cookie']}"
+	
+* Automatically follows Http Redirects.
+	
+
+The +get+ and +post+ methods return a +String+ containing the
+body of the request if the request was successful (HTTP 200). In case of
+a redirect, the redirect is followed and the ultimate response is
+returned. Per Default, up to three redirects are followed, this
+behaviour can be modified by setting +follow_num_redirects+. 
+
+In case of any other type of response, an exception is raised.
+
+The default behaviour can be modified by registering handlers
+using the +register_response_handler+ method. E.g. if you'd like to
+retrieve the +Date+ header instead of the body for successful
+transactions:
+
+	http = SimpleHttp.new ...
+	http.register_response_handler(Net::HTTPSuccess) {|req,res,http|
+		res['date']
+	}
+
+Or you'd like to print the +Location+ and then raise an exception in
+case of a redirect:
+
+	
+	http = SimpleHttp.new ...
+	http.register_response_handler(Net::HTTPRedirect) {|req,res,http|
+		puts res['location']
+		raise "REDIRECT not allowed!"
+	}

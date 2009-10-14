@@ -1,0 +1,64 @@
+--- !ruby/object:Gem::Specification 
+name: simplehttp
+version: !ruby/object:Gem::Version 
+  version: 0.1.3
+platform: ruby
+authors: []
+
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-09-20 00:00:00 +01:00
+default_executable: 
+dependencies: []
+
+description: Wrapper around net/http to provide quick and dirty http access.
+email: 
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- lib/simple_http.rb
+- lib/simplehttp.rb
+- AUTHORS
+- CHANGELOG
+- LICENSE
+- Rakefile
+- README
+- TODO
+- test/http_test.rb
+- test/http_test_server.rb
+has_rdoc: true
+homepage: 
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: 
+- none
+rubyforge_project: 
+rubygems_version: 1.3.4
+signing_key: 
+specification_version: 2
+summary: "simple_http: Simple Http client lib."
+test_files: []
+

@@ -1,0 +1,9 @@
+= Wed Sep 26 16:25:55     2007
+	implemented +head+, +options+ and +trace+,
+	made filenames easier. 'simple_http' -> 'simplehttp'
+
+= Fri Feb  9 12:23:20 CET 2007
+*	easier access to response headers
+*	pass through headers during redirects
+*	more tests and documentation
+*	included `setup.rb`

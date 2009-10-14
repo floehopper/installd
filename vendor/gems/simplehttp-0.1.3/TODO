@@ -1,0 +1,28 @@
+* Provide tests and documentation for +head+, +options+ and +trace+
+
+* There seems to be a bug in webrick that it doesn't recognize the
+  Content-Length header if using basic authentication. The POST test
+  cases lead to a:
+  ERROR HTTPRequest#fixup: WEBrick::HTTPStatus::LengthRequired occured.
+  even though the Content-Length header is set correctly in the http
+  packet...
+
+* I've not figured out how to set_up and teardown webbrick properly.
+  Since webbrick blocks after calling `start`, it needs to started in a
+  seperate thread. I didn't handle communication with it properly
+  though.  Test::Unit calls set_up and teardown before
+  and after executing each test... method, and not as I expected, before
+  and after each test file. This leads to a new TestServer being
+  instantiated which complains "bind-adress already in use", because the
+  other instance wasn't properly shut down. I tried to dix this by setting 
+  up the server in the constructor, but that has the same effect.
+  It seems like a new instance of TestCase is instantiated to run every
+  single test... method.
+
+* There also seems to be something screwy about how rake calls the
+  tests. Some ruby files seem to be included twice. This leads to
+  "already initialized constant" error in the output of the unit tests. 
+
+* The two previous bugs aren't really problematic, because they only
+  make the output of the tests ugly. They should be easy to fix... (But
+  they're not high on my list of priorities.)
