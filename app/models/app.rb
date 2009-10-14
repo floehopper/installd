@@ -32,7 +32,7 @@ class App < ActiveRecord::Base
   private
   
   def store_icon
-    if icon_url
+    if icon_url && icon.nil?
       self.icon = URLTempfile.new(icon_url)
     end
   end
