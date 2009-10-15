@@ -37,4 +37,9 @@ class Install < ActiveRecord::Base
     self.hashcode = self.class.generate_hashcode(raw_xml)
   end
   
+  def matches?(raw_xml)
+    hashcode = self.class.generate_hashcode(raw_xml)
+    (self.hashcode == hashcode) && self.installed
+  end
+  
 end

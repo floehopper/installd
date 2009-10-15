@@ -90,8 +90,7 @@ class User < ActiveRecord::Base
         app = App.create!(app_attributes)
       end
       if latest_install = installs.of_app(app).last
-        hashcode = Install.generate_hashcode(install_attributes[:raw_xml])
-        unless (latest_install.hashcode == hashcode) && latest_install.installed
+        unless latest_install.matches?(install_attributes[:raw_xml])
           installs.create!(install_attributes.merge(:app => app))
         end
       else
