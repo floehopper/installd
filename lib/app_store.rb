@@ -2,9 +2,12 @@ module AppStore
   
   class << self
     
+    UK_STORE_FRONT = '143444,5'
+    
     def create_app(item_id)
       http = SimpleHttp.new(view_software_url(item_id))
       http.request_headers['User-Agent'] = 'iTunes/8.2.1 (Macintosh; U; PPC Mac OS X 10.5.8)'
+      http.request_headers['X-Apple-Store-Front'] = UK_STORE_FRONT
       response = http.get
       App.new(response)
     end

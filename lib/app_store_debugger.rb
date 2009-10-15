@@ -14,6 +14,7 @@ end
 
 http = SimpleHttp.new(App.first.url)
 http.request_headers['User-Agent'] = 'iTunes/8.2.1 (Macintosh; U; PPC Mac OS X 10.5.8)'
+http.request_headers['X-Apple-Store-Front'] = '143444,5'
 response = http.get
 doc = Hpricot::XML(response)
 root = ((doc/'Document')[0]/'View')[0]
