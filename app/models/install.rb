@@ -13,6 +13,8 @@ class Install < ActiveRecord::Base
   validates_presence_of :software_version_bundle_id
   validates_presence_of :software_version_external_identifier
   
+  named_scope :of_app, lambda { |app| { :conditions => ['app_id = ?', app.id] } }
+  
   before_save :store_hashcode
   
   class << self

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :login, :password, :active
   
-  has_many :installs, :dependent => :destroy
+  has_many :installs, :order => 'created_at', :dependent => :destroy
   has_many :apps, :through => :installs
   has_many :connections
   has_many :connected_users, :through => :connections
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
       else
         app = App.create!(app_attributes)
       end
-      if latest_install = installs.find(:last, :conditions => ['app_id = ?', app.id], :order => 'created_at')
+      if latest_install = installs.of_app(app).last
         hashcode = Install.generate_hashcode(install_attributes[:raw_xml])
         unless (latest_install.hashcode == hashcode) && latest_install.installed
           installs.create!(install_attributes.merge(:app => app))
@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      latest_install = installs.find(:last, :conditions => ['app_id = ?', app.id], :order => 'created_at')
+      latest_install = installs.of_app(app).last
       latest_install_attributes = Install.extract_attributes(latest_install.attributes)
       installs.create!(latest_install_attributes.merge(:app => app, :installed => false))
     end
