@@ -5,15 +5,15 @@ describe NetworksController, 'show' do
   it 'should select apps installed by all users in the network' do
     app_1 = Factory(:app)
     user = Factory(:active_user)
-    user.installs.create!(:app => app_1)
+    Factory(:install, :app => app_1, :user => user)
     
     app_2 = Factory(:app)
     network_user_1 = Factory(:active_user)
-    network_user_1.installs.create!(:app => app_2)
+    Factory(:install, :app => app_2, :user => network_user_1)
     
     app_3 = Factory(:app)
     network_user_2 = Factory(:active_user)
-    network_user_2.installs.create!(:app => app_3)
+    Factory(:install, :app => app_3, :user => network_user_2)
     
     user.connections.create!(:connected_user => network_user_1)
     user.connections.create!(:connected_user => network_user_2)
@@ -34,15 +34,15 @@ describe NetworksController, 'in_common' do
     app_1 = Factory(:app)
     app_2 = Factory(:app)
     user = Factory(:active_user)
-    user.installs.create!(:app => app_1)
-    user.installs.create!(:app => app_2)
+    Factory(:install, :app => app_1, :user => user)
+    Factory(:install, :app => app_2, :user => user)
     
     network_user_1 = Factory(:active_user)
-    network_user_1.installs.create!(:app => app_1)
+    Factory(:install, :app => app_1, :user => network_user_1)
     
     app_3 = Factory(:app)
     network_user_2 = Factory(:active_user)
-    network_user_2.installs.create!(:app => app_3)
+    Factory(:install, :app => app_3, :user => network_user_2)
     
     user.connections.create!(:connected_user => network_user_1)
     user.connections.create!(:connected_user => network_user_2)
@@ -63,15 +63,15 @@ describe NetworksController, 'not_in_common' do
     app_1 = Factory(:app)
     app_2 = Factory(:app)
     user = Factory(:active_user)
-    user.installs.create!(:app => app_1)
-    user.installs.create!(:app => app_2)
+    Factory(:install, :app => app_1, :user => user)
+    Factory(:install, :app => app_2, :user => user)
     
     network_user_1 = Factory(:active_user)
-    network_user_1.installs.create!(:app => app_1)
+    Factory(:install, :app => app_1, :user => network_user_1)
     
     app_3 = Factory(:app)
     network_user_2 = Factory(:active_user)
-    network_user_2.installs.create!(:app => app_3)
+    Factory(:install, :app => app_3, :user => network_user_2)
     
     user.connections.create!(:connected_user => network_user_1)
     user.connections.create!(:connected_user => network_user_2)
