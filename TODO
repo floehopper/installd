@@ -1,7 +1,6 @@
 - fetch data from correct app store i.e. UK for now (X-Apple-Store-Front: 143444,5)
 - sort out apps without artist & genre so we can switch validation on
 - add validation for presence of description
-- don't delete installs
 - capture version data from Info.plist with ipa file?
 - sort out layout on app page when no pagination element
 
