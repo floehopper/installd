@@ -15,6 +15,8 @@ class App < ActiveRecord::Base
   validates_presence_of :genre
   validates_presence_of :genre_id
   
+  validate :should_have_at_least_one_install
+  
   before_validation :store_icon
   
   class << self
@@ -42,6 +44,12 @@ class App < ActiveRecord::Base
   def store_icon
     if icon_url && icon.nil?
       self.icon = URLTempfile.new(icon_url)
+    end
+  end
+  
+  def should_have_at_least_one_install
+    unless installs.size > 0
+      errors.add_to_base('should have at least one install')
     end
   end
   
