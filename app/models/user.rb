@@ -95,9 +95,7 @@ class User < ActiveRecord::Base
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      latest_install = installs.of_app(app).last
-      latest_install_attributes = Install.extract_attributes(latest_install.attributes)
-      installs.create!(latest_install_attributes.merge(:app => app, :installed => false))
+      create_uninstall_for!(app)
     end
   end
 
@@ -106,6 +104,12 @@ class User < ActiveRecord::Base
   def should_create_install(app, raw_xml)
     latest_install = installs.of_app(app).last
     (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
+  end
+  
+  def create_uninstall_for!(app)
+    latest_install = installs.of_app(app).last
+    latest_install_attributes = Install.extract_attributes(latest_install.attributes)
+    installs.create!(latest_install_attributes.merge(:app => app, :installed => false))
   end
   
   def connected_apps_optimized(conditions)
