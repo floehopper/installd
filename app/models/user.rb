@@ -89,11 +89,9 @@ class User < ActiveRecord::Base
       else
         app = App.create!(app_attributes)
       end
-      if latest_install = installs.of_app(app).last
-        if latest_install.differs_from?(install_attributes[:raw_xml])
-          installs.create!(install_attributes.merge(:app => app))
-        end
-      else
+      raw_xml = install_attributes[:raw_xml]
+      latest_install = installs.of_app(app).last
+      if (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
         installs.create!(install_attributes.merge(:app => app))
       end
     end
