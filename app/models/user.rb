@@ -78,6 +78,34 @@ class User < ActiveRecord::Base
     })
   end
   
+  def sync(new_apps)
+    original_apps = apps.dup
+    found_apps = []
+    new_apps.each do |attributes|
+      app_attributes = App.extract_attributes(attributes)
+      install_attributes = Install.extract_attributes(attributes)
+      if app = App.find_by_name(app_attributes[:name])
+        found_apps << app
+      else
+        app = App.create!(app_attributes)
+      end
+      if latest_install = installs.find(:last, :conditions => ['app_id = ?', app.id], :order => 'created_at')
+        hashcode = Install.generate_hashcode(install_attributes[:raw_xml])
+        unless (latest_install.hashcode == hashcode) && latest_install.installed
+          installs.create!(install_attributes.merge(:app => app))
+        end
+      else
+        installs.create!(install_attributes.merge(:app => app))
+      end
+    end
+    missing_apps = original_apps - found_apps
+    missing_apps.each do |app|
+      latest_install = installs.find(:last, :conditions => ['app_id = ?', app.id], :order => 'created_at')
+      latest_install_attributes = Install.extract_attributes(latest_install.attributes)
+      installs.create!(latest_install_attributes.merge(:app => app, :installed => false))
+    end
+  end
+
   private
   
   def connected_apps_optimized(conditions)

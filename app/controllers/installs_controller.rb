@@ -31,55 +31,14 @@ class InstallsController < ApplicationController
   
   def synchronize
     user = User.find_by_login(params[:user_id])
-    
-    unless current_user && (current_user == user)
-      render :nothing => true, :status => :forbidden
-      return
+    if current_user && (current_user == user)
+      parser = IphoneAppPlistParser.new(params[:doc])
+      user.sync(parser)
+      status = :ok
+    else
+      status = :forbidden
     end
-    
-    found_installs = []
-    original_installs = user.installs.dup
-    
-    parser = IphoneAppPlistParser.new(params[:doc])
-    parser.each_app do |attributes|
-      app_attributes = attributes.slice(
-        :name,
-        :item_id,
-        :icon_url,
-        :artist_name,
-        :artist_id,
-        :genre,
-        :genre_id
-      )
-      
-      app = App.find_by_name(attributes[:name]) || App.create!(app_attributes)
-      
-      install_attributes = attributes.slice(
-        :price,
-        :display_price,
-        :purchased_at,
-        :released_at,
-        :store_code,
-        :software_version_bundle_id,
-        :software_version_external_identifier,
-        :raw_xml
-      ).merge(:app => app, :installed => true)
-      
-      install = user.installs.find_by_app_id(app.id)
-      if install
-        found_installs << install
-        install.update_attributes(install_attributes)
-      else
-        user.installs.create!(install_attributes)
-      end
-    end
-    
-    missing_installs = original_installs - found_installs
-    missing_installs.each do |install|
-      install.update_attributes(:installed => false)
-    end
-    
-    render :nothing => true, :status => :ok
+    render :nothing => true, :status => status
   end
   
 end

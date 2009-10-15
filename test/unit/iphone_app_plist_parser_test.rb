@@ -101,7 +101,7 @@ class IphoneAppPlistParserTest < Test::Unit::TestCase
   def parsed_attributes(xml)
     parser = IphoneAppPlistParser.new(xml)
     results = []
-    parser.each_app { |attributes| results << attributes }
+    parser.each { |attributes| results << attributes }
     results
   end
   

@@ -17,6 +17,14 @@ class App < ActiveRecord::Base
   
   before_validation :store_icon
   
+  class << self
+    
+    def extract_attributes(attributes)
+      attributes.symbolize_keys.slice(:name, :item_id, :icon_url, :artist_name, :artist_id, :genre, :genre_id)
+    end
+    
+  end
+  
   def url
     "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=#{item_id}&mt=8"
   end

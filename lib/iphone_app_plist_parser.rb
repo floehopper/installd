@@ -10,7 +10,7 @@ class IphoneAppPlistParser
     @first_plist = (@doc/'plist').first
   end
   
-  def each_app
+  def each
     (@doc/'plist').each do |plist|
       yield(attributes(plist)) if block_given?
     end
