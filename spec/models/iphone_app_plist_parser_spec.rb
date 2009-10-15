@@ -1,98 +1,98 @@
-require File.join(File.dirname(__FILE__), '..', 'test_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-class IphoneAppPlistParserTest < Test::Unit::TestCase
+describe IphoneAppPlistParser, 'each' do
   
-  def test_parse_artist_names
+  it "should parse artist names" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'Quan Lam', results[0][:artist_name]
     assert_equal 'Facebook', results[1][:artist_name]
   end
   
-  def test_parse_artist_ids
+  it "should parse artist ids" do
     results = parsed_attributes(two_app_plists)
     assert_equal '298794841', results[0][:artist_id]
     assert_equal '284882218', results[1][:artist_id]
   end
   
-  def test_parse_genres
+  it "should parse genres" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'Utilities', results[0][:genre]
     assert_equal 'Social Networking', results[1][:genre]
   end
   
-  def test_parse_genre_ids
+  it "should parse genre ids" do
     results = parsed_attributes(two_app_plists)
     assert_equal '6002', results[0][:genre_id]
     assert_equal '6005', results[1][:genre_id]
   end
   
-  def test_parse_names
+  it "should parse names" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'SciCal Lite - Scientific Calculator', results[0][:name]
     assert_equal 'Facebook', results[1][:name]
   end
   
-  def test_parse_item_ids
+  it "should parse item ids" do
     results = parsed_attributes(two_app_plists)
     assert_equal '298967526', results[0][:item_id]
     assert_equal '284882215', results[1][:item_id]
   end
   
-  def test_parse_prices
+  it "should parse prices" do
     results = parsed_attributes(two_app_plists)
     assert_equal 0, results[0][:price]
     assert_equal 199, results[1][:price]
   end
   
-  def test_parse_display_prices
+  it "should parse display prices" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'FREE', results[0][:display_price]
     assert_equal '£1.99', results[1][:display_price]
   end
   
-  def test_parse_released_at
+  it "should parse released at" do
     results = parsed_attributes(two_app_plists)
     assert_equal Time.parse('Mar 02 20:06:25 UTC 2009'), results[0][:released_at]
     assert_equal Time.parse('Jul 10 07:00:00 UTC 2008'), results[1][:released_at]
   end
   
-  def test_parse_store_codes
+  it "should parse store codes" do
     results = parsed_attributes(two_app_plists)
     assert_equal '143444', results[0][:store_code]
     assert_equal '143444', results[1][:store_code]
   end
   
-  def test_parse_icon_urls
+  it "should parse icon urls" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', results[0][:icon_url]
     assert_equal 'http://a1.phobos.apple.com/eu/r1000/039/Purple/56/44/f6/mzl.sftqmqlp.png', results[1][:icon_url]
   end
   
-  def test_parse_purchased_at
+  it "should parse purchased at" do
     results = parsed_attributes(two_app_plists)
     assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), results[0][:purchased_at]
     assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), results[1][:purchased_at]
   end
   
-  def test_parse_software_version_bundle_id
+  it "should parse software version bundle id" do
     results = parsed_attributes(two_app_plists)
     assert_equal 'com.quanlam.scicallite', results[0][:software_version_bundle_id]
     assert_equal 'com.facebook.Facebook', results[1][:software_version_bundle_id]
   end
   
-  def test_parse_software_version_external_identifier
+  it "should parse software version external identifier" do
     results = parsed_attributes(two_app_plists)
     assert_equal '1491255', results[0][:software_version_external_identifier]
     assert_equal '1751102', results[1][:software_version_external_identifier]
   end
   
-  def test_should_capture_raw_xml
+  it "should should capture raw xml" do
     results = parsed_attributes(two_app_plists)
     assert_not_nil results[0][:raw_xml]
     assert_not_nil results[1][:raw_xml]
   end
   
-  def test_should_not_raise_exception_when_xml_elements_are_missing
+  it "should should not raise exception when xml elements are missing" do
     assert_nothing_raised { parsed_attributes(two_empty_app_plists) }
   end
   
