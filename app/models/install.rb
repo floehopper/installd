@@ -42,4 +42,8 @@ class Install < ActiveRecord::Base
     (self.hashcode == hashcode) && self.installed
   end
   
+  def differs_from?(raw_xml)
+    !matches?(raw_xml)
+  end
+  
 end
