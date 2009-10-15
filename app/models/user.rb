@@ -89,9 +89,7 @@ class User < ActiveRecord::Base
       else
         app = App.create!(app_attributes)
       end
-      raw_xml = install_attributes[:raw_xml]
-      latest_install = installs.of_app(app).last
-      if (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
+      if should_create_install(app, install_attributes[:raw_xml])
         installs.create!(install_attributes.merge(:app => app))
       end
     end
@@ -104,6 +102,11 @@ class User < ActiveRecord::Base
   end
 
   private
+  
+  def should_create_install(app, raw_xml)
+    latest_install = installs.of_app(app).last
+    (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
+  end
   
   def connected_apps_optimized(conditions)
     App.all(
