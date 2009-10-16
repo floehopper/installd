@@ -1,5 +1,4 @@
 - deal with apps no longer available in appstore
-- add validation for presence of description
 - add a sync model to record which installs were updated together
 - capture version data from Info.plist with ipa file?
 - parse more appstore data
