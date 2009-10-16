@@ -4,6 +4,7 @@
 - parse more appstore data
 - add an artist/author model
 - add a genre model
+- install & configure monit or similar to monitor e.g. delayed_job daemon
 
 - write some acceptance tests
 - think about most common story for using website
