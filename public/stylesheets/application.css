@@ -127,20 +127,25 @@ h3 {
   margin: 2px 0px 2px 0px;
 }
 
-.pagination {
-  text-align: center;
-  margin: 10px 0 10px 0;
+.app {
+  padding: 10px 10px 10px 10px;
 }
-
-#ft {
-  border-top: 1px solid #999999;
-  padding: 1em 0 1em 0;
-  text-align: center;
-}
-
-#networking {
-  margin: 15px 0 0 10px;
+ 
+.app .appIcon {
   float: left;
+}
+
+.app .appIcon img {
+  border: 0;
+}
+
+.app .heading {
+  float: left;
+  padding-left: 10px;
+}
+
+.app .details {
+  clear: left;
 }
 
 #app a.appIcon {
@@ -155,6 +160,22 @@ h3 {
 #app h2.appName {
   padding-top: 45px;
   white-space: nowrap;
+}
+
+.pagination {
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+#ft {
+  border-top: 1px solid #999999;
+  padding: 1em 0 1em 0;
+  text-align: center;
+}
+
+#networking {
+  margin: 15px 0 0 10px;
+  float: left;
 }
 
 table {

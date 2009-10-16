@@ -37,4 +37,12 @@ module ApplicationHelper
     link_to(image_tag('badgeitunes61x15dark.gif', :size => "61x15", :alt => app.name), url, :class => 'buy')
   end
   
+  def html_description(app)
+    paragraphs = (app.description || '').split("\n\n")
+    paragraphs.map do |paragraph|
+      paragraph_with_linebreaks = paragraph.gsub(/\n/, "<br />")
+      "<p>#{paragraph_with_linebreaks}</p>"
+    end
+  end
+  
 end
