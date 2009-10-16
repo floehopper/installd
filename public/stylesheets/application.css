@@ -144,6 +144,11 @@ h3 {
   padding-left: 10px;
 }
 
+.app .buyLink {
+  float: left;
+  padding: 5px 0px 0px 10px;
+}
+
 .app .details {
   clear: left;
 }
