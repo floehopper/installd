@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 8df6837c08f45b45a74bf4f529ae7bfd90dd8941
+  branch: master
+lock: false
+repository_url: git://github.com/tobi/delayed_job.git
+repository_class: Piston::Git::Repository
