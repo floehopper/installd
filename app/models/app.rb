@@ -44,7 +44,6 @@ class App < ActiveRecord::Base
   
   def store_icon!
     unless icon
-      sleep(5)
       self.icon = URLTempfile.new(icon_url)
       save!
     end
