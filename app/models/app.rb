@@ -15,8 +15,6 @@ class App < ActiveRecord::Base
   validates_presence_of :genre
   validates_presence_of :genre_id
   
-  validate :should_have_at_least_one_install
-  
   after_save do |app|
     app.send_later(:store_icon!)
     app.send_later(:store_description!)
@@ -55,14 +53,6 @@ class App < ActiveRecord::Base
       app = AppStore.create_app(item_id)
       self.description = app.description
       save!
-    end
-  end
-  
-  private
-  
-  def should_have_at_least_one_install
-    unless installs.size > 0
-      errors.add_to_base('should have at least one install')
     end
   end
   
