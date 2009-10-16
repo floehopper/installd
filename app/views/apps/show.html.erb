@@ -4,6 +4,7 @@
     <% content_tag('h2', :class => 'appName') do %>
       <%= link_to truncate(@app.name), app_path(@app) %>
     <% end %>
+    <%= buy_link(@app) %>
   </div>
   <div class="details">
   </div>
