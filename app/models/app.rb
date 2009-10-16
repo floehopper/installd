@@ -18,6 +18,7 @@ class App < ActiveRecord::Base
   validate :should_have_at_least_one_install
   
   before_validation :store_icon
+  before_validation :store_description
   
   class << self
     
@@ -28,7 +29,7 @@ class App < ActiveRecord::Base
   end
   
   def url
-    "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=#{item_id}&mt=8"
+    AppStore.view_software_url(item_id)
   end
   
   def most_recently_added_install
@@ -44,6 +45,13 @@ class App < ActiveRecord::Base
   def store_icon
     if icon_url && icon.nil?
       self.icon = URLTempfile.new(icon_url)
+    end
+  end
+  
+  def store_description
+    unless description
+      app = AppStore.create_app(item_id)
+      self.description = app.description
     end
   end
   
