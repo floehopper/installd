@@ -35,7 +35,7 @@
   </script>
 <% end %>
 
-<h2 id="user"><%= h("#{@user.login}'s Apps") %></h2>
+<h2 class="pageHeading"><%= h("#{@user.login}'s Apps") %></h2>
 
 <% if current_user %>
   <% if current_user.can_connect?(@user) %>

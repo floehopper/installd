@@ -59,11 +59,10 @@ p {
 
 h2 {
   font-size: 150%;
-  margin: 10px 0 10px 0;
 }
 
-h2#user {
-  float: left;
+h2.pageHeading {
+  margin: 10px 0 10px 0;
 }
 
 .yui-gb {
