@@ -1,7 +1,13 @@
-- sort out apps without artist & genre so we can switch validation on
+- deal with apps no longer available in appstore
 - add validation for presence of description
+- add a sync model to record which installs were updated together
 - capture version data from Info.plist with ipa file?
-- sort out layout on app page when no pagination element
+- parse more appstore data
+- add buy link to all relevant pages including app page
+- move icon fetching offline
+- move appstore data fetching offline
+- add an artist/author model
+- add a genre model
 
 - write some acceptance tests
 - think about most common story for using website
