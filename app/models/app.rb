@@ -17,8 +17,10 @@ class App < ActiveRecord::Base
   
   validate :should_have_at_least_one_install
   
-  before_validation :store_icon
-  before_validation :store_description
+  after_save do |app|
+    app.send_later(:store_icon!)
+    app.send_later(:store_description!)
+  end
   
   class << self
     
@@ -40,20 +42,24 @@ class App < ActiveRecord::Base
     installs.average(:rating)
   end
   
-  private
-  
-  def store_icon
-    if icon_url && icon.nil?
+  def store_icon!
+    unless icon
+      sleep(5)
       self.icon = URLTempfile.new(icon_url)
+      save!
     end
   end
   
-  def store_description
+  def store_description!
     unless description
+      sleep(5)
       app = AppStore.create_app(item_id)
       self.description = app.description
+      save!
     end
   end
+  
+  private
   
   def should_have_at_least_one_install
     unless installs.size > 0

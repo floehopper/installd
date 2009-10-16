@@ -3,9 +3,6 @@
 - add a sync model to record which installs were updated together
 - capture version data from Info.plist with ipa file?
 - parse more appstore data
-- add buy link to all relevant pages including app page
-- move icon fetching offline
-- move appstore data fetching offline
 - add an artist/author model
 - add a genre model
 
