@@ -148,9 +148,12 @@ h3 {
   clear: left;
 }
 
-.pagination {
+.innerFooter {
+  padding: 10px 0 10px 0;
+}
+
+.innerFooter .pagination {
   text-align: center;
-  margin: 10px 0 10px 0;
 }
 
 #ft {
