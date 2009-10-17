@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :connected_installs, :through => :connected_users, :source => :installs
   has_many :connected_apps, :through => :connected_installs, :source => :app
   has_many :invitations, :order => 'created_at'
+  has_many :syncs
   
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
@@ -27,6 +28,21 @@ class User < ActiveRecord::Base
       users.each { |user| user.invite! }
     end
     
+  end
+  
+  def latest_installs
+    app_ids_vs_installs = installs.group_by(&:app_id)
+    app_ids_vs_installs.map { |(app_id, installs)| installs.last }
+  end
+  
+  def installed_apps
+    app_ids = latest_installs.select { |install| install.installed }.map(&:app_id)
+    App.find(app_ids)
+  end
+  
+  def uninstalled_apps
+    app_ids = latest_installs.reject { |install| install.installed }.map(&:app_id)
+    App.find(app_ids)
   end
   
   def invite!
@@ -78,8 +94,8 @@ class User < ActiveRecord::Base
     })
   end
   
-  def sync(new_apps)
-    original_apps = apps.dup
+  def synchronize(new_apps, sync)
+    original_apps = installed_apps
     found_apps = []
     new_apps.each do |attributes|
       app_attributes = App.extract_attributes(attributes)
@@ -90,12 +106,12 @@ class User < ActiveRecord::Base
         app = App.create!(app_attributes)
       end
       if should_create_install(app, install_attributes[:raw_xml])
-        installs.create!(install_attributes.merge(:app => app))
+        installs.create!(install_attributes.merge(:app => app, :sync => sync))
       end
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      create_uninstall_for!(app)
+      create_uninstall_for!(app, sync)
     end
   end
 
@@ -106,10 +122,10 @@ class User < ActiveRecord::Base
     (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
   end
   
-  def create_uninstall_for!(app)
+  def create_uninstall_for!(app, sync)
     latest_install = installs.of_app(app).last
     latest_install_attributes = Install.extract_attributes(latest_install.attributes)
-    installs.create!(latest_install_attributes.merge(:app => app, :installed => false))
+    installs.create!(latest_install_attributes.merge(:installed => false, :app => app, :sync => sync))
   end
   
   def connected_apps_optimized(conditions)

@@ -32,12 +32,17 @@ class InstallsController < ApplicationController
   def synchronize
     user = User.find_by_login(params[:user_id])
     if current_user && (current_user == user)
+      sync = user.syncs.create!
       parser = IphoneAppPlistParser.new(params[:doc])
-      user.sync(parser)
+      user.synchronize(parser, sync)
       status = :ok
     else
       status = :forbidden
     end
+  rescue
+    status = :internal_server_error
+  ensure
+    sync.update_attributes(:status => status.to_s)
     render :nothing => true, :status => status
   end
   

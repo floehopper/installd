@@ -2,9 +2,11 @@ class Install < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :app
+  belongs_to :sync
   
   validates_presence_of :user
   validates_presence_of :app
+  validates_presence_of :sync
   
   validates_presence_of :price
   validates_presence_of :display_price

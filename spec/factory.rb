@@ -37,7 +37,7 @@ Factory.define :app do |app|
   app.genre_id 'genre-id'
 end
 
-Factory.define :install do |install|
+Factory.define :install_from_xml, :class => Install do |install|
   install.raw_xml '<xml></xml>'
   install.price 999
   install.display_price '£9.99'
@@ -47,3 +47,12 @@ Factory.define :install do |install|
   install.software_version_bundle_id 'bundle-id'
   install.software_version_external_identifier 'external-identifier'
 end
+
+Factory.define :install, :parent => :install_from_xml do |install|
+  install.association :sync
+end
+
+Factory.define :sync do |sync|
+  sync.association :user
+end
+
