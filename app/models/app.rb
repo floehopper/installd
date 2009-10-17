@@ -15,7 +15,7 @@ class App < ActiveRecord::Base
   validates_presence_of :genre
   validates_presence_of :genre_id
   
-  after_save do |app|
+  after_create do |app|
     app.send_later(:store_icon!)
     app.send_later(:store_description!)
   end
@@ -41,19 +41,14 @@ class App < ActiveRecord::Base
   end
   
   def store_icon!
-    unless icon
-      self.icon = URLTempfile.new(icon_url)
-      save!
-    end
+    self.icon = URLTempfile.new(icon_url)
+    save!
   end
   
   def store_description!
-    unless description
-      sleep(5)
-      app = AppStore.create_app(item_id)
-      self.description = app.description
-      save!
-    end
+    sleep(5)
+    app = AppStore.create_app(item_id)
+    update_attributes!(:description => app.description)
   end
   
 end
