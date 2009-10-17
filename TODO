@@ -1,3 +1,4 @@
+- ensure we don't hit apple when running specs
 - deal with apps no longer available in appstore
 - add a sync model to record which installs were updated together
 - capture version data from Info.plist with ipa file?
