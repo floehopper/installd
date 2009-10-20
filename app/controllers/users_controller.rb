@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by_login(params[:id])
-    @installs = @user.installs.paginate(:include => :app, :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+    @installs = @user.installs.paginate(:include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
   end
   
   def new
