@@ -37,12 +37,20 @@ class App < ActiveRecord::Base
   end
   
   def average_rating
-    rating = self['average_rating'] || installs.average(:rating)
+    if attributes.keys.include?('average_rating')
+      rating = self['average_rating']
+    else
+      rating = installs.average(:rating)
+    end
     rating ? rating.to_f.round : nil
   end
   
   def number_of_installs
-    self['number_of_installs'].to_i || app.installs.size
+    if attributes.keys.include?('number_of_installs')
+      return self['number_of_installs']
+    else
+      return app.installs.size
+    end
   end
   
   def store_icon!
