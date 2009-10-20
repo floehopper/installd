@@ -2,12 +2,12 @@
   <%= icon(app) %>
   <div class="heading">
     <%= heading(app) %>
-    <%= stars(app['average_rating'].to_i || app.average_rating) %>
+    <%= stars(app.average_rating) %>
     <%= buy_link(app) %>
   </div>
   <div class="details">
     <p>
-      updated by <%= pluralize(app['number_of_installs'] || app.installs.size, 'user') %>
+      updated by <%= pluralize(app.number_of_installs, 'user') %>
     </p>
   </div>
 </li>
