@@ -2,7 +2,7 @@
 
 <div class="yui-g">
 
-  <% form_for @user_session, :url => user_session_path do |form| %>
+  <% form_for @user_session, :url => user_session_url(:protocol => 'https') do |form| %>
     <p>
       <%= form.error_messages %>
     </p>
