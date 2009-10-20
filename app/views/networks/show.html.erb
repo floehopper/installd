@@ -24,6 +24,36 @@
       </ul>
     </div>
   <% end %>
+  <div class="yui-u">
+    <% if @connected_users.any? || @inbound_connected_users.any? %>
+    <div class="networkDetails">
+      <% if @connected_users.any? %>
+      <div class="section">
+        <h3>Connections</h3>
+        <ul>
+          <% @connected_users.each do |user| %>
+            <li>
+              <%= link_to user.login, user_path(user) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <% if @inbound_connected_users.any? %>
+      <div class="section last">
+        <h3>Fans</h3>
+        <ul>
+          <% @inbound_connected_users.each do |user| %>
+            <li>
+              <%= link_to user.login, user_path(user) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="innerFooter">

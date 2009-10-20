@@ -153,6 +153,24 @@ h3 {
   clear: left;
 }
 
+.networkDetails {
+  margin-left: 100px;
+  padding: 5px 0px 5px 20px;
+}
+
+.networkDetails .section {
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #999999;
+}
+
+.networkDetails .section.last {
+  border-bottom: 1px solid #999999;
+}
+
+.networkDetails .section li {
+  list-style-type: none;
+}
+
 .innerFooter {
   padding: 10px 0 10px 0;
 }
