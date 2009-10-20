@@ -17,13 +17,13 @@ module ApplicationHelper
           if rating
             if rating >= index
               content << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
-                content_tag('a', :title => rating) do
+                content_tag('a', :title => "rated #{rating} out of 5") do
                   rating
                 end
               end
             else
               content << content_tag('div', :class => 'star-rating star-rating-readonly') do
-                content_tag('a', :title => rating) do
+                content_tag('a', :title => "rated #{rating} out of 5") do
                   rating
                 end
               end
