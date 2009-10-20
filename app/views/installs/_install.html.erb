@@ -14,7 +14,7 @@
       updated by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago
     </p>
     <p>
-      released <%= time_ago_in_words(install.released_at) %> ago
+      released <%= time_ago_in_words(install.released_at).gsub(/about /, '') %> ago
     </p>
   </div>
 </li>
