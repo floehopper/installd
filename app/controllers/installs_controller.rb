@@ -10,7 +10,7 @@ class InstallsController < ApplicationController
   end
   
   def recent
-    @installs = Install.paginate(:order => 'created_at DESC', :include => :app, :page => params[:page], :per_page => 15)
+    @installs = Install.paginate(:order => 'created_at DESC', :include => [:app, :user], :page => params[:page], :per_page => 15)
   end
   
   def popular
