@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   has_many :connected_users, :through => :connections
   has_many :connected_installs, :through => :connected_users, :source => :installs
   has_many :connected_apps, :through => :connected_installs, :source => :app
+  
+  has_many :inbound_connections, :class_name => 'Connection', :foreign_key => 'connected_user_id'
+  has_many :inbound_connected_users, :through => :inbound_connections, :source => :user
+  
   has_many :invitations, :order => 'created_at'
   has_many :syncs
   
