@@ -23,7 +23,7 @@
         <li class="install<%= last %>">
           <div class="details">
             <p>
-              purchased by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago for <%= install.display_price.downcase %>
+              updated by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(install.purchased_at).gsub(/about /, '') %> ago
             </p>
           </div>
         </li>
