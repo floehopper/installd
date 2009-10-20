@@ -14,16 +14,18 @@ module ApplicationHelper
     content_tag 'div', :class => 'rating' do
       returning String.new do |content|
         (1..5).each do |index|
-          if rating && rating >= index
-            content << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
-              content_tag('a', :title => rating) do
-                rating
+          if rating
+            if rating >= index
+              content << content_tag('div', :class => 'star-rating star-rating-readonly star-rating-on') do
+                content_tag('a', :title => rating) do
+                  rating
+                end
               end
-            end
-          else
-            content << content_tag('div', :class => 'star-rating star-rating-readonly') do
-              content_tag('a', :title => rating) do
-                rating
+            else
+              content << content_tag('div', :class => 'star-rating star-rating-readonly') do
+                content_tag('a', :title => rating) do
+                  rating
+                end
               end
             end
           end
