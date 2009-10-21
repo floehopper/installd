@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
   config.gem 'mime-types', :version => '1.16', :lib => 'mime/types'
   config.gem 'newrelic_rpm', :version => '2.9.3'
   config.gem 'simplehttp', :version => '0.1.3'
-  config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
+  # config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
