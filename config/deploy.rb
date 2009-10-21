@@ -67,7 +67,7 @@ after "deploy:restart", "delayed_job:restart"
 namespace :deploy do
   desc "Update the crontab file"
   task :update_crontab, :roles => :app do
-    run "cd #{release_path} && bin/whenever --update-crontab #{application}"
+    run "cd #{release_path} && whenever --update-crontab #{application}"
   end
 end
 after "deploy:symlink", "deploy:update_crontab"
