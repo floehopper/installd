@@ -1,5 +1,7 @@
 class InstallsController < ApplicationController
   
+  ssl_required :synchronize
+  
   def index
     @user = User.find_by_login(params[:user_id])
     if @user
