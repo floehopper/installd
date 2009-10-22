@@ -47,4 +47,18 @@ module ApplicationHelper
     end
   end
   
+  def install_event_details(install)
+    event = install.installed? ? 'updated' : 'uninstalled'
+    attribution = "by #{link_to install.user.login, user_path(install.user)}"
+    "#{event} #{attribution} #{time_ago(install.purchased_at)}"
+  end
+  
+  def install_release_details(install)
+    "released #{time_ago(install.released_at)}"
+  end
+  
+  def time_ago(time)
+    time_ago_in_words(time).gsub(/about /, '') + ' ago'
+  end
+  
 end

@@ -15,7 +15,7 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
         xml.pubDate install.created_at.to_s(:rfc822)
         xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
         xml.link app_url(app, :host => HOST)
-        xml.description "Updated by #{pluralize(app.installs.size, 'user')}. Most recently updated by #{link_to install.user.login, user_path(install.user)} #{time_ago_in_words(install.purchased_at)} ago"
+        xml.description "Updated by #{pluralize(app.installs.size, 'user')}. Most recently #{install_event_details(install)}"
       end
     end
   end
