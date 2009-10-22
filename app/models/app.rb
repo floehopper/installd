@@ -30,6 +30,10 @@ class App < ActiveRecord::Base
     
   end
   
+  def to_param
+    identifier
+  end
+  
   def url
     AppStore.view_software_url(item_id)
   end
