@@ -15,6 +15,8 @@ class App < ActiveRecord::Base
   validates_presence_of :genre
   validates_presence_of :genre_id
   
+  before_create :store_identifier
+  
   after_create do |app|
     app.send_later(:store_icon!)
     app.send_later(:store_description!)
@@ -62,6 +64,13 @@ class App < ActiveRecord::Base
     sleep(5)
     app = AppStore.create_app(item_id)
     update_attributes!(:description => app.description)
+  end
+  
+  def store_identifier
+    identifier = name.strip.gsub(/[^a-z0-9]+/i, '-').downcase
+    count = self.class.count(:conditions => ['identifier = ? OR identifier LIKE ?', identifier, "#{identifier}~%"])
+    identifier = "#{identifier}~#{count}" if count > 0
+    self.identifier = identifier
   end
   
 end
