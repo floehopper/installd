@@ -28,6 +28,16 @@ class App < ActiveRecord::Base
       attributes.symbolize_keys.slice(:name, :item_id, :icon_url, :artist_name, :artist_id, :genre, :genre_id)
     end
     
+    def popular
+      find(
+        :all,
+        :select => 'apps.*, COUNT(installs.id) AS number_of_installs, AVG(installs.rating) AS average_rating',
+        :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
+        :group => 'apps.id',
+        :order => 'number_of_installs DESC, created_at DESC'
+      )
+    end
+    
   end
   
   def to_param
