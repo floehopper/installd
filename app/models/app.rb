@@ -1,6 +1,6 @@
 class App < ActiveRecord::Base
   
-  has_many :installs, :dependent => :destroy
+  has_many :installs, :order => 'created_at', :dependent => :destroy
   has_many :users, :through => :installs
   
   has_attached_file :icon
@@ -67,7 +67,7 @@ class App < ActiveRecord::Base
       number_of_installs = self['number_of_installs']
       return number_of_installs ? number_of_installs.to_i : nil
     else
-      return app.installs.size
+      return installs.size
     end
   end
   

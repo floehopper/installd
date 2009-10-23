@@ -1,0 +1,39 @@
+<% content_for :links do %>
+  <%= render :partial => '/shared/rss' %>
+<% end %>
+
+<% content_for :stylesheets do %>
+  <link rel="stylesheet" href="/stylesheets/jquery.rating.css" type="text/css"/>
+<% end %>
+
+<h2 class="pageHeading">Recent Apps</h2>
+
+<div class="yui-gb">
+  <% @apps.each_slice(5) do |apps| %>
+    <% first = (apps.first == @apps.first) ? ' first' : '' %>
+    <div class="yui-u <%= first %>">
+      <ul class="installs">
+        <% apps.each do |app| %>
+          <% install = app.installs.first %>
+          <% last = (app == apps.last) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <%= icon(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+              <%= buy_link(app) %>
+            </div>
+            <div class="details">
+              <p>
+                first synced by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(app.created_at).gsub(/about /, '') %> ago
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+<div class="innerFooter">
+  <%= will_paginate @apps %>
+</div>
