@@ -17,7 +17,7 @@ class Install < ActiveRecord::Base
   
   named_scope :of_app, lambda { |app| { :conditions => ['app_id = ?', app.id] } }
   
-  before_save :store_hashcode
+  before_create :store_hashcode
   
   class << self
     
