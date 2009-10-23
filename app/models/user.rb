@@ -120,7 +120,8 @@ class User < ActiveRecord::Base
         state = 'Update'
       end
       if state
-        installs.create!(install_attributes.merge(:state => state, :app => app, :sync => sync))
+        latest_install.update_attributes(:current => false) if latest_install
+        installs.create!(install_attributes.merge(:current => true, :state => state, :app => app, :sync => sync))
       end
     end
     missing_apps = original_apps - found_apps
@@ -134,7 +135,8 @@ class User < ActiveRecord::Base
   def create_uninstall_for!(app, sync)
     latest_install = installs.of_app(app).last
     latest_install_attributes = Install.extract_attributes(latest_install.attributes)
-    installs.create!(latest_install_attributes.merge(:state => 'Uninstall', :installed => false, :app => app, :sync => sync))
+    latest_install.update_attributes(:current => false)
+    installs.create!(latest_install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync))
   end
   
   def connected_apps_optimized(conditions)

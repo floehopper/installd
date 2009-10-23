@@ -24,7 +24,7 @@ describe User, 'sync apps' do
     app = App.create!(app_attributes)
     install_attributes = Factory.attributes_for(:install_from_xml)
     sync_0 = Factory(:sync, :user => @user)
-    @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     
     sync_1 = Factory(:sync, :user => @user)
     @user.synchronize([app_attributes.merge(install_attributes)], sync_1)
@@ -49,6 +49,7 @@ describe User, 'sync installs' do
     @user.synchronize([app_attributes.merge(install_attributes)], sync)
     
     @user.installs.size.should == 1
+    @user.installs(reload = true).map(&:current).should == [true]
     install = @user.installs.first
     install.should_not be_nil
     install.state.should == 'Initial'
@@ -60,12 +61,13 @@ describe User, 'sync installs' do
     app = App.create!(app_attributes)
     install_attributes = Factory.attributes_for(:install_from_xml)
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     
     sync_1 = Factory(:sync, :user => @user)
     @user.synchronize([app_attributes.merge(install_attributes)], sync_1)
     
     @user.installs.should == [install]
+    @user.installs(reload = true).map(&:current).should == [true]
   end
   
   it 'should create install if user installed app, synced, updated app, and synced' do
@@ -74,7 +76,7 @@ describe User, 'sync installs' do
     install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     new_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     
@@ -82,6 +84,7 @@ describe User, 'sync installs' do
     @user.synchronize([app_attributes.merge(new_install_attributes)], sync_1)
     
     @user.installs.length.should == 2
+    @user.installs(reload = true).map(&:current).should == [false, true]
     new_install = @user.installs.last
     new_install.state.should == 'Update'
     Install.extract_attributes(new_install.attributes).should == new_install_attributes
@@ -93,11 +96,11 @@ describe User, 'sync installs' do
     install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     new_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    new_install = @user.installs.create!(new_install_attributes.merge(:state => 'Updated', :app => app, :sync => sync_1))
+    new_install = @user.installs.create!(new_install_attributes.merge(:current => true, :state => 'Updated', :app => app, :sync => sync_1))
     another_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
@@ -105,6 +108,7 @@ describe User, 'sync installs' do
     @user.synchronize([app_attributes.merge(another_install_attributes)], sync_2)
     
     @user.installs.length.should == 3
+    @user.installs(reload = true).map(&:current).should == [false, false, true]
     another_install = @user.installs.last
     another_install.state.should == 'Update'
     Install.extract_attributes(another_install.attributes).should == another_install_attributes
@@ -116,13 +120,14 @@ describe User, 'sync installs' do
     install_attributes = Factory.attributes_for(:install_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     
     sync_1 = Factory(:sync, :user => @user)
     @user.synchronize([], sync_1)
     
     @user.installs.length.should == 2
+    @user.installs(reload = true).map(&:current).should == [false, true]
     uninstall = @user.installs.last
     uninstall.installed.should == false
     uninstall.state.should == 'Uninstall'
@@ -135,16 +140,17 @@ describe User, 'sync installs' do
     install_attributes = Factory.attributes_for(:install_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall = @user.installs.create!(install_attributes.merge(:state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
     @user.synchronize([app_attributes.merge(install_attributes)], sync_2)
     
     @user.installs.length.should == 3
+    @user.installs(reload = true).map(&:current).should == [false, false, true]
     reinstall = @user.installs.last
     reinstall.installed.should == true
     reinstall.state.should == 'Install'
@@ -157,16 +163,17 @@ describe User, 'sync installs' do
     install_attributes = Factory.attributes_for(:install_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:state => 'Initial', :app => app, :sync => sync_0))
+    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall = @user.installs.create!(install_attributes.merge(:state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
     @user.synchronize([], sync_2)
     
     @user.installs.length.should == 2
+    @user.installs(reload = true).map(&:current).should == [false, true]
     uninstall = @user.installs.last
     uninstall.installed.should == false
     uninstall.state.should == 'Uninstall'
