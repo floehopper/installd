@@ -1,0 +1,36 @@
+<% content_for :stylesheets do %>
+  <link rel="stylesheet" href="/stylesheets/jquery.rating.css" type="text/css"/>
+<% end %>
+
+<h2 class="pageHeading">Rated Apps</h2>
+
+<div class="yui-gb">
+  <% @apps.each_slice(5) do |apps| %>
+    <% first = (apps.first == @apps.first) ? ' first' : '' %>
+    <div class="yui-u <%= first %>">
+      <ul class="installs">
+        <% apps.each do |app| %>
+          <% last = (app == apps.last) ? ' last' : '' %>
+          <li class="install<%= last %>">
+            <%= icon(app) %>
+            <div class="heading">
+              <%= heading(app) %>
+              <%= buy_link(app) %>
+            </div>
+            <div class="details">
+              <p>
+              <% if app.average_rating %>
+                currently rated <%= '%0.1f' % app.average_rating %> by <%= pluralize(app['number_of_ratings'], 'user') %>
+              <% end %>
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+
+<div class="innerFooter">
+  <%= will_paginate @apps %>
+</div>

@@ -18,4 +18,8 @@ class AppsController < ApplicationController
     @apps = App.popular.paginate(:page => params[:page], :per_page => 15)
   end
   
+  def rated
+    @apps = App.rated.paginate(:page => params[:page], :per_page => 15)
+  end
+  
 end

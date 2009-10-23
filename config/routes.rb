@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.recent '/recent', :controller => 'apps', :action => 'recent'
   map.popular '/popular', :controller => 'apps', :action => 'popular'
+  map.rated '/rated', :controller => 'apps', :action => 'rated'
   map.lookup_user '/lookup_user', :controller => 'users', :action => 'lookup'
   
   map.about '/about', :controller => 'pages', :action => 'about'
