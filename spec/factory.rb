@@ -50,6 +50,9 @@ end
 
 Factory.define :install, :parent => :install_from_xml do |install|
   install.association :sync
+  install.installed true
+  install.current true
+  install.state 'Initial'
 end
 
 Factory.define :sync do |sync|

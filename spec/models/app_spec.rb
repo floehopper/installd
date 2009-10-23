@@ -61,3 +61,64 @@ describe App, 'URL-friendly identifier' do
   end
   
 end
+
+describe App, 'popular' do
+  
+  before do
+    @user_1 = Factory.create(:user)
+    @user_2 = Factory.create(:user)
+    @user_3 = Factory.create(:user)
+    @app_1 = Factory.create(:app)
+    @app_2 = Factory.create(:app)
+  end
+  
+  it 'should list apps in order of the number of users who have them installed' do
+    Factory.create(:install, :app => @app_1, :user => @user_1)
+    
+    Factory.create(:install, :app => @app_2, :user => @user_1)
+    Factory.create(:install, :app => @app_2, :user => @user_2)
+    
+    popular_apps = App.popular
+    popular_apps.map(&:number_of_installs).should == [2, 1]
+    popular_apps.should == [@app_2, @app_1]
+  end
+  
+  it 'should only count the number of users who currently have the app installed' do
+    Factory.create(:install, :app => @app_1, :user => @user_1)
+    Factory.create(:install, :app => @app_1, :user => @user_2, :current => false)
+    Factory.create(:install, :app => @app_1, :user => @user_2, :installed => false)
+    
+    Factory.create(:install, :app => @app_2, :user => @user_1)
+    Factory.create(:install, :app => @app_2, :user => @user_2)
+    
+    popular_apps = App.popular
+    popular_apps.map(&:number_of_installs).should == [2, 1]
+    popular_apps.should == [@app_2, @app_1]
+  end
+  
+  it 'should not include apps that are not currently installed by any users' do
+    Factory.create(:install, :app => @app_1, :user => @user_1)
+    
+    Factory.create(:install, :app => @app_2, :user => @user_2, :current => false)
+    Factory.create(:install, :app => @app_2, :user => @user_2, :installed => false)
+    
+    popular_apps = App.popular
+    popular_apps.map(&:number_of_installs).should == [1]
+    popular_apps.should == [@app_1]
+  end
+  
+  it 'should only count a maximum of one install per app per user i.e. ignore updates' do
+    Factory.create(:install, :app => @app_1, :user => @user_1)
+    Factory.create(:install, :app => @app_1, :user => @user_2, :current => false)
+    Factory.create(:install, :app => @app_1, :user => @user_2)
+    
+    Factory.create(:install, :app => @app_2, :user => @user_1)
+    Factory.create(:install, :app => @app_2, :user => @user_2)
+    Factory.create(:install, :app => @app_2, :user => @user_3)
+    
+    popular_apps = App.popular
+    popular_apps.map(&:number_of_installs).should == [3, 2]
+    popular_apps.should == [@app_2, @app_1]
+  end
+  
+end

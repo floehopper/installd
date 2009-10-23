@@ -33,6 +33,7 @@ class App < ActiveRecord::Base
         :all,
         :select => 'apps.*, COUNT(installs.id) AS number_of_installs, AVG(installs.rating) AS average_rating',
         :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
+        :conditions => ['installs.current = ? AND installs.installed = ?', true, true],
         :group => 'apps.id',
         :order => 'number_of_installs DESC, created_at DESC'
       )
@@ -63,7 +64,8 @@ class App < ActiveRecord::Base
   
   def number_of_installs
     if attributes.keys.include?('number_of_installs')
-      return self['number_of_installs']
+      number_of_installs = self['number_of_installs']
+      return number_of_installs ? number_of_installs.to_i : nil
     else
       return app.installs.size
     end
