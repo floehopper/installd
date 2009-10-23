@@ -15,10 +15,6 @@ class InstallsController < ApplicationController
     @installs = Install.paginate(:order => 'created_at DESC', :include => [:app, :user], :page => params[:page], :per_page => 15)
   end
   
-  def popular
-    @apps = App.popular.paginate(:page => params[:page], :per_page => 15)
-  end
-  
   def update
     @install = Install.find(params[:id])
     if @install.can_be_updated_by?(current_user)

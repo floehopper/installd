@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
   map.recent '/recent', :controller => 'installs', :action => 'recent'
-  map.popular '/popular', :controller => 'installs', :action => 'popular'
+  map.popular '/popular', :controller => 'apps', :action => 'popular'
   map.lookup_user '/lookup_user', :controller => 'users', :action => 'lookup'
   
   map.about '/about', :controller => 'pages', :action => 'about'
