@@ -133,6 +133,7 @@ class User < ActiveRecord::Base
   end
   
   def connected_apps_optimized(conditions)
+    conditions = "installs.current = 1 AND installs.installed = 1 AND (#{conditions})"
     App.all(
       :select => %{
         apps.*,
