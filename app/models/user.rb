@@ -34,19 +34,12 @@ class User < ActiveRecord::Base
     
   end
   
-  def latest_installs
-    app_ids_vs_installs = installs.group_by(&:app_id)
-    app_ids_vs_installs.map { |(app_id, installs)| installs.last }
-  end
-  
   def installed_apps
-    app_ids = latest_installs.select { |install| install.installed }.map(&:app_id)
-    App.find(app_ids)
+    App.find(installs.current.installed.map(&:app_id))
   end
   
   def uninstalled_apps
-    app_ids = latest_installs.reject { |install| install.installed }.map(&:app_id)
-    App.find(app_ids)
+    App.find(installs.current.uninstalled.map(&:app_id))
   end
   
   def invite!

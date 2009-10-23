@@ -16,6 +16,9 @@ class Install < ActiveRecord::Base
   validates_presence_of :software_version_external_identifier
   
   named_scope :of_app, lambda { |app| { :conditions => ['app_id = ?', app.id] } }
+  named_scope :current, :conditions => { :current => true }
+  named_scope :installed, :conditions => { :installed => true }
+  named_scope :uninstalled, :conditions => { :installed => false }
   
   before_create :store_hashcode
   
