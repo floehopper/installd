@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :inbound_connected_users, :through => :inbound_connections, :source => :user
   
   has_many :invitations, :order => 'created_at'
-  has_many :syncs
+  has_many :syncs, :order => 'created_at'
   
   named_scope :active, :conditions => { :active => true }
   named_scope :inactive, :conditions => { :active => false }
@@ -109,8 +109,18 @@ class User < ActiveRecord::Base
       else
         app = App.create!(app_attributes)
       end
-      if should_create_install(app, install_attributes[:raw_xml])
-        installs.create!(install_attributes.merge(:app => app, :sync => sync))
+      latest_install = installs.of_app(app).last
+      raw_xml = install_attributes[:raw_xml]
+      state = nil
+      if latest_install.nil?
+        state = 'Initial'
+      elsif !latest_install.installed?
+        state = 'Install'
+      elsif latest_install.differs_from?(raw_xml)
+        state = 'Update'
+      end
+      if state
+        installs.create!(install_attributes.merge(:state => state, :app => app, :sync => sync))
       end
     end
     missing_apps = original_apps - found_apps
@@ -121,15 +131,10 @@ class User < ActiveRecord::Base
 
   private
   
-  def should_create_install(app, raw_xml)
-    latest_install = installs.of_app(app).last
-    (latest_install && latest_install.differs_from?(raw_xml)) || latest_install.nil?
-  end
-  
   def create_uninstall_for!(app, sync)
     latest_install = installs.of_app(app).last
     latest_install_attributes = Install.extract_attributes(latest_install.attributes)
-    installs.create!(latest_install_attributes.merge(:installed => false, :app => app, :sync => sync))
+    installs.create!(latest_install_attributes.merge(:state => 'Uninstall', :installed => false, :app => app, :sync => sync))
   end
   
   def connected_apps_optimized(conditions)
