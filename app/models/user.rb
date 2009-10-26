@@ -34,8 +34,10 @@ class User < ActiveRecord::Base
     
   end
   
-  def installed_apps
-    App.find(installs.current.installed.map(&:app_id))
+  def installed_apps(options = {})
+    app_ids = installs.current.installed.map(&:app_id)
+    options[:conditions] = ['id IN (?)', app_ids]
+    App.find(:all, options)
   end
   
   def uninstalled_apps

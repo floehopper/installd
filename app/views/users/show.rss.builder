@@ -8,12 +8,13 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
     xml.language 'en'
     xml.pubDate Time.now.to_s(:rfc822)
     xml.atom(:link, :href => url_for(:host => HOST, :format => 'rss'), :rel => "self", :type => "application/rss+xml")
-    @installs.each do |install|
+    @apps.each do |app|
       xml.item do
-        xml.title(install.app.name)
-        xml.pubDate install.created_at.to_s(:rfc822)
-        xml.guid(app_url(install.app, :host => HOST), :isPermaLink => "false")
-        xml.link app_url(install.app, :host => HOST)
+        xml.title(app.name)
+        xml.pubDate app.created_at.to_s(:rfc822)
+        xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
+        xml.link app_url(app, :host => HOST)
+        install = app.installs.first
         xml.description "#{install_event_details(install).capitalize}. #{install_release_details(install).capitalize}."
       end
     end

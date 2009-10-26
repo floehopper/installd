@@ -50,22 +50,18 @@
 <% end %>
 
 <div class="yui-gb">
-  <% @installs.each_slice(5) do |installs| %>
-    <% first = (installs.first == @installs.first) ? ' first' : '' %>
+  <% @apps.each_slice(5) do |apps| %>
+    <% first = (apps.first == @apps.first) ? ' first' : '' %>
     <div class="yui-u <%= first %>">
       <ul class="installs">
-        <% installs.each do |install| %>
-          <% last = (install == installs.last) ? ' last' : '' %>
+        <% apps.each do |app| %>
+          <% install = app.installs.first %>
+          <% last = (app == apps.last) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <%= icon(install.app) %>
+            <%= icon(app) %>
             <div class="heading">
-              <%= heading(install.app) %>
-              <% if current_user && (current_user == @user) %>
-                <%= render :partial => '/installs/rating', :locals => { :install => install } %>
-              <% else %>
-                <%= stars(install.rating) %>
-              <% end %>
-              <%= buy_link(install.app) %>
+              <%= heading(app) %>
+              <%= buy_link(app) %>
             </div>
             <div class="details">
               <p>
@@ -83,5 +79,5 @@
 </div>
 
 <div class="innerFooter">
-  <%= will_paginate @installs %>
+  <%= will_paginate @apps %>
 </div>
