@@ -2,7 +2,7 @@ xml = Builder::XmlMarkup.new(:indent => 2)
 xml.instruct!
 xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => "2.0") do
   xml.channel do
-    xml.title("#{@user.login}'s Apps")
+    xml.title("#{@user.login}'s Recent Apps")
     xml.description("Applications recently updated by #{@user.login} (as recorded on installd.com)")
     xml.link(url_for(:host => HOST))
     xml.language 'en'
