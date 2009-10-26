@@ -2,6 +2,16 @@ class InstallsController < ApplicationController
   
   ssl_required :synchronize
   
+  def index
+    user_id = params[:user_id]
+    if user_id
+      @user = User.find_by_login(user_id)
+      @installs = @user.installs.paginate(:include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+    else
+      @installs = Install.paginate(:all, :include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+    end
+  end
+  
   def update
     @install = Install.find(params[:id])
     if @install.can_be_updated_by?(current_user)

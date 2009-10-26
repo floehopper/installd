@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :apps, :only => [:show]
+  map.resources :installs, :only => [:index]
   
   map.resources :activations, :only => [:new, :create]
   

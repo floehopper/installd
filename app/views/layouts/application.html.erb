@@ -91,6 +91,27 @@
             </li>
             <li class="yuimenubaritem">
               <% if current_user %>
+                <%= link_to 'Events', user_installs_path(current_user), :class => "yuimenubaritemlabel" %>
+              <% else %>
+                <%= link_to 'Events', installs_path, :class => "yuimenubaritemlabel" %>
+              <% end %>
+              <div id="apps" class="yuimenu">
+                <div class="bd">
+                  <ul>
+                    <% if current_user %>
+                      <li class="yuimenuitem">
+                        <%= link_to 'My Recent', user_installs_path(current_user), :class => "yuimenubaritemlabel" %>
+                      </li>
+                    <% end %>
+                    <li class="yuimenuitem">
+                      <%= link_to 'Recent', installs_path, :class => "yuimenubaritemlabel" %>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="yuimenubaritem">
+              <% if current_user %>
                 <%= link_to 'People', user_network_path(current_user), :class => "yuimenubaritemlabel" %>
               <% else %>
                 <%= link_to 'People', lookup_user_path, :class => "yuimenubaritemlabel" %>
