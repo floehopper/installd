@@ -48,7 +48,16 @@ module ApplicationHelper
   end
   
   def install_event_details(install)
-    event = install.installed? ? 'updated' : 'uninstalled'
+    event = case install.state
+      when 'Initial'
+        'first synced'
+      when 'Install'
+        'installed'
+      when 'Update'
+        'updated'
+      when 'Uninstall'
+        'uninstalled'
+    end
     attribution = "by #{link_to install.user.login, user_path(install.user)}"
     "#{event} #{attribution} #{time_ago(install.purchased_at)}"
   end
