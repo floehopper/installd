@@ -56,7 +56,26 @@
       <ul class="installs">
         <% installs.each do |install| %>
           <% last = (install == installs.last) ? ' last' : '' %>
-          <%= render :partial => install, :locals => { :last => last } %>
+          <li class="install<%= last %>">
+            <%= icon(install.app) %>
+            <div class="heading">
+              <%= heading(install.app) %>
+              <% if current_user && (current_user == @user) %>
+                <%= render :partial => '/installs/rating', :locals => { :install => install } %>
+              <% else %>
+                <%= stars(install.rating) %>
+              <% end %>
+              <%= buy_link(install.app) %>
+            </div>
+            <div class="details">
+              <p>
+                <%= install_event_details(install) %>
+              </p>
+              <p>
+                <%= install_release_details(install) %>
+              </p>
+            </div>
+          </li>
         <% end %>
       </ul>
     </div>
