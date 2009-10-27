@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resource :network, :only => [:show], :member => { :in_common => :get, :not_in_common => :get }
   end
   
-  map.resources :apps, :only => [:show]
+  map.resources :apps, :only => [:show], :collection => { :recent => :get, :popular => :get, :rated => :get }
   map.resources :installs, :only => [:index]
   
   map.resources :activations, :only => [:new, :create]
@@ -15,9 +15,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
-  map.recent '/recent', :controller => 'apps', :action => 'recent'
-  map.popular '/popular', :controller => 'apps', :action => 'popular'
-  map.rated '/rated', :controller => 'apps', :action => 'rated'
   map.lookup_user '/lookup_user', :controller => 'users', :action => 'lookup'
   
   map.about '/about', :controller => 'pages', :action => 'about'
