@@ -10,6 +10,12 @@ module ApplicationHelper
     end
   end
   
+  def column_heading(title, path)
+    content_tag('h2', :class => 'pageHeading') do
+      link_to title, path
+    end
+  end
+  
   def stars(rating)
     content_tag 'div', :class => 'rating' do
       returning String.new do |content|

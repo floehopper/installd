@@ -72,6 +72,6 @@ ActionController::Routing::Routes.draw do |map|
   map.privacy '/privacy', :controller => 'pages', :action => 'privacy'
   map.downloads '/downloads', :controller => 'downloads', :action => 'index'
   
-  map.root :controller => 'apps', :action => 'recent'
+  map.root :controller => 'apps', :action => 'summary'
   
 end

@@ -10,6 +10,12 @@ class AppsController < ApplicationController
     @installs = @app.installs.paginate(:order => 'created_at DESC', :page => params[:page], :per_page => 10)
   end
   
+  def summary
+    @recent_apps = App.all(:include => { :installs => :user }, :order => 'created_at DESC', :limit => 5)
+    @popular_apps = App.popular(:limit => 5)
+    @rated_apps = App.rated(:limit => 5)
+  end
+  
   def recent
     @apps = App.paginate(:all, :include => { :installs => :user }, :order => 'created_at DESC', :page => params[:page], :per_page => 15)
   end

@@ -1,0 +1,68 @@
+<div class="yui-gb">
+  <div class="yui-u first">
+    <%= column_heading('Recent Apps', recent_apps_path) %>
+    <ul class="installs">
+      <% @recent_apps.each do |app| %>
+        <% install = app.installs.first %>
+        <% last = (app == @recent_apps.last) ? ' last' : '' %>
+        <li class="install<%= last %>">
+          <%= icon(app) %>
+          <div class="heading">
+            <%= heading(app) %>
+            <%= buy_link(app) %>
+          </div>
+          <div class="details">
+            <p>
+              first synced by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(app.created_at).gsub(/about /, '') %> ago
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <%= column_heading('Popular Apps', popular_apps_path) %>
+    <ul class="installs">
+      <% @popular_apps.each do |app| %>
+        <% last = (app == @popular_apps.last) ? ' last' : '' %>
+        <li class="install<%= last %>">
+          <%= icon(app) %>
+          <div class="heading">
+            <%= heading(app) %>
+            <%= buy_link(app) %>
+          </div>
+          <div class="details">
+            <p>
+              currently installed by <%= pluralize(app.number_of_installs, 'user') %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="yui-u">
+    <%= column_heading('Rated Apps', rated_apps_path) %>
+    <ul class="installs">
+      <% @rated_apps.each do |app| %>
+        <% last = (app == @rated_apps.last) ? ' last' : '' %>
+        <li class="install<%= last %>">
+          <%= icon(app) %>
+          <div class="heading">
+            <%= heading(app) %>
+            <%= buy_link(app) %>
+          </div>
+          <div class="details">
+            <p>
+            <% if app.average_rating %>
+              currently rated <%= '%0.1f' % app.average_rating %> by <%= pluralize(app['number_of_ratings'], 'user') %>
+            <% end %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="innerFooter">
+</div>

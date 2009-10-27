@@ -28,26 +28,26 @@ class App < ActiveRecord::Base
       attributes.symbolize_keys.slice(:name, :item_id, :icon_url, :artist_name, :artist_id, :genre, :genre_id)
     end
     
-    def popular
-      find(
-        :all,
+    def popular(options = {})
+      options = {
         :select => 'apps.*, COUNT(installs.id) AS number_of_installs',
         :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
         :conditions => ['installs.current = ? AND installs.installed = ?', true, true],
         :group => 'apps.id',
         :order => 'number_of_installs DESC, created_at DESC'
-      )
+      }.merge(options)
+      find(:all, options)
     end
     
-    def rated
-      find(
-        :all,
+    def rated(options = {})
+      options = {
         :select => 'apps.*, AVG(installs.rating) AS average_rating, COUNT(installs.rating) AS number_of_ratings',
         :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
         :conditions => ['installs.current = ? AND installs.installed = ?', true, true],
         :group => 'apps.id',
         :order => 'average_rating DESC, created_at DESC'
-      )
+      }.merge(options)
+      find(:all, options)
     end
     
   end
