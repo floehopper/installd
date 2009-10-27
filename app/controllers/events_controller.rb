@@ -1,4 +1,4 @@
-class InstallsController < ApplicationController
+class EventsController < ApplicationController
   
   ssl_required :synchronize
   
@@ -6,17 +6,17 @@ class InstallsController < ApplicationController
     user_id = params[:user_id]
     if user_id
       @user = User.find_by_login(user_id)
-      @installs = @user.installs.paginate(:include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+      @events = @user.events.paginate(:include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
     else
-      @installs = Install.paginate(:all, :include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+      @events = Event.paginate(:all, :include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)
     end
   end
   
   def update
-    @install = Install.find(params[:id])
-    if @install.can_be_updated_by?(current_user)
-      rating = params[:install] && params[:install][:rating]
-      @install.update_attributes(:rating => rating, :rated_at => Time.now)
+    @event = Event.find(params[:id])
+    if @event.can_be_updated_by?(current_user)
+      rating = params[:event] && params[:event][:rating]
+      @event.update_attributes(:rating => rating, :rated_at => Time.now)
     end
     respond_to do |format|
      format.js { render :nothing => true }

@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
         :member => {
           :delete => :get
         }
-      users.resources :installs,
+      users.resources :events,
         :only => [
           :index
         ],
@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
       :popular => :get,
       :rated => :get
     }
-  map.resources :installs,
+  map.resources :events,
     :only => [
       :index,
       :update
@@ -71,6 +71,9 @@ ActionController::Routing::Routes.draw do |map|
   map.about '/about', :controller => 'pages', :action => 'about'
   map.privacy '/privacy', :controller => 'pages', :action => 'privacy'
   map.downloads '/downloads', :controller => 'downloads', :action => 'index'
+  
+  # legacy route for client versions <= 0.0.5
+  map.connect '/users/:user_id/installs/synchronize', :controller => 'events', :action => 'synchronize'
   
   map.root :controller => 'apps', :action => 'summary'
   

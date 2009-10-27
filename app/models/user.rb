@@ -9,12 +9,12 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :login, :password, :active
   
-  has_many :installs, :order => 'created_at', :dependent => :destroy
-  has_many :apps, :through => :installs
+  has_many :events, :order => 'created_at', :dependent => :destroy
+  has_many :apps, :through => :events
   has_many :connections
   has_many :connected_users, :through => :connections
-  has_many :connected_installs, :through => :connected_users, :source => :installs
-  has_many :connected_apps, :through => :connected_installs, :source => :app
+  has_many :connected_events, :through => :connected_users, :source => :events
+  has_many :connected_apps, :through => :connected_events, :source => :app
   
   has_many :inbound_connections, :class_name => 'Connection', :foreign_key => 'connected_user_id'
   has_many :inbound_connected_users, :through => :inbound_connections, :source => :user
@@ -35,13 +35,13 @@ class User < ActiveRecord::Base
   end
   
   def installed_apps(options = {})
-    app_ids = installs.current.installed.map(&:app_id)
+    app_ids = events.current.installed.map(&:app_id)
     options[:conditions] = ['id IN (?)', app_ids]
     App.find(:all, options)
   end
   
   def uninstalled_apps
-    App.find(installs.current.uninstalled.map(&:app_id))
+    App.find(events.current.uninstalled.map(&:app_id))
   end
   
   def invite!
@@ -98,54 +98,54 @@ class User < ActiveRecord::Base
     found_apps = []
     new_apps.each do |attributes|
       app_attributes = App.extract_attributes(attributes)
-      install_attributes = Install.extract_attributes(attributes)
+      event_attributes = Event.extract_attributes(attributes)
       if app = App.find_by_name(app_attributes[:name])
         found_apps << app
       else
         app = App.create!(app_attributes)
       end
-      latest_install = installs.of_app(app).last
-      raw_xml = install_attributes[:raw_xml]
+      latest_event = events.of_app(app).last
+      raw_xml = event_attributes[:raw_xml]
       state = nil
-      if latest_install.nil?
+      if latest_event.nil?
         state = 'Initial'
-      elsif !latest_install.installed?
+      elsif !latest_event.installed?
         state = 'Install'
-      elsif latest_install.differs_from?(raw_xml)
+      elsif latest_event.differs_from?(raw_xml)
         state = 'Update'
       end
       if state
-        latest_install.update_attributes(:current => false) if latest_install
-        installs.create!(install_attributes.merge(:current => true, :state => state, :app => app, :sync => sync))
+        latest_event.update_attributes(:current => false) if latest_event
+        events.create!(event_attributes.merge(:current => true, :state => state, :app => app, :sync => sync))
       end
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      create_uninstall_for!(app, sync)
+      create_uninstall_event_for!(app, sync)
     end
   end
 
   private
   
-  def create_uninstall_for!(app, sync)
-    latest_install = installs.of_app(app).last
-    latest_install_attributes = Install.extract_attributes(latest_install.attributes)
-    latest_install.update_attributes(:current => false)
-    installs.create!(latest_install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync))
+  def create_uninstall_event_for!(app, sync)
+    latest_event = events.of_app(app).last
+    latest_event_attributes = Event.extract_attributes(latest_event.attributes)
+    latest_event.update_attributes(:current => false)
+    events.create!(latest_event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync))
   end
   
   def connected_apps_optimized(conditions)
-    conditions = "installs.current = 1 AND installs.installed = 1 AND (#{conditions})"
+    conditions = "events.current = 1 AND events.installed = 1 AND (#{conditions})"
     App.all(
       :select => %{
         apps.*,
-        COUNT(installs.id) AS number_of_installs,
-        AVG(installs.rating) AS average_rating,
-        MAX(installs.created_at) AS maximum_created_at
+        COUNT(events.id) AS number_of_installs,
+        AVG(events.rating) AS average_rating,
+        MAX(events.created_at) AS maximum_created_at
       },
       :joins => %{
-        INNER JOIN installs
-          ON (apps.id = installs.app_id)
+        INNER JOIN events
+          ON (apps.id = events.app_id)
       },
       :conditions => conditions,
       :group => 'apps.id',
@@ -156,16 +156,16 @@ class User < ActiveRecord::Base
   def app_ids_sql
     %{
       SELECT apps.id FROM apps
-        INNER JOIN installs ON (apps.id = installs.app_id)
-        INNER JOIN users ON (installs.user_id = #{id})
+        INNER JOIN events ON (apps.id = events.app_id)
+        INNER JOIN users ON (events.user_id = #{id})
     }
   end
   
   def connected_app_ids_sql
     %{
       SELECT apps.id FROM apps
-        INNER JOIN installs ON (apps.id = installs.app_id)
-        INNER JOIN users ON (installs.user_id = users.id)
+        INNER JOIN events ON (apps.id = events.app_id)
+        INNER JOIN users ON (events.user_id = users.id)
         INNER JOIN connections ON (users.id = connections.connected_user_id)
         WHERE (connections.user_id = #{id})
     }

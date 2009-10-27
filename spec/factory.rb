@@ -37,22 +37,22 @@ Factory.define :app do |app|
   app.genre_id 'genre-id'
 end
 
-Factory.define :install_from_xml, :class => Install do |install|
-  install.raw_xml '<xml></xml>'
-  install.price 999
-  install.display_price '£9.99'
-  install.released_at Time.parse('2009-01-01 00:00:00')
-  install.purchased_at Time.parse('2009-01-01 00:00:00')
-  install.store_code 'store-code'
-  install.software_version_bundle_id 'bundle-id'
-  install.software_version_external_identifier 'external-identifier'
+Factory.define :event_from_xml, :class => Event do |event|
+  event.raw_xml '<xml></xml>'
+  event.price 999
+  event.display_price '£9.99'
+  event.released_at Time.parse('2009-01-01 00:00:00')
+  event.purchased_at Time.parse('2009-01-01 00:00:00')
+  event.store_code 'store-code'
+  event.software_version_bundle_id 'bundle-id'
+  event.software_version_external_identifier 'external-identifier'
 end
 
-Factory.define :install, :parent => :install_from_xml do |install|
-  install.association :sync
-  install.installed true
-  install.current true
-  install.state 'Initial'
+Factory.define :event, :parent => :event_from_xml do |event|
+  event.association :sync
+  event.installed true
+  event.current true
+  event.state 'Initial'
 end
 
 Factory.define :sync do |sync|

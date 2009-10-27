@@ -1,7 +1,7 @@
 class App < ActiveRecord::Base
   
-  has_many :installs, :order => 'created_at', :dependent => :destroy
-  has_many :users, :through => :installs
+  has_many :events, :order => 'created_at', :dependent => :destroy
+  has_many :users, :through => :events
   
   has_attached_file :icon
   
@@ -30,9 +30,9 @@ class App < ActiveRecord::Base
     
     def popular(options = {})
       options = {
-        :select => 'apps.*, COUNT(installs.id) AS number_of_installs',
-        :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
-        :conditions => ['installs.current = ? AND installs.installed = ?', true, true],
+        :select => 'apps.*, COUNT(events.id) AS number_of_installs',
+        :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
+        :conditions => ['events.current = ? AND events.installed = ?', true, true],
         :group => 'apps.id',
         :order => 'number_of_installs DESC, created_at DESC'
       }.merge(options)
@@ -41,9 +41,9 @@ class App < ActiveRecord::Base
     
     def rated(options = {})
       options = {
-        :select => 'apps.*, AVG(installs.rating) AS average_rating, COUNT(installs.rating) AS number_of_ratings',
-        :joins => 'LEFT OUTER JOIN installs ON installs.app_id = apps.id',
-        :conditions => ['installs.current = ? AND installs.installed = ?', true, true],
+        :select => 'apps.*, AVG(events.rating) AS average_rating, COUNT(events.rating) AS number_of_ratings',
+        :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
+        :conditions => ['events.current = ? AND events.installed = ?', true, true],
         :group => 'apps.id',
         :order => 'average_rating DESC, created_at DESC'
       }.merge(options)
@@ -60,15 +60,15 @@ class App < ActiveRecord::Base
     AppStore.view_software_url(item_id)
   end
   
-  def most_recently_added_install
-    installs(:order => 'created_at').last
+  def most_recently_added_event
+    events(:order => 'created_at').last
   end
   
   def average_rating
     if attributes.keys.include?('average_rating')
       rating = self['average_rating']
     else
-      rating = installs.average(:rating)
+      rating = events.average(:rating)
     end
     rating ? rating.to_f.round : nil
   end
@@ -78,7 +78,7 @@ class App < ActiveRecord::Base
       number_of_installs = self['number_of_installs']
       return number_of_installs ? number_of_installs.to_i : nil
     else
-      return installs.size
+      return events.current.installed.size
     end
   end
   

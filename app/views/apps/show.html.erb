@@ -18,12 +18,12 @@
   </div>
   <div class="yui-u">
     <ul class="installs">
-      <% @installs.each do |install| %>
-        <% last = (install == @installs.last) ? ' last' : '' %>
+      <% @events.each do |event| %>
+        <% last = (event == @events.last) ? ' last' : '' %>
         <li class="install<%= last %>">
           <div class="details">
             <p>
-              <%= install_event_details(install) %>
+              <%= event_details(event) %>
             </p>
           </div>
         </li>
@@ -33,5 +33,5 @@
 </div>
 
 <div class="innerFooter">
-  <%= will_paginate @installs %>
+  <%= will_paginate @events %>
 </div>

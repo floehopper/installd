@@ -3,7 +3,7 @@
     <%= column_heading('Recent Apps', recent_apps_path) %>
     <ul class="installs">
       <% @recent_apps.each do |app| %>
-        <% install = app.installs.first %>
+        <% event = app.events.first %>
         <% last = (app == @recent_apps.last) ? ' last' : '' %>
         <li class="install<%= last %>">
           <%= icon(app) %>
@@ -13,7 +13,7 @@
           </div>
           <div class="details">
             <p>
-              first synced by <%= link_to install.user.login, user_path(install.user) %> <%= time_ago_in_words(app.created_at).gsub(/about /, '') %> ago
+              first synced by <%= link_to event.user.login, user_path(event.user) %> <%= time_ago_in_words(app.created_at).gsub(/about /, '') %> ago
             </p>
           </div>
         </li>

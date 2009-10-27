@@ -9,24 +9,24 @@
 <% end %>
 
 <div class="yui-gb">
-  <% @installs.each_slice(5) do |installs| %>
-    <% first = (installs.first == @installs.first) ? ' first' : '' %>
+  <% @events.each_slice(5) do |events| %>
+    <% first = (events.first == @events.first) ? ' first' : '' %>
     <div class="yui-u <%= first %>">
       <ul class="installs">
-        <% installs.each do |install| %>
-          <% last = (install == installs.last) ? ' last' : '' %>
+        <% events.each do |event| %>
+          <% last = (event == events.last) ? ' last' : '' %>
           <li class="install<%= last %>">
-            <%= icon(install.app) %>
+            <%= icon(event.app) %>
             <div class="heading">
-              <%= heading(install.app) %>
-              <%= buy_link(install.app) %>
+              <%= heading(event.app) %>
+              <%= buy_link(event.app) %>
             </div>
             <div class="details">
               <p>
-                <%= install_event_details(install) %>
+                <%= event_details(event) %>
               </p>
               <p>
-                <%= install_release_details(install) %>
+                <%= release_details(event) %>
               </p>
             </div>
           </li>
@@ -37,5 +37,5 @@
 </div>
 
 <div class="innerFooter">
-  <%= will_paginate @installs %>
+  <%= will_paginate @events %>
 </div>

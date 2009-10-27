@@ -9,10 +9,10 @@ describe User, 'sync apps' do
   
   it 'should create app if app does not exist' do
     app_attributes = Factory.attributes_for(:app, :name => 'does-not-exist')
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     
     sync = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(install_attributes)], sync)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync)
     
     app = App.first
     app.should_not be_nil
@@ -22,162 +22,162 @@ describe User, 'sync apps' do
   it 'should not create app if app already exists' do
     app_attributes = Factory.attributes_for(:app, :name => 'does-exist')
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     sync_0 = Factory(:sync, :user => @user)
-    @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
+    @user.events.create!(event_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     
     sync_1 = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(install_attributes)], sync_1)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_1)
     
     App.all.should == [app]
   end
   
 end
 
-describe User, 'sync installs' do
+describe User, 'sync events' do
   
   before do
     @user = Factory(:active_user)
   end
   
-  it 'should create install if user installed app, and synced' do
+  it 'should create event if user installed app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     sync = Factory(:sync, :user => @user)
     
-    @user.synchronize([app_attributes.merge(install_attributes)], sync)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync)
     
-    @user.installs.size.should == 1
-    @user.installs(reload = true).map(&:current).should == [true]
-    install = @user.installs.first
-    install.should_not be_nil
-    install.state.should == 'Initial'
-    Install.extract_attributes(install.attributes).should == install_attributes
+    @user.events.size.should == 1
+    @user.events(reload = true).map(&:current).should == [true]
+    event = @user.events.first
+    event.should_not be_nil
+    event.state.should == 'Initial'
+    Event.extract_attributes(event.attributes).should == event_attributes
   end
   
-  it 'should not create install if user installed app, synced, and synced again' do
+  it 'should not create event if user installed app, synced, and synced again' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
+    event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     
     sync_1 = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(install_attributes)], sync_1)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_1)
     
-    @user.installs.should == [install]
-    @user.installs(reload = true).map(&:current).should == [true]
+    @user.events.should == [event]
+    @user.events(reload = true).map(&:current).should == [true]
   end
   
-  it 'should create install if user installed app, synced, updated app, and synced' do
+  it 'should create event if user installed app, synced, updated app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
-    new_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>changed</xml>')
+    event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     
     sync_1 = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(new_install_attributes)], sync_1)
+    @user.synchronize([app_attributes.merge(new_event_attributes)], sync_1)
     
-    @user.installs.length.should == 2
-    @user.installs(reload = true).map(&:current).should == [false, true]
-    new_install = @user.installs.last
-    new_install.state.should == 'Update'
-    Install.extract_attributes(new_install.attributes).should == new_install_attributes
+    @user.events.length.should == 2
+    @user.events(reload = true).map(&:current).should == [false, true]
+    new_event = @user.events.last
+    new_event.state.should == 'Update'
+    Event.extract_attributes(new_event.attributes).should == new_event_attributes
   end
   
-  it 'should create install if user installed app, synced, updated app, synced, updated app, and synced' do
+  it 'should create event if user installed app, synced, updated app, synced, updated app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
-    new_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>changed</xml>')
+    event = @user.events.create!(event_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    new_install = @user.installs.create!(new_install_attributes.merge(:current => true, :state => 'Updated', :app => app, :sync => sync_1))
-    another_install_attributes = Factory.attributes_for(:install_from_xml, :raw_xml => '<xml>original</xml>')
+    new_event = @user.events.create!(new_event_attributes.merge(:current => true, :state => 'Updated', :app => app, :sync => sync_1))
+    another_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(another_install_attributes)], sync_2)
+    @user.synchronize([app_attributes.merge(another_event_attributes)], sync_2)
     
-    @user.installs.length.should == 3
-    @user.installs(reload = true).map(&:current).should == [false, false, true]
-    another_install = @user.installs.last
-    another_install.state.should == 'Update'
-    Install.extract_attributes(another_install.attributes).should == another_install_attributes
+    @user.events.length.should == 3
+    @user.events(reload = true).map(&:current).should == [false, false, true]
+    another_event = @user.events.last
+    another_event.state.should == 'Update'
+    Event.extract_attributes(another_event.attributes).should == another_event_attributes
   end
   
-  it 'should create uninstall if user installed app, synced, uninstalled app, and synced' do
+  it 'should create uninstall event if user installed app, synced, uninstalled app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
+    event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     
     sync_1 = Factory(:sync, :user => @user)
     @user.synchronize([], sync_1)
     
-    @user.installs.length.should == 2
-    @user.installs(reload = true).map(&:current).should == [false, true]
-    uninstall = @user.installs.last
-    uninstall.installed.should == false
-    uninstall.state.should == 'Uninstall'
-    Install.extract_attributes(uninstall.attributes).should == install_attributes
+    @user.events.length.should == 2
+    @user.events(reload = true).map(&:current).should == [false, true]
+    uninstall_event = @user.events.last
+    uninstall_event.installed.should == false
+    uninstall_event.state.should == 'Uninstall'
+    Event.extract_attributes(uninstall_event.attributes).should == event_attributes
   end
   
-  it 'should create install if user installed app, synced, uninstalled app, synced, re-installed app, and synced' do
+  it 'should create event if user installed app, synced, uninstalled app, synced, re-installed app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
+    event = @user.events.create!(event_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
-    @user.synchronize([app_attributes.merge(install_attributes)], sync_2)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_2)
     
-    @user.installs.length.should == 3
-    @user.installs(reload = true).map(&:current).should == [false, false, true]
-    reinstall = @user.installs.last
-    reinstall.installed.should == true
-    reinstall.state.should == 'Install'
-    Install.extract_attributes(reinstall.attributes).should == install_attributes
+    @user.events.length.should == 3
+    @user.events(reload = true).map(&:current).should == [false, false, true]
+    reinstall_event = @user.events.last
+    reinstall_event.installed.should == true
+    reinstall_event.state.should == 'Install'
+    Event.extract_attributes(reinstall_event.attributes).should == event_attributes
   end
   
-  it 'should not create uninstall if user installed app, synced, uninstalled app, synced, and then synced again' do
+  it 'should not create uninstall event if user installed app, synced, uninstalled app, synced, and then synced again' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    install_attributes = Factory.attributes_for(:install_from_xml)
+    event_attributes = Factory.attributes_for(:event_from_xml)
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
     sync_0 = Factory(:sync, :user => @user)
-    install = @user.installs.create!(install_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
+    event = @user.events.create!(event_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall = @user.installs.create!(install_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
     @user.synchronize([], sync_2)
     
-    @user.installs.length.should == 2
-    @user.installs(reload = true).map(&:current).should == [false, true]
-    uninstall = @user.installs.last
-    uninstall.installed.should == false
-    uninstall.state.should == 'Uninstall'
-    Install.extract_attributes(uninstall.attributes).should == install_attributes
+    @user.events.length.should == 2
+    @user.events(reload = true).map(&:current).should == [false, true]
+    uninstall_event = @user.events.last
+    uninstall_event.installed.should == false
+    uninstall_event.state.should == 'Uninstall'
+    Event.extract_attributes(uninstall_event.attributes).should == event_attributes
   end
   
 end

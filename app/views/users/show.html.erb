@@ -55,7 +55,7 @@
     <div class="yui-u <%= first %>">
       <ul class="installs">
         <% apps.each do |app| %>
-          <% install = app.installs.first %>
+          <% event = app.events.first %>
           <% last = (app == apps.last) ? ' last' : '' %>
           <li class="install<%= last %>">
             <%= icon(app) %>
@@ -65,10 +65,10 @@
             </div>
             <div class="details">
               <p>
-                <%= install_event_details(install) %>
+                <%= event_details(event) %>
               </p>
               <p>
-                <%= install_release_details(install) %>
+                <%= release_details(event) %>
               </p>
             </div>
           </li>

@@ -14,8 +14,8 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
         xml.pubDate app.created_at.to_s(:rfc822)
         xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
         xml.link app_url(app, :host => HOST)
-        install = app.installs.first
-        xml.description "#{install_event_details(install).capitalize}. #{install_release_details(install).capitalize}."
+        event = app.events.first
+        xml.description "#{event_details(event).capitalize}. #{release_details(event).capitalize}."
       end
     end
   end

@@ -7,17 +7,17 @@ class AppsController < ApplicationController
       redirect_to app_path(@app), :status => :moved_permanently
       return
     end
-    @installs = @app.installs.paginate(:order => 'created_at DESC', :page => params[:page], :per_page => 10)
+    @events = @app.events.paginate(:order => 'created_at DESC', :page => params[:page], :per_page => 10)
   end
   
   def summary
-    @recent_apps = App.all(:include => { :installs => :user }, :order => 'created_at DESC', :limit => 5)
+    @recent_apps = App.all(:include => { :events => :user }, :order => 'created_at DESC', :limit => 5)
     @popular_apps = App.popular(:limit => 5)
     @rated_apps = App.rated(:limit => 5)
   end
   
   def recent
-    @apps = App.paginate(:all, :include => { :installs => :user }, :order => 'created_at DESC', :page => params[:page], :per_page => 15)
+    @apps = App.paginate(:all, :include => { :events => :user }, :order => 'created_at DESC', :page => params[:page], :per_page => 15)
   end
   
   def popular

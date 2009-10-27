@@ -1,4 +1,4 @@
-class Install < ActiveRecord::Base
+class Event < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :app
