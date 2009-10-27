@@ -11,12 +11,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :activations, :only => [:new, :create]
   map.resource :user_session, :only => [:new, :create, :destroy], :member => { :delete => :get }
   
-  map.resources :downloads, :only => [:index]
-  
   map.lookup_user '/lookup_user', :controller => 'users', :action => 'lookup'
   
   map.about '/about', :controller => 'pages', :action => 'about'
   map.privacy '/privacy', :controller => 'pages', :action => 'privacy'
+  map.downloads '/downloads', :controller => 'downloads', :action => 'index'
   
   map.root :controller => 'apps', :action => 'recent'
   
