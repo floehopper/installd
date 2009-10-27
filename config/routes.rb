@@ -9,6 +9,9 @@ ActionController::Routing::Routes.draw do |map|
     ],
     :member => {
       :invite => :put
+    },
+    :collection => {
+      :lookup => :get
     } do |users|
       users.resources :connections,
         :only => [
@@ -64,8 +67,6 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
       :delete => :get
     }
-  
-  map.lookup_user '/lookup_user', :controller => 'users', :action => 'lookup'
   
   map.about '/about', :controller => 'pages', :action => 'about'
   map.privacy '/privacy', :controller => 'pages', :action => 'privacy'

@@ -114,7 +114,7 @@
               <% if current_user %>
                 <%= link_to 'People', user_network_path(current_user), :class => "yuimenubaritemlabel" %>
               <% else %>
-                <%= link_to 'People', lookup_user_path, :class => "yuimenubaritemlabel" %>
+                <%= link_to 'People', lookup_users_path, :class => "yuimenubaritemlabel" %>
               <% end %>
               <div id="people" class="yuimenu">
                 <div class="bd">
@@ -125,7 +125,7 @@
                       </li>
                     <% end %>
                     <li class="yuimenuitem">
-                      <%= link_to 'Lookup a User', lookup_user_path, :class => "yuimenubaritemlabel" %>
+                      <%= link_to 'Lookup a User', lookup_users_path, :class => "yuimenubaritemlabel" %>
                     </li>
                   </ul>
                 </div>
