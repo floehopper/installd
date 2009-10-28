@@ -34,10 +34,6 @@ class Event < ActiveRecord::Base
     
   end
   
-  def can_be_updated_by?(updating_user)
-    user == updating_user
-  end
-  
   def store_hashcode
     self.hashcode = self.class.generate_hashcode(raw_xml)
   end

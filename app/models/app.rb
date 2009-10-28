@@ -64,6 +64,11 @@ class App < ActiveRecord::Base
     events(:order => 'created_at').last
   end
   
+  def review_by_user(user)
+    review = reviews.detect { |review| review.user == user }
+    review || reviews.build(:user => user)
+  end
+  
   def average_rating
     if attributes.keys.include?('average_rating')
       rating = self['average_rating']

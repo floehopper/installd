@@ -50,7 +50,11 @@ ActionController::Routing::Routes.draw do |map|
     }
   map.resources :events,
     :only => [
-      :index,
+      :index
+    ]
+  map.resources :reviews,
+    :only => [
+      :create,
       :update
     ]
   map.resources :activations,

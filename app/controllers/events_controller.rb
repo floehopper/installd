@@ -12,18 +12,6 @@ class EventsController < ApplicationController
     end
   end
   
-  def update
-    @event = Event.find(params[:id])
-    if @event.can_be_updated_by?(current_user)
-      rating = params[:event] && params[:event][:rating]
-      @event.update_attributes(:rating => rating, :rated_at => Time.now)
-    end
-    respond_to do |format|
-     format.js { render :nothing => true }
-     format.html { redirect_to :back }
-    end
-  end
-  
   def synchronize
     user = User.find_by_login(params[:user_id])
     if current_user && (current_user == user)

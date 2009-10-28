@@ -1,4 +1,6 @@
-<% form_for(event, :html => { :class => 'rating' }) do |form| %>
+<% form_for(review, :html => { :class => 'rating' }) do |form| %>
+  <%= form.hidden_field :user_id %>
+  <%= form.hidden_field :app_id %>
   <%= form.radio_button :rating, 1, :class => 'auto-submit-star' %>
   <%= form.radio_button :rating, 2, :class => 'auto-submit-star' %>
   <%= form.radio_button :rating, 3, :class => 'auto-submit-star' %>
