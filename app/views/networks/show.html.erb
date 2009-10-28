@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/stylesheets/jquery.rating.css" type="text/css"/>
 <% end %>
 
-<h2 class="pageHeading"><%= h("#{@user.login}'s Network") %></h2>
+<h2 class="pageHeading"><%= h(@title) %></h2>
 
 <p>
   <%= link_to 'All', user_network_path(@user) %> | <%= link_to 'Common', in_common_user_network_path(@user) %> | <%= link_to 'Not in Common', not_in_common_user_network_path(@user) %>

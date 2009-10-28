@@ -3,15 +3,18 @@ class NetworksController < ApplicationController
   before_filter :load_user_and_connected_users
   
   def show
+    @title = "#{@user.login}'s Network - All"
     @apps = @user.connected_apps_including_mine.paginate(:page => params[:page], :per_page => 10)
   end
   
   def in_common
+    @title = "#{@user.login}'s Network - In Common"
     @apps = @user.connected_apps_in_common.paginate(:page => params[:page], :per_page => 10)
     render :action => 'show'
   end
   
   def not_in_common
+    @title = "#{@user.login}'s Network - Not In Common"
     @apps = @user.connected_apps_not_in_common.paginate(:page => params[:page], :per_page => 10)
     render :action => 'show'
   end
