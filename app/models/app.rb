@@ -32,7 +32,7 @@ class App < ActiveRecord::Base
       options = {
         :select => 'apps.*, COUNT(events.id) AS number_of_installs',
         :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
-        :conditions => ['events.current = ? AND events.installed = ?', true, true],
+        :conditions => ['events.current = ? AND events.state <> ?', true, 'Uninstall'],
         :group => 'apps.id',
         :order => 'number_of_installs DESC, created_at DESC'
       }.merge(options)
@@ -43,7 +43,7 @@ class App < ActiveRecord::Base
       options = {
         :select => 'apps.*, AVG(events.rating) AS average_rating, COUNT(events.rating) AS number_of_ratings',
         :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
-        :conditions => ['events.current = ? AND events.installed = ?', true, true],
+        :conditions => ['events.current = ? AND events.state <> ?', true, 'Uninstall'],
         :group => 'apps.id',
         :order => 'average_rating DESC, created_at DESC'
       }.merge(options)

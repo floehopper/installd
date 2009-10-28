@@ -17,8 +17,8 @@ class Event < ActiveRecord::Base
   
   named_scope :of_app, lambda { |app| { :conditions => ['app_id = ?', app.id] } }
   named_scope :current, :conditions => { :current => true }
-  named_scope :installed, :conditions => { :installed => true }
-  named_scope :uninstalled, :conditions => { :installed => false }
+  named_scope :installed, :conditions => ['state <> ?', 'Uninstall']
+  named_scope :uninstalled, :conditions => ['state = ?', 'Uninstall']
   
   before_create :store_hashcode
   
@@ -44,11 +44,15 @@ class Event < ActiveRecord::Base
   
   def matches?(raw_xml)
     hashcode = self.class.generate_hashcode(raw_xml)
-    (self.hashcode == hashcode) && self.installed
+    (self.hashcode == hashcode) && self.installed?
   end
   
   def differs_from?(raw_xml)
     !matches?(raw_xml)
+  end
+  
+  def installed?
+    state != 'Uninstall'
   end
   
 end

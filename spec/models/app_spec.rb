@@ -86,7 +86,7 @@ describe App, 'popular' do
   it 'should only count the number of users who currently have the app installed' do
     Factory.create(:event, :app => @app_1, :user => @user_1)
     Factory.create(:event, :app => @app_1, :user => @user_2, :current => false)
-    Factory.create(:event, :app => @app_1, :user => @user_2, :installed => false)
+    Factory.create(:event, :app => @app_1, :user => @user_2, :state => 'Uninstall')
     
     Factory.create(:event, :app => @app_2, :user => @user_1)
     Factory.create(:event, :app => @app_2, :user => @user_2)
@@ -100,7 +100,7 @@ describe App, 'popular' do
     Factory.create(:event, :app => @app_1, :user => @user_1)
     
     Factory.create(:event, :app => @app_2, :user => @user_2, :current => false)
-    Factory.create(:event, :app => @app_2, :user => @user_2, :installed => false)
+    Factory.create(:event, :app => @app_2, :user => @user_2, :state => 'Uninstall')
     
     popular_apps = App.popular
     popular_apps.map(&:number_of_installs).should == [1]

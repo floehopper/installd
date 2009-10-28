@@ -131,11 +131,11 @@ class User < ActiveRecord::Base
     latest_event = events.of_app(app).last
     latest_event_attributes = Event.extract_attributes(latest_event.attributes)
     latest_event.update_attributes(:current => false)
-    events.create!(latest_event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync))
+    events.create!(latest_event_attributes.merge(:current => true, :state => 'Uninstall', :app => app, :sync => sync))
   end
   
   def connected_apps_optimized(conditions)
-    conditions = "events.current = 1 AND events.installed = 1 AND (#{conditions})"
+    conditions = "events.current = 1 AND events.state <> 'Uninstall' AND (#{conditions})"
     App.all(
       :select => %{
         apps.*,

@@ -129,7 +129,6 @@ describe User, 'sync events' do
     @user.events.length.should == 2
     @user.events(reload = true).map(&:current).should == [false, true]
     uninstall_event = @user.events.last
-    uninstall_event.installed.should == false
     uninstall_event.state.should == 'Uninstall'
     Event.extract_attributes(uninstall_event.attributes).should == event_attributes
   end
@@ -143,7 +142,7 @@ describe User, 'sync events' do
     event = @user.events.create!(event_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :state => 'Uninstall', :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
@@ -152,7 +151,6 @@ describe User, 'sync events' do
     @user.events.length.should == 3
     @user.events(reload = true).map(&:current).should == [false, false, true]
     reinstall_event = @user.events.last
-    reinstall_event.installed.should == true
     reinstall_event.state.should == 'Install'
     Event.extract_attributes(reinstall_event.attributes).should == event_attributes
   end
@@ -166,7 +164,7 @@ describe User, 'sync events' do
     event = @user.events.create!(event_attributes.merge(:current => false, :state => 'Initial', :app => app, :sync => sync_0))
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
     sync_1 = Factory(:sync, :user => @user)
-    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :installed => false, :app => app, :sync => sync_1))
+    uninstall_event = @user.events.create!(event_attributes.merge(:current => true, :state => 'Uninstall', :state => 'Uninstall', :app => app, :sync => sync_1))
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
     
     sync_2 = Factory(:sync, :user => @user)
@@ -175,7 +173,6 @@ describe User, 'sync events' do
     @user.events.length.should == 2
     @user.events(reload = true).map(&:current).should == [false, true]
     uninstall_event = @user.events.last
-    uninstall_event.installed.should == false
     uninstall_event.state.should == 'Uninstall'
     Event.extract_attributes(uninstall_event.attributes).should == event_attributes
   end

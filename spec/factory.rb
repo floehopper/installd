@@ -50,7 +50,6 @@ end
 
 Factory.define :event, :parent => :event_from_xml do |event|
   event.association :sync
-  event.installed true
   event.current true
   event.state 'Initial'
 end
