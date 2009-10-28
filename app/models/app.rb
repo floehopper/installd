@@ -42,7 +42,7 @@ class App < ActiveRecord::Base
     
     def rated(options = {})
       options = {
-        :select => 'apps.*, AVG(reviews.rating) AS average_rating, COUNT(reviews.rating) AS number_of_ratings, MAX(reviews.created_at) AS last_rated_at',
+        :select => 'apps.*, AVG(reviews.rating) AS average_rating, COUNT(reviews.rating) AS number_of_ratings, MAX(reviews.updated_at) AS last_rated_at',
         :joins => 'LEFT OUTER JOIN reviews ON reviews.app_id = apps.id',
         :group => 'apps.id',
         :order => 'average_rating DESC, last_rated_at DESC, created_at DESC'
