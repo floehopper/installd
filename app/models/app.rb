@@ -42,9 +42,8 @@ class App < ActiveRecord::Base
     
     def rated(options = {})
       options = {
-        :select => 'apps.*, AVG(events.rating) AS average_rating, COUNT(events.rating) AS number_of_ratings',
-        :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
-        :conditions => ['events.current = ? AND events.state <> ?', true, 'Uninstall'],
+        :select => 'apps.*, AVG(reviews.rating) AS average_rating, COUNT(reviews.rating) AS number_of_ratings',
+        :joins => 'LEFT OUTER JOIN reviews ON reviews.app_id = apps.id',
         :group => 'apps.id',
         :order => 'average_rating DESC, created_at DESC'
       }.merge(options)
@@ -69,18 +68,27 @@ class App < ActiveRecord::Base
     if attributes.keys.include?('average_rating')
       rating = self['average_rating']
     else
-      rating = events.average(:rating)
+      rating = reviews.average(:rating)
     end
-    rating ? rating.to_f.round : nil
+    rating ? rating.to_f : nil
+  end
+  
+  def number_of_ratings
+    if attributes.keys.include?('number_of_ratings')
+      number_of_ratings = self['number_of_ratings']
+    else
+      number_of_ratings = reviews.with_rating.size
+    end
+    number_of_ratings ? number_of_ratings.to_i : nil
   end
   
   def number_of_installs
     if attributes.keys.include?('number_of_installs')
       number_of_installs = self['number_of_installs']
-      return number_of_installs ? number_of_installs.to_i : nil
     else
-      return events.current.installed.size
+      number_of_installs = events.current.installed.size
     end
+    number_of_installs ? number_of_installs.to_i : nil
   end
   
   def store_icon!

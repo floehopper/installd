@@ -141,7 +141,6 @@ class User < ActiveRecord::Base
       :select => %{
         apps.*,
         COUNT(events.id) AS number_of_installs,
-        AVG(events.rating) AS average_rating,
         MAX(events.created_at) AS maximum_created_at
       },
       :joins => %{
