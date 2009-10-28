@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   
   has_many :events, :order => 'created_at', :dependent => :destroy
   has_many :apps, :through => :events
+  has_many :reviews, :order => 'created_at', :dependent => :destroy
   has_many :connections
   has_many :connected_users, :through => :connections
   has_many :connected_events, :through => :connected_users, :source => :events

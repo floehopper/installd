@@ -2,6 +2,7 @@ class App < ActiveRecord::Base
   
   has_many :events, :order => 'created_at', :dependent => :destroy
   has_many :users, :through => :events
+  has_many :reviews, :order => 'created_at', :dependent => :destroy
   
   has_attached_file :icon
   
