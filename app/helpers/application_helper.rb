@@ -54,18 +54,18 @@ module ApplicationHelper
   end
   
   def event_details(event)
-    event_type = case event.state
+    case event.state
       when 'Initial'
-        'first synced'
+        event_type, event_time = 'first synced', event.created_at
       when 'Install'
-        'installed'
+        event_type, event_time = 'installed', event.purchased_at
       when 'Update'
-        'updated'
+        event_type, event_time = 'updated', event.purchased_at
       when 'Uninstall'
-        'uninstalled'
+        event_type, event_time = 'uninstalled', event.created_at
     end
     attribution = "by #{link_to event.user.login, user_path(event.user)}"
-    "#{event_type} #{attribution} #{time_ago(event.purchased_at)}"
+    "#{event_type} #{attribution} #{time_ago(event_time)}"
   end
   
   def release_details(event)
