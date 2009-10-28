@@ -60,10 +60,6 @@ class App < ActiveRecord::Base
     AppStore.view_software_url(item_id)
   end
   
-  def most_recently_added_event
-    events(:order => 'created_at').last
-  end
-  
   def review_by_user(user)
     review = reviews.detect { |review| review.user == user }
     review || reviews.build(:user => user)
