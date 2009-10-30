@@ -2,15 +2,20 @@ class DestroyDuplicateEvents < ActiveRecord::Migration
   
   def self.up
     Sync.all.each do |sync|
-      apps_vs_events = sync.events.group_by(&:app)
-      apps_vs_events.each do |(app, events)|
-        if events.size > 1
-          latest_event = events.sort_by(&:purchased_at).last
+      User.all.each do |user|
+        user.apps.each do |app|
+          events = user.events.of_app(app)
+          events_to_keep = []
           events.each do |event|
-            unless event == latest_event
-              puts "destroy: #{[event.id, event.user.login, sync.id, app.name, event.current, event.state, event.purchased_at.to_s(:db)].inspect}"
-              event.destroy
+            previous_event = events_to_keep.last
+            if event.can_follow?(previous_event)
+              events_to_keep << event
             end
+          end
+          events_to_destroy = events - events_to_keep
+          events_to_destroy.each do |event|
+            puts "destroy: #{[event.id, event.user.login, event.sync.id, event.app.name, event.current, event.state, event.hashcode, event.purchased_at.to_s(:db)].inspect}"
+            event.destroy
           end
         end
       end

@@ -34,6 +34,21 @@ class Event < ActiveRecord::Base
     
   end
   
+  def can_follow?(event)
+    return true if event.nil?
+    if (event.hashcode == hashcode)
+      if state == 'Uninstall'
+        return true
+      elsif state == 'Install'
+        return true if (event.purchased_at <= purchased_at)
+      else
+        return false
+      end
+    else
+      return true if (event.purchased_at < purchased_at)
+    end
+  end
+  
   def store_hashcode
     self.hashcode = self.class.generate_hashcode(raw_xml)
   end
