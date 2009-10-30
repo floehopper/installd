@@ -3,109 +3,95 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe IphoneAppPlistParser, 'each' do
   
   it "should parse artist names" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'Quan Lam', results[0][:artist_name]
-    assert_equal 'Facebook', results[1][:artist_name]
+    assert_equal 'Quan Lam', parse(scical_plist)[:artist_name]
+    assert_equal 'Facebook', parse(facebook_plist)[:artist_name]
   end
   
   it "should parse artist ids" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal '298794841', results[0][:artist_id]
-    assert_equal '284882218', results[1][:artist_id]
+    assert_equal '298794841', parse(scical_plist)[:artist_id]
+    assert_equal '284882218', parse(facebook_plist)[:artist_id]
   end
   
   it "should parse genres" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'Utilities', results[0][:genre]
-    assert_equal 'Social Networking', results[1][:genre]
+    assert_equal 'Utilities', parse(scical_plist)[:genre]
+    assert_equal 'Social Networking', parse(facebook_plist)[:genre]
   end
   
   it "should parse genre ids" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal '6002', results[0][:genre_id]
-    assert_equal '6005', results[1][:genre_id]
+    assert_equal '6002', parse(scical_plist)[:genre_id]
+    assert_equal '6005', parse(facebook_plist)[:genre_id]
   end
   
   it "should parse names" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'SciCal Lite - Scientific Calculator', results[0][:name]
-    assert_equal 'Facebook', results[1][:name]
+    assert_equal 'SciCal Lite - Scientific Calculator', parse(scical_plist)[:name]
+    assert_equal 'Facebook', parse(facebook_plist)[:name]
   end
   
   it "should parse item ids" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal '298967526', results[0][:item_id]
-    assert_equal '284882215', results[1][:item_id]
+    assert_equal '298967526', parse(scical_plist)[:item_id]
+    assert_equal '284882215', parse(facebook_plist)[:item_id]
   end
   
   it "should parse prices" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 0, results[0][:price]
-    assert_equal 199, results[1][:price]
+    assert_equal 0, parse(scical_plist)[:price]
+    assert_equal 199, parse(facebook_plist)[:price]
   end
   
   it "should parse display prices" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'FREE', results[0][:display_price]
-    assert_equal '£1.99', results[1][:display_price]
+    assert_equal 'FREE', parse(scical_plist)[:display_price]
+    assert_equal '£1.99', parse(facebook_plist)[:display_price]
   end
   
   it "should parse released at" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal Time.parse('Mar 02 20:06:25 UTC 2009'), results[0][:released_at]
-    assert_equal Time.parse('Jul 10 07:00:00 UTC 2008'), results[1][:released_at]
+    assert_equal Time.parse('Mar 02 20:06:25 UTC 2009'), parse(scical_plist)[:released_at]
+    assert_equal Time.parse('Jul 10 07:00:00 UTC 2008'), parse(facebook_plist)[:released_at]
   end
   
   it "should parse store codes" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal '143444', results[0][:store_code]
-    assert_equal '143444', results[1][:store_code]
+    assert_equal '143444', parse(scical_plist)[:store_code]
+    assert_equal '143444', parse(facebook_plist)[:store_code]
   end
   
   it "should parse icon urls" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', results[0][:icon_url]
-    assert_equal 'http://a1.phobos.apple.com/eu/r1000/039/Purple/56/44/f6/mzl.sftqmqlp.png', results[1][:icon_url]
+    assert_equal 'http://a1.phobos.apple.com/eu/r30/Purple/9a/78/b7/mzl.uiqhsofr.png', parse(scical_plist)[:icon_url]
+    assert_equal 'http://a1.phobos.apple.com/eu/r1000/039/Purple/56/44/f6/mzl.sftqmqlp.png', parse(facebook_plist)[:icon_url]
   end
   
   it "should parse purchased at" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), results[0][:purchased_at]
-    assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), results[1][:purchased_at]
+    assert_equal Time.parse('Aug 02 23:16:25 UTC 2009'), parse(scical_plist)[:purchased_at]
+    assert_equal Time.parse('Jul 26 18:20:00 UTC 2009'), parse(facebook_plist)[:purchased_at]
   end
   
   it "should parse software version bundle id" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal 'com.quanlam.scicallite', results[0][:software_version_bundle_id]
-    assert_equal 'com.facebook.Facebook', results[1][:software_version_bundle_id]
+    assert_equal 'com.quanlam.scicallite', parse(scical_plist)[:software_version_bundle_id]
+    assert_equal 'com.facebook.Facebook', parse(facebook_plist)[:software_version_bundle_id]
   end
   
   it "should parse software version external identifier" do
-    results = parsed_attributes(two_app_plists)
-    assert_equal '1491255', results[0][:software_version_external_identifier]
-    assert_equal '1751102', results[1][:software_version_external_identifier]
+    assert_equal '1491255', parse(scical_plist)[:software_version_external_identifier]
+    assert_equal '1751102', parse(facebook_plist)[:software_version_external_identifier]
   end
   
   it "should should capture raw xml" do
-    results = parsed_attributes(two_app_plists)
-    assert_not_nil results[0][:raw_xml]
-    assert_not_nil results[1][:raw_xml]
+    assert_not_nil parse(scical_plist)[:raw_xml]
+    assert_not_nil parse(facebook_plist)[:raw_xml]
   end
   
   it "should should not raise exception when xml elements are missing" do
-    assert_nothing_raised { parsed_attributes(two_empty_app_plists) }
+    assert_nothing_raised { parse(empty_plist) }
+  end
+  
+  it "should should not raise exception when xml is invalid" do
+    assert_nothing_raised { parse(invalid_plist) }
   end
   
   private
   
-  def parsed_attributes(xml)
-    parser = IphoneAppPlistParser.new(xml)
-    results = []
-    parser.each { |attributes| results << attributes }
-    results
+  def parse(xml)
+    IphoneAppPlistParser.new(Hpricot::XML(xml)).attributes
   end
   
-  def two_app_plists
+  def scical_plist
     %{
       <plist version="1.0">
       <dict>
@@ -203,6 +189,11 @@ describe IphoneAppPlistParser, 'each' do
         <integer>16843008</integer>
       </dict>
       </plist>
+    }
+  end
+  
+  def facebook_plist
+    %{
       <plist version="1.0">
       <dict>
         <key>appleId</key>
@@ -290,12 +281,18 @@ describe IphoneAppPlistParser, 'each' do
     }
   end
   
-  def two_empty_app_plists
+  
+  def empty_plist
     %{
       <plist version="1.0">
       <dict>
       </dict>
       </plist>
+    }
+  end
+  
+  def invalid_plist
+    %{
       <plist version="1.0">
       <dict>
       </plist>

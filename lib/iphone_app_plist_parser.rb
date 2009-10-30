@@ -5,19 +5,12 @@ class IphoneAppPlistParser
     def /(xpath); []; end
   end
   
-  def initialize(doc)
-    @doc = Hpricot::XML(doc)
-    @first_plist = (@doc/'plist').first
+  def initialize(plist_element)
+    @plist_element = plist_element
   end
   
-  def each
-    (@doc/'plist').each do |plist|
-      yield(attributes(plist)) if block_given?
-    end
-  end
-  
-  def attributes(plist = @first_plist)
-    dict = plist/'dict'
+  def attributes
+    dict = @plist_element/'dict'
     purchaseDate = value_for_key(dict, 'purchaseDate')
     downloadInfo = element_for_key(dict, 'com.apple.iTunesStore.downloadInfo')
     purchaseDate ||= value_for_key(downloadInfo, 'purchaseDate')
@@ -36,7 +29,7 @@ class IphoneAppPlistParser
       :store_code => value_for_key(dict, 's'),
       :software_version_bundle_id => value_for_key(dict, 'softwareVersionBundleId'),
       :software_version_external_identifier => value_for_key(dict, 'softwareVersionExternalIdentifier'),
-      :raw_xml => plist.to_s
+      :raw_xml => @plist_element.to_s
     }
   end
   
