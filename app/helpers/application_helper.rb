@@ -56,7 +56,7 @@ module ApplicationHelper
   def event_details(event)
     case event.state
       when 'Initial'
-        event_type, event_time = 'first synced', event.created_at
+        event_type, event_time = 'installed/updated', event.purchased_at
       when 'Install'
         event_type, event_time = 'installed', event.purchased_at
       when 'Update'

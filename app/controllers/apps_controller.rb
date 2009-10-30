@@ -7,7 +7,7 @@ class AppsController < ApplicationController
       redirect_to app_path(@app), :status => :moved_permanently
       return
     end
-    @events = @app.events.paginate(:order => 'created_at DESC', :page => params[:page], :per_page => 10)
+    @events = @app.events.paginate(:order => 'created_at DESC, purchased_at DESC', :page => params[:page], :per_page => 10)
   end
   
   def summary
