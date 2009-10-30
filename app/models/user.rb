@@ -97,6 +97,7 @@ class User < ActiveRecord::Base
   def synchronize(new_apps, sync)
     original_apps = installed_apps
     found_apps = []
+    first_sync = (sync == syncs.first)
     new_apps.each do |attributes|
       app_attributes = App.extract_attributes(attributes)
       event_attributes = Event.extract_attributes(attributes)
@@ -109,7 +110,7 @@ class User < ActiveRecord::Base
       raw_xml = event_attributes[:raw_xml]
       state = nil
       if latest_event.nil?
-        state = 'Initial'
+        state = first_sync ? 'Initial' : 'Install'
       elsif !latest_event.installed?
         state = 'Install'
       elsif latest_event.differs_from?(raw_xml)

@@ -44,7 +44,7 @@ describe User, 'sync events' do
     @user = Factory(:active_user)
   end
   
-  it 'should create event if user installed app, and synced' do
+  it 'should create initial event if user installed app, and synced for the first time' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
     event_attributes = Factory.attributes_for(:event_from_xml)
@@ -57,6 +57,23 @@ describe User, 'sync events' do
     assert_only_last_event_is_current(@user.events)
     event = @user.events.first
     event.state.should == 'Initial'
+    Event.extract_attributes(event.attributes).should == event_attributes
+  end
+  
+  it 'should create install event if user synced, installed app, and synced again' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    event_attributes = Factory.attributes_for(:event_from_xml)
+    
+    sync_0 = Factory(:sync, :user => @user)
+    @user.synchronize([], sync_0)
+    
+    sync_1 = Factory(:sync, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_1)
+    
+    assert_only_last_event_is_current(@user.events)
+    event = @user.events.first
+    event.state.should == 'Install'
     Event.extract_attributes(event.attributes).should == event_attributes
   end
   
