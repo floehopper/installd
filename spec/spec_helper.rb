@@ -47,3 +47,20 @@ Spec::Runner.configure do |config|
 end
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'factory'))
+
+def put_via_ssl(*args)
+  request_via_ssl
+  put(*args)
+end
+
+def request_via_ssl
+  @request.env['HTTPS'] = 'on'
+end
+
+def not_logged_in
+  controller.stub!(:current_user).and_return(nil)
+end
+
+def logged_in_as(user)
+  controller.stub!(:current_user).and_return(user)
+end

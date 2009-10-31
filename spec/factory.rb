@@ -58,3 +58,6 @@ Factory.define :sync do |sync|
   sync.association :user
 end
 
+Factory.define :successful_sync, :class => Sync, :parent => :sync do |sync|
+  sync.status 'success'
+end

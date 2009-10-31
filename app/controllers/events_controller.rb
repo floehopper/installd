@@ -13,24 +13,23 @@ class EventsController < ApplicationController
   end
   
   def synchronize
-    user = User.find_by_login(params[:user_id])
     sync = nil
-    if current_user && (current_user == user)
-      sync = user.syncs.create!
-      parser = MultipleIphoneAppPlistParser.new(params[:doc])
-      apps = parser.unique_apps
-      user.synchronize(apps, sync)
-      status = :ok
+    user = User.find_by_login(params[:user_id])
+    if user
+      sync = user.syncs.create!(:raw_xml => params[:doc])
+      if user == current_user
+        sync.send_later(:parse)
+        render :nothing => true, :status => :ok
+      else
+        sync.update_attributes(:status => 'forbidden')
+        render :nothing => true, :status => :forbidden
+      end
     else
-      status = :forbidden
+      render :nothing => true, :status => :not_found
     end
   rescue => e
-    logger.error(e)
-    logger.info(e.backtrace.join("\n"))
-    status = :internal_server_error
-  ensure
-    sync.update_attributes(:status => status.to_s) if sync
-    render :nothing => true, :status => status
+    sync.update_attributes(:status => "exception: #{e}") if sync
+    raise e
   end
   
 end
