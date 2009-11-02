@@ -79,6 +79,10 @@ ActionController::Routing::Routes.draw do |map|
   # legacy route for client versions <= 0.0.5
   map.connect '/users/:user_id/installs/synchronize', :controller => 'events', :action => 'synchronize'
   
+  # legacy routes (particularly important for /recent.rss)
+  map.connect '/recent.:format', :controller => 'home', :action => 'recent'
+  map.connect '/popular.:format', :controller => 'home', :action => 'popular'
+  
   map.root :controller => 'apps', :action => 'summary'
   
 end
