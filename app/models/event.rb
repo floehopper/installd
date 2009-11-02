@@ -2,11 +2,11 @@ class Event < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :app
-  belongs_to :sync
+  belongs_to :sync_session
   
   validates_presence_of :user
   validates_presence_of :app
-  validates_presence_of :sync
+  validates_presence_of :sync_session
   
   validates_presence_of :price
   validates_presence_of :display_price

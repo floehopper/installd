@@ -1,11 +1,11 @@
-class Sync < ActiveRecord::Base
+class SyncSession < ActiveRecord::Base
   
   belongs_to :user
   has_many :events
   
   validates_presence_of :user
   
-  validate_on_create :previous_sync_complete
+  validate_on_create :previous_sync_session_complete
   
   def parse
     parser = MultipleIphoneAppPlistParser.new(raw_xml)
@@ -20,10 +20,10 @@ class Sync < ActiveRecord::Base
     update_attributes(:status => status)
   end
   
-  def previous_sync_complete
-    previous_sync = user.syncs.last
-    if previous_sync && previous_sync.status.nil?
-      errors.add_to_base('Previous sync not yet complete')
+  def previous_sync_session_complete
+    previous_sync_session = user.sync_sessions.last
+    if previous_sync_session && previous_sync_session.status.nil?
+      errors.add_to_base('Previous sync session not yet complete')
     end
   end
   

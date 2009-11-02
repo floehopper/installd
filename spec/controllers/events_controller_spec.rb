@@ -24,14 +24,14 @@ describe EventsController, 'synchronize' do
     response.status.should == '403 Forbidden'
   end
   
-  it 'should create sync with forbidden status if user does exist, but user not logged in' do
+  it 'should create sync session with forbidden status if user does exist, but user not logged in' do
     user = Factory.create(:active_user)
     not_logged_in
     
     put_via_ssl :synchronize, :user_id => user.login
     
-    user.syncs.size.should == 1
-    user.syncs.first.status.should == 'forbidden'
+    user.sync_sessions.size.should == 1
+    user.sync_sessions.first.status.should == 'forbidden'
   end
   
   it 'should return forbidden status if user does exist, but user is logged in as a different user' do
@@ -44,15 +44,15 @@ describe EventsController, 'synchronize' do
     response.status.should == '403 Forbidden'
   end
   
-  it 'should save exception in sync and raise exception if exception occurs' do
+  it 'should save exception in sync session and raise exception if exception occurs' do
     user = Factory.create(:active_user)
     logged_in_as(user)
     @controller.stub!(:current_user).and_raise(StandardError)
     
     lambda { put_via_ssl :synchronize, :user_id => user.login }.should raise_error
     
-    user.syncs.size.should == 1
-    user.syncs.first.status.should == 'exception: StandardError'
+    user.sync_sessions.size.should == 1
+    user.sync_sessions.first.status.should == 'exception: StandardError'
   end
   
   it 'should return success status if user does exist and user is logged in' do
@@ -64,14 +64,14 @@ describe EventsController, 'synchronize' do
     response.should be_success
   end
   
-  it 'should sync with blank status if user does exist and user is logged in' do
+  it 'should sync session with blank status if user does exist and user is logged in' do
     user = Factory.create(:active_user)
     logged_in_as(user)
     
     put_via_ssl :synchronize, :user_id => user.login, :doc => '<xml></xml>'
     
-    user.syncs.size.should == 1
-    user.syncs.first.status.should be_blank
+    user.sync_sessions.size.should == 1
+    user.sync_sessions.first.status.should be_blank
   end
   
   it 'should create delayed job if user does exist and user is logged in' do
@@ -83,6 +83,6 @@ describe EventsController, 'synchronize' do
     end
     
     job = Delayed::Job.first
-    job.payload_object.display_name.should == 'Sync#parse'
+    job.payload_object.display_name.should == 'SyncSession#parse'
   end
 end

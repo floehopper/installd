@@ -13,22 +13,22 @@ class EventsController < ApplicationController
   end
   
   def synchronize
-    sync = nil
+    sync_session = nil
     user = User.find_by_login(params[:user_id])
     if user
-      sync = user.syncs.create!(:raw_xml => params[:doc])
+      sync_session = user.sync_sessions.create!(:raw_xml => params[:doc])
       if user == current_user
-        sync.send_later(:parse)
+        sync_session.send_later(:parse)
         render :nothing => true, :status => :ok
       else
-        sync.update_attributes(:status => 'forbidden')
+        sync_session.update_attributes(:status => 'forbidden')
         render :nothing => true, :status => :forbidden
       end
     else
       render :nothing => true, :status => :not_found
     end
   rescue => e
-    sync.update_attributes(:status => "exception: #{e}") if sync
+    sync_session.update_attributes(:status => "exception: #{e}") if sync_session
     raise e
   end
   

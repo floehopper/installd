@@ -49,15 +49,15 @@ Factory.define :event_from_xml, :class => Event do |event|
 end
 
 Factory.define :event, :parent => :event_from_xml do |event|
-  event.association :sync
+  event.association :sync_session
   event.current true
   event.state 'Initial'
 end
 
-Factory.define :sync do |sync|
-  sync.association :user
+Factory.define :sync_session do |sync_session|
+  sync_session.association :user
 end
 
-Factory.define :successful_sync, :class => Sync, :parent => :sync do |sync|
-  sync.status 'success'
+Factory.define :successful_sync_session, :class => Sync, :parent => :sync_session do |sync_session|
+  sync_session.status 'success'
 end
