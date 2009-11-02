@@ -27,4 +27,13 @@ class UserMailer < ActionMailer::Base
     body({ :root_url => root_url(:host => HOST), :downloads_url => downloads_url(:host => HOST) })
   end
   
+  def password_reset(user)
+    recipients user.email
+    subject 'installd.com password reset'
+    from 'password-reset@installd.com'
+    reply_to 'password-reset@installd.com'
+    headers({ 'Return-Path' => 'password-reset@installd.com' })
+    body({ :password_reset_url => edit_password_reset_url(user.perishable_token, :host => HOST) })
+  end
+  
 end

@@ -62,6 +62,14 @@ ActionController::Routing::Routes.draw do |map|
       :new,
       :create
     ]
+  map.resources :password_resets,
+    :only => [
+      :new,
+      :create,
+      :edit,
+      :update
+    ]
+  
   map.resource :user_session,
     :only => [
       :new,

@@ -50,6 +50,11 @@ class User < ActiveRecord::Base
     invitations.create!
   end
   
+  def deliver_password_reset!
+    reset_perishable_token!
+    UserMailer.deliver_password_reset(self)
+  end
+  
   def last_invited_at
     invitations.last ? invitations.last.created_at : nil
   end
@@ -126,7 +131,7 @@ class User < ActiveRecord::Base
       create_uninstall_event_for!(app, sync_session)
     end
   end
-
+  
   private
   
   def create_uninstall_event_for!(app, sync_session)

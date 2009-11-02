@@ -1,0 +1,20 @@
+<h2 class="pageHeading">Change My Password</h2>
+
+<div class="yui-g">
+  
+  <% form_for @user, :url => password_reset_path, :method => :put do |form| %>
+    <p>
+      <%= form.error_messages %>
+    </p>
+    
+    <p>
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </p>
+    
+    <p>
+      <%= form.submit 'Update my password and log me in' %>
+    </p>
+  <% end %>
+  
+</div>
