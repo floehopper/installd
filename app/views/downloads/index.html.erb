@@ -1,32 +1,72 @@
-<h2 class="pageHeading">Downloads</h2>
+<h2 class="pageHeading">Mac OSX Instructions (you need at least version 10.5 Leopard)</h2>
 
 <div class="yui-g">
   
-  <h3>Instructions</h3>
+  <div class="yui-u first">
+  
+  <h3>Download &amp; Install</h3>
   
   <ul>
     <li>
-      The Preference Pane currently requires Mac OSX (at least version 10.5 Leopard)
+      <p>Download the disk image by clicking on the link below :-</p>
+      <p><%= link_to(image_tag('dmg.png', :style => 'padding-left: 31px'), '/system/prefpane-sparkle/index.php') %></p>
     </li>
     <li>
-      <%= link_to 'Sign Up', new_user_path %> and activate your account if you have not already done so.
+      <p>Mount the <strong>Installd</strong> disk image by double-clicking the downloaded file (<strong>Safari</strong> does this automatically).</p>
     </li>
     <li>
-      <%= link_to 'Download', '/system/prefpane-sparkle/index.php' %> &amp; install the Preference Pane (double-click Installd.prefpane).
+      <p>This will open a <strong>Finder</strong> window containing the <strong>Installd.prefpane</strong> icon :-</p>
+      <p><%= image_tag 'preference-pane-icon.png' %></p>
     </li>
     <li>
-      Set your username and password in the Preference Pane.
+      <p>Install the preference pane by double-clicking the <strong>Installd.prefpane</strong> icon within the mounted disk image.</p>
     </li>
     <li>
-      Click 'Sync Now' to synchronize your applications so that they appear on <%= link_to 'installd.com', root_path %>.
+      <p>This will open the <strong>System Preferences</strong> application.</p>
     </li>
     <li>
-      The Preference Pane will automatically synchronize your applications once a day.
+      <p>You will be asked you whether you want to <strong>Install for this user only</strong> or <strong>Install for all users of this computer</strong>.</p>
+    </li>
+    <li>
+      <p>Choose <strong>Install for this user only</strong> and click <strong>Install</strong>.</p>
+      <p><%= image_tag 'preference-pane-install-prompt.png' %></p>
     </li>
   </ul>
   
-  <p>
-    <%= link_to(image_tag('dmg.png'), '/system/prefpane-sparkle/index.php') %>
-  </p>
+  </div>
+  
+  <div class="yui-u">
+    
+  <h3>Configure &amp; Synchronize</h3>
+  
+  <ul>
+    <li>
+      <p>This will open up the <strong>Installd</strong> preference pane :-</p>
+      <p><%= image_tag 'preference-pane-blank.png' %></p>
+    </li>
+    <li>
+      <p>If you have not already done so, <%= link_to 'Sign Up', new_user_path %> and activate your account on the website.</p>
+    </li>
+    <li>
+      <p>Enter your <strong>Username</strong> and <strong>Password</strong> in the preference pane.</p>
+    </li>
+    <li>
+      <p>Ensure that the <strong>iTunes Directory</strong> points at the directory which includes your <strong>Mobile Applications</strong> directory.</p>
+    </li>
+    <li>
+      <p>Click <strong>Sync Now</strong> to synchronize your applications - this will take a few seconds.</p>
+    </li>
+    <li>
+      <p>When this completes, you can <strong>Quit</strong> the <strong>System Preferences</strong> application.</p>
+      <p><%= image_tag 'preference-pane-sync-success.png' %></p>
+    </li>
+    <li>
+      <p>From now on <strong>Installd</strong> will automatically synchronize in the background once a day.</p>
+    </li>
+    <li>
+      <p>If synchronizing fails for any reason, please contact our <%= link_to 'Support Forum', 'http://groups.google.com/group/installd' %>.</p>
+    </li>
+  </ul>
+  </div>
 
 </div>
