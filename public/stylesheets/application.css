@@ -207,3 +207,7 @@ td {
 .trademarks {
   font-size: 80%;
 }
+
+.instructions {
+  overflow: hidden;
+}
