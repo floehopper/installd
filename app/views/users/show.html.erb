@@ -62,7 +62,9 @@
             <div class="heading">
               <%= heading(app) %>
               <%= buy_link(app) %>
-              <%= render :partial => 'reviews/rating', :locals => { :review => app.review_by_user(@user) } %>
+              <% if @user.me?(current_user) %>
+                <%= render :partial => 'reviews/rating', :locals => { :review => app.review_by_user(@user) } %>
+              <% end %>
             </div>
             <div class="details">
               <p>

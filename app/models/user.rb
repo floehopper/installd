@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
   
   def me?(user)
-    user == self
+    self == user
   end
   
   def already_connected?(user)
