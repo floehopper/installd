@@ -1,3 +1,4 @@
+@ignore
 Feature: User signs in
 
   As a user

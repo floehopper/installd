@@ -1,3 +1,4 @@
+@ignore
 Feature: User views applications installed by their friends
 
   As a user

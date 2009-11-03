@@ -1,3 +1,4 @@
+@ignore
 Feature: Visitor views home page
 
   As a visitor

@@ -1,3 +1,4 @@
+@ignore
 Feature: Visitor registers interest
 
   As a visitor

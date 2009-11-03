@@ -1,3 +1,4 @@
+@ignore
 Feature: User activates account
 
   As a user

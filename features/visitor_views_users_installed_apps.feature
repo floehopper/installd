@@ -1,3 +1,4 @@
+@ignore
 Feature: Visitor views user's installed applications
 
   As a visitor

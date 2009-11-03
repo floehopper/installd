@@ -40,11 +40,11 @@
 <% if current_user %>
   <% if current_user.can_connect?(@user) %>
   <div id="networking">
-    (<%= link_to 'Add this user to my network', new_user_connection_path(@user) %>)
+    (<%= link_to 'Add this user to my network', new_user_connection_path(current_user, :connected_user_id => @user) %>)
   </div>
   <% elsif current_user.already_connected?(@user) %>
   <div id="networking">
-    (<%= link_to 'Remove this user from my network', delete_user_connection_path(@user) %>)
+    (<%= link_to 'Remove this user from my network', delete_user_connection_path(current_user, current_user.connections.for_user(@user).first) %>)
   </div>
   <% end %>
 <% end %>

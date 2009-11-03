@@ -3,10 +3,14 @@
 <div class="yui-g">
   
   <p>
-    Do you want to add <strong><%= @connected_user.login %></strong> to your network?
+    Do you want to add <strong><%= @connection.connected_user.login %></strong> to your network?
   </p>
   
-  <% form_for [@connected_user, @connection] do |form| %>
+  <% form_for [current_user, @connection] do |form| %>
+    <div style="margin: 0; padding: 0; display: inline">
+      <%= form.hidden_field :user_id %>
+      <%= form.hidden_field :connected_user_id %>
+    </div>
     <p>
       <%= form.error_messages %>
     </p>

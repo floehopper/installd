@@ -1,3 +1,4 @@
+@ignore
 Feature: User views their installed applications
 
   As a user

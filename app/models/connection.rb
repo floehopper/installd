@@ -9,4 +9,6 @@ class Connection < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :connected_user_id
   validates_uniqueness_of :connected_user_id, :scope => :user_id
   
+  named_scope :for_user, lambda { |user| { :conditions => { :connected_user_id => user.id } } }
+  
 end
