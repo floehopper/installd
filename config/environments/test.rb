@@ -32,5 +32,6 @@ config.gem 'rspec-rails', :version => '1.2.2', :lib => false
 config.gem 'cucumber', :version => '0.2.3', :lib => false
 config.gem 'webrat', :version => '0.4.3', :lib => false
 config.gem 'thoughtbot-factory_girl', :version => '1.2.0', :lib => 'factory_girl', :source => "http://gems.github.com"
+config.gem 'bmabey-email_spec', :lib => 'email_spec', :version => '0.1.1', :source => 'http://gems.github.com'
 
 HOST = 'test.host'

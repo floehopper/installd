@@ -11,6 +11,15 @@ module NavigationHelpers
     when /the registration page/
       new_user_path
     
+    when /the activation page/
+      new_activation_path
+    
+    when /the downloads page/
+      downloads_path
+    
+    when /the users page/
+      users_path
+    
     when /the user page for "([^\"]*)"/
       user_path($1)
     

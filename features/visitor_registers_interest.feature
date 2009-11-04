@@ -1,4 +1,3 @@
-@ignore
 Feature: Visitor registers interest
 
   As a visitor
@@ -18,6 +17,9 @@ Feature: Visitor registers interest
     
     Then I should be on the home page
     And I should see "Registration successful"
+    And "james@example.com" should receive 1 email
+    And "james@example.com" opens the email with subject "installd.com registration"
+    And I should see "You have successfully registered your interest" in the email
     
   Scenario: Visitor registers interest, but email is already taken
     Given a user exists with email "james@example.com"

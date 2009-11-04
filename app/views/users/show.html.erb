@@ -57,7 +57,7 @@
         <% apps.each do |app| %>
           <% event = app.events.first %>
           <% last = (app == apps.last) ? ' last' : '' %>
-          <li class="install<%= last %>">
+          <li id="<%= app.to_param %>" class="install<%= last %>">
             <%= icon(app) %>
             <div class="heading">
               <%= heading(app) %>

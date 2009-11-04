@@ -22,7 +22,7 @@ Given /^user with login "([^\"]*)" has the following applications installed:$/ d
   user = User.find_by_login(login)
   apps.hashes.each do |attributes|
     attributes.symbolize_keys!
-    app = App.find_by_name(attributes[:name]) || App.create!(attributes)
-    user.installs.create!(:app => app)
+    app = App.find_by_name(attributes[:name]) || Factory.create(:app, attributes)
+    Factory.create(:event, :user => user, :app => app)
   end
 end
