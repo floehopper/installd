@@ -122,23 +122,23 @@ class User < ActiveRecord::Base
         state = 'Update'
       end
       if state
-        latest_event.update_attributes(:current => false) if latest_event
-        events.create!(event_attributes.merge(:current => true, :state => state, :app => app, :sync_session => sync_session))
+        create_event_for!(app, event_attributes.merge(:state => state, :sync_session => sync_session))
       end
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      create_uninstall_event_for!(app, sync_session)
+      latest_event = events.of_app(app).last
+      event_attributes = Event.extract_attributes(latest_event.attributes)
+      create_event_for!(app, event_attributes.merge(:state => 'Uninstall', :sync_session => sync_session))
     end
   end
   
   private
   
-  def create_uninstall_event_for!(app, sync_session)
+  def create_event_for!(app, event_attributes)
     latest_event = events.of_app(app).last
-    latest_event_attributes = Event.extract_attributes(latest_event.attributes)
-    latest_event.update_attributes(:current => false)
-    events.create!(latest_event_attributes.merge(:current => true, :state => 'Uninstall', :app => app, :sync_session => sync_session))
+    latest_event.update_attributes(:current => false) if latest_event
+    events.create!(event_attributes.merge(:current => true, :app => app))
   end
   
   def connected_apps_optimized(conditions)
