@@ -4,12 +4,12 @@
   
   <div class="yui-u first instructions">
   
-  <h3>Download &amp; Install</h3>
+  <h3 id="step-1">Step 1 - Download &amp; Install</h3>
   
   <ul>
     <li>
-      <p>Download the disk image by clicking on the link below :-</p>
-      <p><%= link_to(image_tag('dmg.png', :style => 'padding-left: 31px'), '/system/prefpane-sparkle/index.php') %></p>
+      <p>Download the disk image by clicking on the icon below :-</p>
+      <p class="downloadIcon"><%= link_to(image_tag('dmg.png'), '/system/prefpane-sparkle/index.php') %></p>
     </li>
     <li>
       <p>Mount the <strong>Installd</strong> disk image by double-clicking the downloaded file (<strong>Safari</strong> does this automatically).</p>
@@ -31,13 +31,16 @@
       <p>Choose <strong>Install for this user only</strong> and click <strong>Install</strong>.</p>
       <p><%= image_tag 'preference-pane-install-prompt.png' %></p>
     </li>
+    <li>
+      <p>Please continue to <a href="#step-2">Step 2 - Configure &amp; Synchronize</a> (top right).</p>
+    </li>
   </ul>
   
   </div>
   
   <div class="yui-u instructions">
     
-  <h3>Configure &amp; Synchronize</h3>
+  <h3 id="step-2">Step 2 - Configure &amp; Synchronize</h3>
   
   <ul>
     <li>

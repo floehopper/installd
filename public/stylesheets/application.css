@@ -224,3 +224,7 @@ td {
 .instructions {
   overflow: hidden;
 }
+
+.downloadIcon {
+  margin-left: 31px;
+}
