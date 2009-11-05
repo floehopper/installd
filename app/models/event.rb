@@ -61,23 +61,51 @@ class Event < ActiveRecord::Base
     self.current = true
   end
   
-  def set_next_state_based_on(previous_event)
+  def state_allowed_based_on?(previous_event)
+    if previous_event
+      case previous_event.state
+      when 'Initial', 'Install', 'Update'
+        case state
+        when 'Update'
+          return differs_from?(previous_event) && purchased_after?(previous_event)
+        when 'Uninstall', 'Ignore'
+          return true
+        else
+          return false
+        end
+      when 'Uninstall'
+        return state == 'Install'
+      when 'Ignore'
+        return false
+      end
+    else
+      if sync_session == user.sync_sessions.first
+        return state == 'Initial'
+      else
+        return state == 'Install'
+      end
+    end
+    return false
+  end
+  
+  def state_based_on(previous_event)
     if previous_event
       case previous_event.state
       when 'Initial', 'Install', 'Update'
         if differs_from?(previous_event) && purchased_after?(previous_event)
-          self.state = 'Update'
+          return 'Update'
         end
       when 'Uninstall'
-        self.state = 'Install'
+        return 'Install'
       end
     else
       if sync_session == user.sync_sessions.first
-        self.state = 'Initial'
+        return 'Initial'
       else
-        self.state = 'Install'
+        return 'Install'
       end
     end
+    return nil
   end
   
   def installed?

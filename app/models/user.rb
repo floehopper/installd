@@ -112,8 +112,11 @@ class User < ActiveRecord::Base
       end
       previous_event = latest_event_for(app)
       new_event = events.build(event_attributes.merge(:app => app, :sync_session => sync_session))
-      new_event.set_next_state_based_on(previous_event)
-      new_event.save! if new_event.state
+      state = new_event.state_based_on(previous_event)
+      if state
+        new_event.state = state
+        new_event.save!
+      end
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
