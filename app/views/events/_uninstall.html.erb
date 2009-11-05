@@ -1,0 +1,5 @@
+<% form_tag manual_uninstall_user_events_path(user), :class => 'manualUninstall' do %>
+  <%= hidden_field_tag :app_id, app.id %>
+  <%= submit_tag 'Uninstall' %>
+  <%= image_tag 'progress.gif', :class => 'progress' %>
+<% end %>

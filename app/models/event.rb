@@ -17,10 +17,11 @@ class Event < ActiveRecord::Base
   
   named_scope :of_app, lambda { |app| { :conditions => ['app_id = ?', app.id] } }
   named_scope :current, :conditions => { :current => true }
-  named_scope :installed, :conditions => ['state <> ?', 'Uninstall']
-  named_scope :uninstalled, :conditions => ['state = ?', 'Uninstall']
+  named_scope :installed, :conditions => ['state NOT IN (?)', %w(Uninstall Ignore)]
+  named_scope :uninstalled, :conditions => ['state IN (?)', %w(Uninstall Ignore)]
   
   before_create :store_hashcode
+  before_create :update_current
   
   class << self
     
@@ -34,36 +35,57 @@ class Event < ActiveRecord::Base
     
   end
   
-  def can_follow?(event)
-    return true if event.nil?
-    if (event.hashcode == hashcode)
-      if state == 'Uninstall'
-        return true
-      elsif state == 'Install'
-        return true if (event.purchased_at <= purchased_at)
-      else
-        return false
-      end
-    else
-      return true if (event.purchased_at < purchased_at)
-    end
-  end
-  
   def store_hashcode
     self.hashcode = self.class.generate_hashcode(raw_xml)
   end
   
-  def matches?(raw_xml)
-    hashcode = self.class.generate_hashcode(raw_xml)
-    (self.hashcode == hashcode) && self.installed?
+  def matches?(event)
+    store_hashcode
+    event.store_hashcode
+    self.hashcode == event.hashcode
   end
   
-  def differs_from?(raw_xml)
-    !matches?(raw_xml)
+  def differs_from?(event)
+    !matches?(event)
+  end
+  
+  def purchased_after?(event)
+    purchased_at > event.purchased_at
+  end
+  
+  def update_current
+    latest_event = user.latest_event_for(app)
+    if latest_event
+      latest_event.update_attributes(:current => false)
+    end
+    self.current = true
+  end
+  
+  def set_next_state_based_on(previous_event)
+    if previous_event
+      case previous_event.state
+      when 'Initial', 'Install', 'Update'
+        if differs_from?(previous_event) && purchased_after?(previous_event)
+          self.state = 'Update'
+        end
+      when 'Uninstall'
+        self.state = 'Install'
+      end
+    else
+      if sync_session == user.sync_sessions.first
+        self.state = 'Initial'
+      else
+        self.state = 'Install'
+      end
+    end
   end
   
   def installed?
-    state != 'Uninstall'
+    %w(Initial Install Update).include?(state)
+  end
+  
+  def uninstalled?
+    %w(Uninstall Ignore).include?(state)
   end
   
 end

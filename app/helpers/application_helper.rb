@@ -63,6 +63,8 @@ module ApplicationHelper
         event_type, event_time = 'updated', event.purchased_at
       when 'Uninstall'
         event_type, event_time = 'uninstalled', event.created_at
+      when 'Ignore'
+        event_type, event_time = 'ignored', event.created_at
     end
     attribution = "by #{link_to event.user.login, user_path(event.user)}"
     "#{event_type} #{attribution} #{time_ago(event_time)}"

@@ -27,6 +27,7 @@ ActionController::Routing::Routes.draw do |map|
           :index
         ],
         :collection => {
+          :manual_uninstall => :post,
           :synchronize => :put
         }
       users.resource :network,

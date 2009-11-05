@@ -18,19 +18,34 @@
           progress = $(this.form).children('.progress')
           progress.show();
           $(this.form).ajaxSubmit({
-            // success: function(data, status) {
-            //   alert('success:' + data + status);
-            // },
-            // error: function(request, status, error) {
-            //   alert('error:' + status + error);
-            // },
-            complete: function(request, status) {
+            complete: function() {
               progress.hide();
             }
           });
         }
       });
       $('.install .rate').hide();
+      
+      $('.manualUninstall').submit(function() {
+        button = $(this).children('input[type=submit]');
+        button.attr('disabled', 'disabled');
+        progress = $(this).children('.progress');
+        $(this).ajaxSubmit({
+          beforeSubmit: function() {
+            if (confirm('Do you really want to uninstall?')) {
+              progress.show();
+              return true;
+            } else {
+              button.attr('disabled', null);
+              return false;
+            };
+          },
+          complete: function() {
+            progress.hide();
+          }
+        });
+        return false;
+      });
     });
   </script>
 <% end %>
@@ -64,6 +79,7 @@
               <%= buy_link(app) %>
               <% if @user.me?(current_user) %>
                 <%= render :partial => 'reviews/rating', :locals => { :review => app.review_by_user(@user) } %>
+                <%# render :partial => 'events/uninstall', :locals => { :user => @user, :app => app } %>
               <% end %>
             </div>
             <div class="details">

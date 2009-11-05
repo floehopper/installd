@@ -33,7 +33,7 @@ class App < ActiveRecord::Base
       options = {
         :select => 'apps.*, COUNT(events.id) AS number_of_installs',
         :joins => 'LEFT OUTER JOIN events ON events.app_id = apps.id',
-        :conditions => ['events.current = ? AND events.state <> ?', true, 'Uninstall'],
+        :conditions => ['events.current = ? AND events.state NOT IN (?)', true, %w(Uninstall Ignore)],
         :group => 'apps.id',
         :order => 'number_of_installs DESC, created_at DESC'
       }.merge(options)

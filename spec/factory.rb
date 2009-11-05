@@ -49,6 +49,8 @@ Factory.define :event_from_xml, :class => Event do |event|
 end
 
 Factory.define :event, :parent => :event_from_xml do |event|
+  event.association :user
+  event.association :app
   event.association :sync_session
   event.current true
   event.state 'Initial'

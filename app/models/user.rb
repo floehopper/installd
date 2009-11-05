@@ -102,7 +102,6 @@ class User < ActiveRecord::Base
   def synchronize(new_apps, sync_session)
     original_apps = installed_apps
     found_apps = []
-    first_sync_session = (sync_session == sync_sessions.first)
     new_apps.each do |attributes|
       app_attributes = App.extract_attributes(attributes)
       event_attributes = Event.extract_attributes(attributes)
@@ -111,38 +110,34 @@ class User < ActiveRecord::Base
       else
         app = App.create!(app_attributes)
       end
-      latest_event = events.of_app(app).last
-      raw_xml = event_attributes[:raw_xml]
-      state = nil
-      if latest_event.nil?
-        state = first_sync_session ? 'Initial' : 'Install'
-      elsif !latest_event.installed?
-        state = 'Install'
-      elsif latest_event.differs_from?(raw_xml)
-        state = 'Update'
-      end
-      if state
-        create_event_for!(app, event_attributes.merge(:state => state, :sync_session => sync_session))
-      end
+      previous_event = latest_event_for(app)
+      new_event = events.build(event_attributes.merge(:app => app, :sync_session => sync_session))
+      new_event.set_next_state_based_on(previous_event)
+      new_event.save! if new_event.state
     end
     missing_apps = original_apps - found_apps
     missing_apps.each do |app|
-      latest_event = events.of_app(app).last
-      event_attributes = Event.extract_attributes(latest_event.attributes)
-      create_event_for!(app, event_attributes.merge(:state => 'Uninstall', :sync_session => sync_session))
+      event_attributes = Event.extract_attributes(latest_event_for(app).attributes)
+      events.create!(event_attributes.merge(:state => 'Uninstall', :app => app, :sync_session => sync_session))
+    end
+  end
+  
+  def latest_event_for(app)
+    events.of_app(app).last
+  end
+  
+  def create_manual_uninstall!(app, sync_session)
+    previous_event = latest_event_for(app)
+    if previous_event && previous_event.installed?
+      event_attributes = Event.extract_attributes(previous_event.attributes)
+      events.create!(event_attributes.merge(:state => 'Ignore', :app => app, :sync_session => sync_session))
     end
   end
   
   private
   
-  def create_event_for!(app, event_attributes)
-    latest_event = events.of_app(app).last
-    latest_event.update_attributes(:current => false) if latest_event
-    events.create!(event_attributes.merge(:current => true, :app => app))
-  end
-  
   def connected_apps_optimized(conditions)
-    conditions = "events.current = 1 AND events.state <> 'Uninstall' AND (#{conditions})"
+    conditions = "events.current = 1 AND events.state NOT IN ('Uninstall', 'Ignore') AND (#{conditions})"
     App.all(
       :select => %{
         apps.*,

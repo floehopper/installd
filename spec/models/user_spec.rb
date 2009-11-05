@@ -95,14 +95,14 @@ describe User, 'sync events' do
   it 'should create event if user installed app, synced, updated app, and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
-    
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>', :purchased_at => Time.now)
+    
     sync_session_0 = Factory(:successful_sync_session, :user => @user)
     @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
     
-    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>', :purchased_at => Time.now)
     sync_session_1 = Factory(:successful_sync_session, :user => @user)
     
     assert_difference('@user.events(reload = true).size', 1) do
@@ -115,22 +115,40 @@ describe User, 'sync events' do
     Event.extract_attributes(new_event.attributes).should == new_event_attributes
   end
   
-  it 'should create event if user installed app, synced, updated app, synced, updated app, and synced' do
+  it 'should not create event if user installed app, synced, changed app (earlier purchase date), and synced' do
     app_attributes = Factory.attributes_for(:app)
     app = App.create!(app_attributes)
-    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
-    
     Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>', :purchased_at => Time.parse('2009-01-02'))
+    
     sync_session_0 = Factory(:successful_sync_session, :user => @user)
     @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
     
-    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>', :purchased_at => Time.parse('2009-01-01'))
+    sync_session_1 = Factory(:successful_sync_session, :user => @user)
+    
+    assert_difference('@user.events(reload = true).size', 0) do
+      @user.synchronize([app_attributes.merge(new_event_attributes)], sync_session_1)
+    end
+  end
+  
+  it 'should create event if user installed app, synced, updated app, synced, updated app, and synced' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>', :purchased_at => Time.now)
+    
+    sync_session_0 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>', :purchased_at => Time.now)
     sync_session_1 = Factory(:successful_sync_session, :user => @user)
     @user.synchronize([app_attributes.merge(new_event_attributes)], sync_session_1)
     
-    another_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>')
     Time.stub!(:now).and_return(Time.parse('2009-01-03'))
+    another_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>', :purchased_at => Time.now)
     sync_session_2 = Factory(:successful_sync_session, :user => @user)
     
     assert_difference('@user.events(reload = true).size', 1) do
@@ -215,6 +233,107 @@ describe User, 'sync events' do
     uninstall_event = @user.events.last
     uninstall_event.state.should == 'Uninstall'
     Event.extract_attributes(uninstall_event.attributes).should == event_attributes
+  end
+  
+  it 'should create event if user installed app, synced, and manually uninstalled app' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    event_attributes = Factory.attributes_for(:event_from_xml)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    sync_session_0 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    sync_session_1 = Factory(:successful_sync_session, :user => @user)
+    
+    assert_difference('@user.events(reload = true).size', 1) do
+      @user.create_manual_uninstall!(app, sync_session_1)
+    end
+    
+    assert_only_last_event_is_current(@user.events)
+    manual_uninstall_event = @user.events.last
+    manual_uninstall_event.state.should == 'Ignore'
+    Event.extract_attributes(manual_uninstall_event.attributes).should == event_attributes
+  end
+  
+  it 'should not create event if user installed app, synced, uninstalled app, synced, and manually uninstalled app' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    event_attributes = Factory.attributes_for(:event_from_xml)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    sync_session_0 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    sync_session_1 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([], sync_session_1)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-03'))
+    sync_session_2 = Factory(:successful_sync_session, :user => @user)
+    
+    assert_difference('@user.events(reload = true).size', 0) do
+      @user.create_manual_uninstall!(app, sync_session_2)
+    end
+    
+    assert_only_last_event_is_current(@user.events)
+    uninstall_event = @user.events.last
+    uninstall_event.state.should == 'Uninstall'
+    Event.extract_attributes(uninstall_event.attributes).should == event_attributes
+  end
+  
+  it 'should not create event if user installed app, synced, manually uninstalled app, uninstalled app, and synced' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    event_attributes = Factory.attributes_for(:event_from_xml)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    sync_session_0 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    sync_session_1 = Factory(:successful_sync_session, :user => @user)
+    @user.create_manual_uninstall!(app, sync_session_1)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-03'))
+    sync_session_2 = Factory(:successful_sync_session, :user => @user)
+    
+    assert_difference('@user.events(reload = true).size', 0) do
+      @user.synchronize([], sync_session_2)
+    end
+    
+    assert_only_last_event_is_current(@user.events)
+    manual_uninstall_event = @user.events.last
+    manual_uninstall_event.state.should == 'Ignore'
+    Event.extract_attributes(manual_uninstall_event.attributes).should == event_attributes
+  end
+  
+  it 'should not create event if user installed app, synced, manually uninstalled app, updated app, and synced' do
+    app_attributes = Factory.attributes_for(:app)
+    app = App.create!(app_attributes)
+    Time.stub!(:now).and_return(Time.parse('2009-01-01'))
+    event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>original</xml>', :purchased_at => Time.now)
+    
+    sync_session_0 = Factory(:successful_sync_session, :user => @user)
+    @user.synchronize([app_attributes.merge(event_attributes)], sync_session_0)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-02'))
+    sync_session_1 = Factory(:successful_sync_session, :user => @user)
+    @user.create_manual_uninstall!(app, sync_session_1)
+    
+    Time.stub!(:now).and_return(Time.parse('2009-01-03'))
+    new_event_attributes = Factory.attributes_for(:event_from_xml, :raw_xml => '<xml>changed</xml>', :purchased_at => Time.now)
+    sync_session_2 = Factory(:successful_sync_session, :user => @user)
+    
+    assert_difference('@user.events(reload = true).size', 0) do
+      @user.synchronize([app_attributes.merge(new_event_attributes)], sync_session_2)
+    end
+    
+    assert_only_last_event_is_current(@user.events)
+    manual_uninstall_event = @user.events.last
+    manual_uninstall_event.state.should == 'Ignore'
+    Event.extract_attributes(manual_uninstall_event.attributes).should == event_attributes
   end
   
   def assert_only_last_event_is_current(events)
