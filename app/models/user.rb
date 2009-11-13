@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
     original_apps = installed_apps
     found_apps = []
     new_apps.each do |attributes|
+      sleep(1)
       app_attributes = App.extract_attributes(attributes)
       event_attributes = Event.extract_attributes(attributes)
       if app = App.find_by_name(app_attributes[:name])
