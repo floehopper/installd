@@ -19,7 +19,12 @@ class EventsController < ApplicationController
   def synchronize
     sync_session = nil
     if @user
-      sync_session = @user.sync_sessions.create!(:raw_xml => params[:doc])
+      if params[:apps]
+        raw_xml = params[:apps].read
+      else
+        raw_xml = params[:doc]
+      end
+      sync_session = @user.sync_sessions.create!(:raw_xml => raw_xml)
       if @user == current_user
         sync_session.send_later(:parse)
         render :nothing => true, :status => :ok
