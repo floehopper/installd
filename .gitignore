@@ -2,6 +2,7 @@ log/*.log
 db/*.sqlite3
 db/schema.rb
 config/database.yml
+public/stylesheets/all.css
 public/system
 tmp
 vendor/gems/hpricot-0.8.1/ext/fast_xs/Makefile
