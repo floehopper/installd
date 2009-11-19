@@ -9,7 +9,10 @@ set :repository,  "git@git.floehopper.org:#{application}"
 
 server "argonaut.slice", :app, :web, :db, :primary => true
 
+set :shared_children, shared_children + %w(cache)
+
 after "deploy:update_code", "symlink:db"
+after "deploy:update_code", "symlink:cache"
 after "deploy:update_code", "gems:build"
 
 namespace :deploy do
@@ -31,6 +34,11 @@ namespace :symlink do
   desc "symlink database yaml" 
   task :db do
     run "ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+  end
+  
+  desc "symlink folder for file store cache"
+  task :cache do
+    run "ln -s #{shared_path}/cache #{release_path}/tmp/cache"
   end
   
 end
