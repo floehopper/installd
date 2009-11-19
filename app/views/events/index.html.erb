@@ -1,7 +1,3 @@
-<% content_for :links do %>
-  <%= render :partial => '/shared/rss' %>
-<% end %>
-
 <% if @user %>
   <h2 class="pageHeading"><%= @user.login %>'s Recent Events</h2>
 <% else %>

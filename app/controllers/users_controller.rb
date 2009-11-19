@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   before_filter :require_floehopper, :only => [:index, :invite]
+  before_filter :has_rss_feed, :only => [:show]
   
   def index
     @users = User.paginate(:order => 'active, updated_at', :page => params[:page], :per_page => 10)

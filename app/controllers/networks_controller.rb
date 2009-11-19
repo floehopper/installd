@@ -1,6 +1,7 @@
 class NetworksController < ApplicationController
   
   before_filter :load_user_and_connected_users
+  before_filter :has_rss_feed, :only => [:show, :in_common, :not_in_common]
   
   def show
     @title = "#{@user.login}'s Network - All"

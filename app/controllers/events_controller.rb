@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   
   ssl_required :synchronize
   before_filter :load_user
+  before_filter :has_rss_feed, :only => [:index]
   
   before_filter :require_user, :only => [:manual_uninstall]
   before_filter :require_authorized_user, :only => [:manual_uninstall]

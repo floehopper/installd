@@ -44,4 +44,9 @@ class ApplicationController < ActionController::Base
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
+    
+    def has_rss_feed
+      @has_rss_feed = true
+    end
+
 end

@@ -1,5 +1,7 @@
 class AppsController < ApplicationController
   
+  before_filter :has_rss_feed, :only => [:recent]
+  
   def show
     @app = App.find_by_identifier(params[:id])
     unless @app

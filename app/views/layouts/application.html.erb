@@ -5,7 +5,9 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>installd - a social network for owners of iPhone apps</title>
   
-  <%= yield :links %>
+  <% if @has_rss_feed %>
+    <%= auto_discovery_link_tag :rss, { :format => 'rss' }, { :title => 'Installd RSS' } %>
+  <% end %>
   
   <% if Rails.env.production? %>
     <!-- Combo-handled YUI CSS files (generated from http://developer.yahoo.com/yui/articles/hosting/?fonts&grids&menu&reset&MIN): -->
