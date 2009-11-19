@@ -1,6 +1,7 @@
 class AppsController < ApplicationController
   
   before_filter :has_rss_feed, :only => [:recent]
+  caches_action :recent, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
   
   def show
     @app = App.find_by_identifier(params[:id])
