@@ -17,9 +17,7 @@
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.7.0/build/fonts/fonts-min.css&amp;2.7.0/build/reset/reset-min.css&amp;2.7.0/build/grids/grids-min.css&amp;2.7.0/build/menu/assets/skins/sam/menu.css&amp;2.7.0/build/logger/assets/skins/sam/logger.css"/>
   <% end %>
   
-  <%= yield :stylesheets %>
-  
-  <link rel="stylesheet" href="/stylesheets/application.css" type="text/css"/>
+  <%= stylesheet_link_tag :all, :cache => true %>
   
   <% if Rails.env.production? %>
     <!-- Combo-handled YUI JS files (generated from http://developer.yahoo.com/yui/articles/hosting/?fonts&grids&menu&reset&MIN): -->
