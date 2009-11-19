@@ -11,10 +11,10 @@ xml_string = xml.rss('xmlns:atom' => "http://www.w3.org/2005/Atom", :version => 
     @apps.each do |app|
       xml.item do
         xml.title(app.name)
-        xml.pubDate event.created_at.to_s(:rfc822)
+        xml.pubDate app.created_at.to_s(:rfc822)
         xml.guid(app_url(app, :host => HOST), :isPermaLink => "false")
         xml.link app_url(app, :host => HOST)
-        xml.description "Updated by #{pluralize(app.events.size, 'user')}."
+        xml.description "Currently installed by #{pluralize(app.events.size, 'user')}."
       end
     end
   end
