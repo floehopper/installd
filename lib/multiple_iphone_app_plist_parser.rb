@@ -1,9 +1,20 @@
 class MultipleIphoneAppPlistParser
   
-  def initialize(doc)
-    @doc = Hpricot::XML(doc)
-    @apps = (@doc/'plist').map do |plist_element|
-      IphoneAppPlistParser.new(plist_element).attributes
+  def initialize(io)
+    @apps = []
+    while !io.eof? do
+      plist = StringIO.new
+      line = ''
+      while !io.eof? && line != '</plist>' do
+        line = io.readline.strip.chomp
+        plist.puts(line) unless line.empty?
+      end
+      plist.rewind
+      unless plist.length == 0
+        doc = Hpricot::XML(plist.read)
+        plist_element = (doc/'plist')[0]
+        @apps << IphoneAppPlistParser.new(plist_element).attributes
+      end
     end
   end
   

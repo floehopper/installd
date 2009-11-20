@@ -7,12 +7,15 @@ class SyncSession < ActiveRecord::Base
   
   validate_on_create :previous_sync_session_complete
   
-  attr_writer :raw_xml
+  attr_accessor :raw_xml
   
   after_save :write_raw_xml
   
   def parse
-    parser = MultipleIphoneAppPlistParser.new(raw_xml)
+    parser = nil
+    File.open(path_to_raw_xml) do |io|
+      parser = MultipleIphoneAppPlistParser.new(io)
+    end
     apps = parser.unique_apps
     user.synchronize(apps, self)
     status = 'success'
@@ -44,18 +47,6 @@ class SyncSession < ActiveRecord::Base
       file.write(raw_xml)
       file.sync unless file.fsync
     end
-  end
-  
-  def raw_xml
-    @raw_xml ||= read_raw_xml
-  end
-  
-  def read_raw_xml
-    raw_xml = nil
-    File.open(path_to_raw_xml) do |file|
-      raw_xml = file.read
-    end
-    raw_xml
   end
   
 end
