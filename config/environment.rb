@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'hpricot', :version => '0.8.1'
   config.gem 'mime-types', :version => '1.16', :lib => 'mime/types'
-  config.gem 'newrelic_rpm', :version => '2.9.3'
+  config.gem 'newrelic_rpm', :version => '2.9.8'
   config.gem 'simplehttp', :version => '0.1.3'
   config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
   
