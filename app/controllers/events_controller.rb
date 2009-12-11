@@ -9,6 +9,9 @@ class EventsController < ApplicationController
   before_filter :load_app, :only => [:manual_uninstall]
   before_filter :require_app, :only => [:manual_uninstall]
   
+  # no expiry yet
+  caches_action :index, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
+  
   def index
     if @user
       @events = @user.events.paginate(:include => [:app, :user], :order => 'created_at DESC', :page => params[:page], :per_page => 15)

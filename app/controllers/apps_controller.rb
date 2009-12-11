@@ -3,6 +3,11 @@ class AppsController < ApplicationController
   before_filter :has_rss_feed, :only => [:recent]
   caches_action :recent, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
   
+  # no expiry yet
+  caches_action :popular, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
+  caches_action :rated, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
+  caches_action :summary, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
+  
   def show
     @app = App.find_by_identifier(params[:id])
     unless @app

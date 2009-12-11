@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   before_filter :require_floehopper, :only => [:index, :invite]
   before_filter :has_rss_feed, :only => [:show]
   
+  # no expiry yet
+  caches_action :index, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }
+  caches_action :show, :layout => false, :cache_path => Proc.new { |controller| controller.params.slice(:page) }, :unless => Proc.new { |controller| controller.send(:current_user) }
+
   def index
     @users = User.paginate(:order => 'active, updated_at', :page => params[:page], :per_page => 10)
   end
