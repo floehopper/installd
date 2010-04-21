@@ -37,8 +37,9 @@
               <%= button_to 'Invite', invite_user_path(user.id), :method => :put %>
             <% end %>
           </td>
-          <td><%= user.sync_sessions.last.try(:created_at) %></td>
-          <td><%= user.sync_sessions.last.try(:status) %></td>
+          <% last_sync = user.sync_sessions.last %>
+          <td><%= last_sync ? time_ago_in_words(last_sync.created_at) : '-' %></td>
+          <td><%= last_sync ? last_sync.status : '-' %></td>
         </tr>
       <% end %>
     </tbody>
